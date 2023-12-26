@@ -1,0 +1,33 @@
+name: TypeScript App Checkout
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy-react-to-gh-pages:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository content to github runner
+      - name: Checkout ✔️
+        uses: actions/checkout@v4
+
+      # Setup Node.js environment
+      - name: Setup Node.js environment 💻
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20.10.0"
+
+      # Install dependencies
+      - name: Install dependencies 🦕
+        run: npm i
+
+      # Test
+      - name: Test 🧪
+        run: npm run test
+
+      # Build the react app
+      - name: Build 🛠️
+        run: npm run build
