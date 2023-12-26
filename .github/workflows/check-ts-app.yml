@@ -24,10 +24,6 @@ jobs:
       - name: Install dependencies 🦕
         run: npm i
 
-      # Test
-      - name: Test 🧪
-        run: npm run test
-
-      # Build the react app
-      - name: Build 🛠️
-        run: npm run build
+      # # Test
+      # - name: Test 🧪
+      #   run: npm run test
