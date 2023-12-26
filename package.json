@@ -19,7 +19,6 @@
     "typescript": "^4.9.5"
   },
   "scripts": {
-    "start": "npx ts-node -r tsconfig-paths/register src/app/server.ts",
     "test": "test"
   },
   "devDependencies": {
