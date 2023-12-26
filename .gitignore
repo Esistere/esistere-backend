@@ -1,0 +1,7 @@
+**/build
+.env
+*.js
+*.pem
+node_modules
+coverage
+package-lock.json
