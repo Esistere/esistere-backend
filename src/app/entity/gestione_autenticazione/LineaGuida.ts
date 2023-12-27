@@ -33,4 +33,3 @@ export class LineaGuida {
     this._medico = medico;
   }
 }
-

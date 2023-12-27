@@ -83,7 +83,7 @@ export class Medico {
     return this._provincia;
   }
 
-  public set provincia(provincia: string){ 
+  public set provincia(provincia: string) {
     this._provincia = provincia;
   }
 
