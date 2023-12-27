@@ -2,6 +2,7 @@ import cors from 'cors';
 import express from 'express';
 import fs from 'fs';
 import https from 'https';
+import pazienteRoutes from 'app/routes/gestione_autenticazione/pazienteRoutes';
 
 const key = fs.readFileSync('./key.pem');
 const cert = fs.readFileSync('./cert.pem');
@@ -28,7 +29,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 // Use routes
-// app.use(ToDoListRoutes);
+app.use(pazienteRoutes);
 
 const port = 3001;
 const server = https.createServer({ key: key, cert: cert }, app);
