@@ -1,6 +1,7 @@
 export class Paziente {
   private _codiceFiscale: string;
   private _nome: string;
+  private _cognome: string;
   private _dataDiNascita: Date;
   private _medico: number;
   private _caregiverFamiliare: number;
@@ -8,12 +9,14 @@ export class Paziente {
   constructor(
     codiceFiscale: string,
     nome: string,
+    cognome: string,
     dataDiNascita: Date,
     medico: number,
     caregiverFamiliare: number
   ) {
     this._codiceFiscale = codiceFiscale;
     this._nome = nome;
+    this._cognome = cognome;
     this._dataDiNascita = dataDiNascita;
     this._medico = medico;
     this._caregiverFamiliare = caregiverFamiliare;
@@ -33,6 +36,14 @@ export class Paziente {
 
   public set nome(nome: string) {
     this._nome = nome;
+  }
+
+  public get cognome(): string {
+    return this._cognome;
+  }
+
+  public set cognome(cognome: string) {
+    this._cognome = cognome;
   }
 
   public get dataDiNascita(): Date {
