@@ -1,6 +1,6 @@
 DROP DATABASE IF EXISTS esistere;
 CREATE DATABASE esistere;
-USE esistere;
+\c esistere;
 
 DROP TABLE IF EXISTS medico;
 
@@ -20,7 +20,7 @@ DROP TABLE IF EXISTS caregiver_familiare;
 
 CREATE TABLE caregiver_familiare (
     codice_identificativo serial PRIMARY KEY,
-    nome varcher(30) NOT NULL,
+    nome varchar(30) NOT NULL,
     cognome varchar(30) NOT NULL,
     indirizzo varchar(30) NOT NULL,
     citta varchar(30) NOT NULL,
@@ -137,11 +137,10 @@ CREATE TABLE to_do_list (
     med integer NOT NULL,
     paziente char(16) NOT NULL,
     
-    FOREIGN KEY (med) REFERENCES med(id)
+    FOREIGN KEY (med) REFERENCES medico(codice_identificativo)
         ON UPDATE CASCADE ON DELETE CASCADE,
-    FOREIGN KEY (paziente
- REFERENCES paziente(codice_fiscale)
-        ON UPDATE CASCADE ON DELETE CASCADE)
+    FOREIGN KEY (paziente) REFERENCES paziente(codice_fiscale)
+        ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 DROP TABLE IF EXISTS attivita;
@@ -260,7 +259,7 @@ CREATE TABLE notifica (
     visualizzato boolean NOT NULL,
 
     FOREIGN KEY (med) REFERENCES medico(codice_identificativo)
-        ON UPDATE CASCADE ON DELETE CASCADE
+        ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY (cg_fam) REFERENCES caregiver_familiare(codice_identificativo)
         ON UPDATE CASCADE ON DELETE CASCADE
 );
