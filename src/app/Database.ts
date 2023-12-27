@@ -15,7 +15,7 @@ export class Database {
 
   private constructor() {}
 
-  public static getInstance(): Pool {
+  public static get instance(): Pool {
     if (!Database.pool) Database.pool = new Pool(Database.config);
     return Database.pool;
   }
