@@ -1,20 +1,20 @@
 export class Tac {
   private _id: number;
   private _stadio: string;
-  private _file: Blob;
+  private _allegato: Blob;
   private _medico: number;
   private _paziente: string;
 
   constructor(
     id: number,
     stadio: string,
-    file: Blob,
+    allegato: Blob,
     medico: number,
     paziente: string
   ) {
     this._id = id;
     this._stadio = stadio;
-    this._file = file;
+    this._allegato = allegato;
     this._medico = medico;
     this._paziente = paziente;
   }
@@ -35,12 +35,12 @@ export class Tac {
     this._stadio = stadio;
   }
 
-  public get file(): Blob {
-    return this._file;
+  public get allegato(): Blob {
+    return this._allegato;
   }
 
-  public set file(file: Blob) {
-    this._file = file;
+  public set allegato(allegato: Blob) {
+    this._allegato = allegato;
   }
 
   public get medico(): number {
