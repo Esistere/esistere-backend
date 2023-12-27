@@ -127,3 +127,140 @@ CREATE TABLE tac (
     FOREIGN KEY (med) REFERENCES medico(codice_identificativo)
         ON UPDATE CASCADE ON DELETE CASCADE
 );
+
+DROP TABLE IF EXISTS to_do_list;
+
+CREATE TABLE to_do_list (
+    id serial PRIMARY KEY,
+    num_attivita integer NOT NULL,
+    completata boolean NOT NULL,
+    med integer NOT NULL,
+    paziente char(16) NOT NULL,
+    
+    FOREIGN KEY (med) REFERENCES med(id)
+        ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (paziente
+ REFERENCES paziente(codice_fiscale)
+        ON UPDATE CASCADE ON DELETE CASCADE)
+);
+
+DROP TABLE IF EXISTS attivita;
+
+CREATE TABLE attivita (
+    id serial PRIMARY KEY,
+    to_do_list integer NOT NULL,
+    testo varchar(300) NOT NULL,
+    completata boolean NOT NULL,
+    commento varchar(300),
+    valutazione integer,
+    
+    FOREIGN KEY (to_do_list) REFERENCES to_do_list(id)
+        ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+DROP TABLE IF EXISTS quiz_allenamento_giornaliero;
+
+CREATE TABLE quiz_allenamento_giornaliero (
+    id serial PRIMARY KEY,
+    cg_fam integer NOT NULL,
+    numero_domande integer NOT NULL,
+    punteggio_totale integer,
+
+    FOREIGN KEY (cg_fam) REFERENCES caregiver_familiare(codice_identificativo)
+        ON UPDATE CASCADE ON DELETE CASCADE
+); 
+
+DROP TABLE IF EXISTS domanda_allenamento_giornaliero;
+
+CREATE TABLE domanda_allenamento_giornaliero (
+    id serial PRIMARY KEY,
+    quiz_ag integer NOT NULL,
+    domanda varchar(300) NOT NULL,
+    corretta boolean,
+
+    FOREIGN KEY (quiz_ag) REFERENCES quiz_allenamento_giornaliero(id)
+        ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+DROP TABLE IF EXISTS risposta_allenamento_giornaliero;
+
+CREATE TABLE risposta_allenamento_giornaliero (
+    id serial PRIMARY KEY,
+    domanda_ag integer NOT NULL,
+    risposta varchar(300) NOT NULL,
+    corretta boolean,
+    selezionata boolean,
+    
+    FOREIGN KEY (domanda_ag) REFERENCES domanda_allenamento_giornaliero(id)
+        ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+DROP TABLE IF EXISTS storia;
+
+CREATE TABLE storia (
+    id serial PRIMARY KEY,
+    cg_fam integer NOT NULL,
+    testo varchar(300) NOT NULL,
+
+    FOREIGN KEY (cg_fam) REFERENCES caregiver_familiare(codice_identificativo)
+        ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+DROP TABLE IF EXISTS media;
+
+CREATE TABLE media (
+    id serial PRIMARY KEY,
+    storia integer NOT NULL,
+    allegato bytea NOT NULL,
+    descrizione varchar(300) NOT NULL,
+    tipo integer NOT NULL,
+
+    FOREIGN KEY (storia) REFERENCES storia(id)
+        ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+DROP TABLE IF EXISTS filastrocca;
+
+CREATE TABLE filastrocca (
+    id serial PRIMARY KEY,
+    cg_fam integer NOT NULL,
+    titolo varchar(50) NOT NULL,
+    testo varchar(800) NOT NULL,
+    autore varchar(50) NOT NULL,
+
+    FOREIGN KEY (cg_fam) REFERENCES caregiver_familiare(codice_identificativo)
+        ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+DROP TABLE IF EXISTS messaggio;
+
+CREATE TABLE messaggio (
+    id serial PRIMARY KEY,
+    med integer NOT NULL,
+    cg_fam integer NOT NULL,
+    testo varchar(300) NOT NULL,
+    date date NOT NULL,
+    importante boolean NOT NULL,
+    segnalazione boolean NOT NULL,
+    mittente varchar(50) NOT NULL,
+
+    FOREIGN KEY (cg_fam) REFERENCES caregiver_familiare(codice_identificativo)
+        ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (med) REFERENCES medico(codice_identificativo)
+        ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+DROP TABLE IF EXISTS notifica;
+
+CREATE TABLE notifica (
+    id serial PRIMARY KEY,
+    med integer NOT NULL,
+    cg_fam integer NOT NULL,
+    testo varchar(300) NOT NULL,
+    visualizzato boolean NOT NULL,
+
+    FOREIGN KEY (med) REFERENCES medico(codice_identificativo)
+        ON UPDATE CASCADE ON DELETE CASCADE
+    FOREIGN KEY (cg_fam) REFERENCES caregiver_familiare(codice_identificativo)
+        ON UPDATE CASCADE ON DELETE CASCADE
+);
