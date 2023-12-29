@@ -7,11 +7,12 @@ const pazienteService: PazienteServiceInterface = new PazienteService();
 
 router.get('/visualizza_pazienti', async (req: Request, res: Response) => {
   try {
-    const pazienti = await pazienteService.getAll;
+    const pazienti = await pazienteService.getAll();
     res.json(pazienti);
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
 
 export default router;

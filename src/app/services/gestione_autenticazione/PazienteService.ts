@@ -10,7 +10,11 @@ export class PazienteService implements PazienteServiceInterface {
     this.pazienteDAO = new PazienteDAO();
   }
 
-  public get getAll(): Promise<Paziente[]> {
-    return this.pazienteDAO.getAll;
+  public getAll(): Promise<Paziente[]> {
+    return this.pazienteDAO.getAll();
+  }
+
+  public getByID(codice_fiscale: string): Promise<Paziente> {
+    return this.pazienteDAO.getByID(codice_fiscale);
   }
 }
