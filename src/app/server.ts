@@ -2,6 +2,7 @@ import cors from 'cors';
 import express from 'express';
 import fs from 'fs';
 import https from 'https';
+import bodyParser from 'body-parser';
 import pazienteRoutes from 'app/routes/gestione_autenticazione/pazienteRoutes';
 
 const key = fs.readFileSync('./key.pem');
@@ -27,6 +28,10 @@ const corsOptions = {
   optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
+
+// Parsers
+app.use(express.json());
+app.use(bodyParser.json());
 
 // Use routes
 app.use(pazienteRoutes);

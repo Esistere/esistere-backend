@@ -17,9 +17,17 @@ router.get('/visualizza_pazienti', async (req: Request, res: Response) => {
 
 router.post('/salva_dati', async (req: Request, res: Response) => {
   try {
-    const paziente = req.body as Paziente;
+    console.log('Dati ', req.body);
 
-    console.log('Dati ricevuti' + paziente);
+    const pazienteJSON = JSON.parse(req.body);
+    const paziente = new Paziente(
+      pazienteJSON.codice_fiscale,
+      pazienteJSON.nome,
+      pazienteJSON.cognome,
+      pazienteJSON.data_di_nascita,
+      pazienteJSON.med,
+      pazienteJSON.cg_fam
+    );
 
     pazienteService.createPaziente(paziente);
   } catch (error) {

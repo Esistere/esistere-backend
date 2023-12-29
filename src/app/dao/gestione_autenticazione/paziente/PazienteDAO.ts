@@ -67,24 +67,20 @@ export class PazienteDAO implements PazienteDAOInterface {
           return;
         }
 
-        let nome, cognome, codice_fiscale: string;
-        let med, cg_fam: number;
-        let data_di_nascita: Date;
-
-        codice_fiscale = paziente.codiceFiscale;
-        nome = paziente.nome;
-        cognome = paziente.cognome;
-        med = paziente.medico;
-        cg_fam = paziente.caregiverFamiliare;
-        data_di_nascita = paziente.dataDiNascita;
-
         let query: string;
         query =
           'INSERT INTO paziente (codice_fiscale, nome, cognome, data_di_nascita, med, cg_fam) VALUES ($1, $2, $3, $4, $5, $6)';
 
         client?.query(
           query,
-          [codice_fiscale, nome, cognome, data_di_nascita, med, cg_fam],
+          [
+            paziente.codiceFiscale,
+            paziente.nome,
+            paziente.cognome,
+            paziente.dataDiNascita,
+            paziente.medico,
+            paziente.caregiverFamiliare,
+          ],
           (err, res) => {
             if (err) {
               console.log(err.stack);
