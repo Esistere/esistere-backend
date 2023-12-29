@@ -2,8 +2,6 @@ import { Pool } from 'pg';
 import { PazienteDAOInterface } from './PazienteDAOInterface';
 import { Database } from 'app/Database';
 import { Paziente } from 'app/entity/gestione_autenticazione/Paziente';
-import { rejects } from 'assert';
-import { resolve } from 'path';
 
 export class PazienteDAO implements PazienteDAOInterface {
   private pool: Pool;
@@ -43,7 +41,6 @@ export class PazienteDAO implements PazienteDAOInterface {
 
         const query = 'SELECT * FROM paziente WHERE codice_fiscale = $1';
 
-        //Passing the parameters as an array [], it is useful if there are more parameters
         client?.query(query, [codice_fiscale], (err, res) => {
           if (err) {
             console.log(err.stack);

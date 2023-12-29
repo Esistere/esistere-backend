@@ -19,7 +19,7 @@ router.post('/salva_dati', async (req: Request, res: Response) => {
   try {
     console.log('Dati ', req.body);
 
-    const pazienteJSON = JSON.parse(req.body);
+    const pazienteJSON = req.body;
     const paziente = new Paziente(
       pazienteJSON.codice_fiscale,
       pazienteJSON.nome,
