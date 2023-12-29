@@ -3,6 +3,7 @@ import { PazienteDAOInterface } from './PazienteDAOInterface';
 import { Database } from 'app/Database';
 import { Paziente } from 'app/entity/gestione_autenticazione/Paziente';
 import { rejects } from 'assert';
+import { resolve } from 'path';
 
 export class PazienteDAO implements PazienteDAOInterface {
   private pool: Pool;
@@ -56,44 +57,46 @@ export class PazienteDAO implements PazienteDAOInterface {
       });
     });
   }
-  
-  public createPaziente(paziente: Paziente): void {
-    this.pool.connect((err, client) => {
-      if(err) {
-        return;
-      }
 
-      let nome, cognome, codice_fiscale: string;
-      let med, cg_fam : number;
-      let data_di_nascita: Date;
-      
-      codice_fiscale = paziente.codiceFiscale;
-      nome = paziente.nome;
-      cognome = paziente.cognome;
-      med = paziente.medico;
-      cg_fam = paziente.caregiverFamiliare;
-      data_di_nascita = paziente.dataDiNascita;
-
-      let query: string;
-      query = 'INSERT INTO paziente (codice_fiscale, nome, cognome, data_di_nascita,' + 
-              'med, cg_fam) VALUES (? ? ? ? ? ?)';
-
-      client?.query(query, [codice_fiscale, nome, cognome, data_di_nascita, med, cg_fam], (err, res) => {
-        if(err) {
-          console.log(err.stack);
+  public createPaziente(paziente: Paziente): Promise<void> {
+    return new Promise<void>((resolve, reject) =>
+      this.pool.connect((err, client) => {
+        if (err) {
+          console.error("Errore durante l'aggiunta", err);
+          reject(err);
           return;
-        } else {
-          client.release();
         }
+
+        let nome, cognome, codice_fiscale: string;
+        let med, cg_fam: number;
+        let data_di_nascita: Date;
+
+        codice_fiscale = paziente.codiceFiscale;
+        nome = paziente.nome;
+        cognome = paziente.cognome;
+        med = paziente.medico;
+        cg_fam = paziente.caregiverFamiliare;
+        data_di_nascita = paziente.dataDiNascita;
+
+        let query: string;
+        query =
+          'INSERT INTO paziente (codice_fiscale, nome, cognome, data_di_nascita, med, cg_fam) VALUES ($1, $2, $3, $4, $5, $6)';
+
+        client?.query(
+          query,
+          [codice_fiscale, nome, cognome, data_di_nascita, med, cg_fam],
+          (err, res) => {
+            if (err) {
+              console.log(err.stack);
+              reject(err);
+              return;
+            } else {
+              client.release();
+              resolve();
+            }
+          }
+        );
       })
-    })
+    );
   }
-
-  // public updatePaziente(paziente: Paziente): Promise<Paziente> {
-  //   return new Promise (())
-  //   this.pool.connect((err, client) => {
-
-  //   })
-  // }
-
 }

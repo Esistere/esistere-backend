@@ -17,4 +17,8 @@ export class PazienteService implements PazienteServiceInterface {
   public getByID(codice_fiscale: string): Promise<Paziente> {
     return this.pazienteDAO.getByID(codice_fiscale);
   }
+
+  public createPaziente(paziente: Paziente): void {
+    this.pazienteDAO.createPaziente(paziente);
+  }
 }
