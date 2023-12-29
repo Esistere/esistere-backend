@@ -21,4 +21,8 @@ export class PazienteService implements PazienteServiceInterface {
   public save(paziente: Paziente): void {
     this.pazienteDAO.save(paziente);
   }
+
+  public update(paziente: Paziente): void {
+    this.pazienteDAO.update(paziente);
+  }
 }

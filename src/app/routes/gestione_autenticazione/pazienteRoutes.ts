@@ -15,7 +15,7 @@ router.get('/visualizza_pazienti', async (req: Request, res: Response) => {
   }
 });
 
-router.post('/salva_dati', async (req: Request, res: Response) => {
+router.post('/salva_paziente', async (req: Request, res: Response) => {
   try {
     console.log('Dati ', req.body);
 
@@ -28,6 +28,13 @@ router.post('/salva_dati', async (req: Request, res: Response) => {
       pazienteJSON.med,
       pazienteJSON.cg_fam
     );
+
+    // TODO remove this test ----------
+    if (await pazienteService.get(paziente.codiceFiscale)) {
+      paziente.nome = 'test';
+      pazienteService.update(paziente);
+    }
+    // --------------------------------
 
     pazienteService.save(paziente);
   } catch (error) {
