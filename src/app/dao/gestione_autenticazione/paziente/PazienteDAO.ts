@@ -41,7 +41,7 @@ export class PazienteDAO implements PazienteDAOInterface {
           return;
         }
 
-        const query = 'SELECT * FROM paziente WHERE codice_fiscale = ?';
+        const query = 'SELECT * FROM paziente WHERE codice_fiscale = $1';
 
         //Passing the parameters as an array [], it is useful if there are more parameters
         client?.query(query, [codice_fiscale], (err, res) => {

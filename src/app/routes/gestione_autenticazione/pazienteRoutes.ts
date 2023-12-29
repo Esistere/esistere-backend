@@ -22,11 +22,9 @@ router.post('/salva_dati', async (req: Request, res: Response) => {
     console.log('Dati ricevuti' + paziente);
 
     pazienteService.createPaziente(paziente);
-
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-
 
 export default router;
