@@ -3,6 +3,6 @@ import { Pool } from 'pg';
 
 export interface PazienteDAOInterface {
   getAll(): Promise<Paziente[]>;
-  getByID(codice_fiscale: string): Promise<Paziente>;
-  createPaziente(paziente: Paziente): Promise<void>;
+  get(codice_fiscale: string): Promise<Paziente>;
+  save(paziente: Paziente): Promise<void>;
 }

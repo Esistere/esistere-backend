@@ -14,11 +14,11 @@ export class PazienteService implements PazienteServiceInterface {
     return this.pazienteDAO.getAll();
   }
 
-  public getByID(codice_fiscale: string): Promise<Paziente> {
-    return this.pazienteDAO.getByID(codice_fiscale);
+  public get(codice_fiscale: string): Promise<Paziente> {
+    return this.pazienteDAO.get(codice_fiscale);
   }
 
-  public createPaziente(paziente: Paziente): void {
-    this.pazienteDAO.createPaziente(paziente);
+  public save(paziente: Paziente): void {
+    this.pazienteDAO.save(paziente);
   }
 }

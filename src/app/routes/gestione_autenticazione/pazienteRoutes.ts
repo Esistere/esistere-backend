@@ -29,7 +29,7 @@ router.post('/salva_dati', async (req: Request, res: Response) => {
       pazienteJSON.cg_fam
     );
 
-    pazienteService.createPaziente(paziente);
+    pazienteService.save(paziente);
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   }

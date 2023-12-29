@@ -31,7 +31,7 @@ export class PazienteDAO implements PazienteDAOInterface {
     });
   }
 
-  public getByID(codice_fiscale: string): Promise<Paziente> {
+  public get(codice_fiscale: string): Promise<Paziente> {
     return new Promise((resolve, reject) => {
       this.pool.connect((err, client) => {
         if (err) {
@@ -55,7 +55,7 @@ export class PazienteDAO implements PazienteDAOInterface {
     });
   }
 
-  public createPaziente(paziente: Paziente): Promise<void> {
+  public save(paziente: Paziente): Promise<void> {
     return new Promise<void>((resolve, reject) =>
       this.pool.connect((err, client) => {
         if (err) {
