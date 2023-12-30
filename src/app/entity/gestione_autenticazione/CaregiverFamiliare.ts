@@ -4,6 +4,8 @@ export class CaregiverFamiliare {
   private _cognome: string;
   private _indirizzo: string;
   private _numCivico: string;
+  private _dataDiNascita: Date;
+  private _numeroTelefono: string;
   private _citta: string;
   private _provincia: string;
   private _email: string;
@@ -15,6 +17,8 @@ export class CaregiverFamiliare {
     cognome: string,
     indirizzo: string,
     numCivico: string,
+    dataDiNascita: Date,
+    numeroTelefono: string,
     citta: string,
     provincia: string,
     email: string,
@@ -25,6 +29,8 @@ export class CaregiverFamiliare {
     this._cognome = cognome;
     this._indirizzo = indirizzo;
     this._numCivico = numCivico;
+    this._dataDiNascita = dataDiNascita;
+    this._numeroTelefono = numeroTelefono
     this._citta = citta;
     this._provincia = provincia;
     this._email = email;
@@ -85,6 +91,22 @@ export class CaregiverFamiliare {
 
   public set provincia(provincia: string) {
     this._provincia = provincia;
+  }
+
+  public get dataDiNascita(): Date {
+    return this._dataDiNascita;
+  }
+
+  public set dataDiNascita(dataDiNascita: Date) {
+    this._dataDiNascita = dataDiNascita;
+  }
+
+  public get numTelefono(): string {
+    return this._numeroTelefono;
+  }
+
+  public set numTelefono(numTelefono: string) {
+    this._numeroTelefono = numTelefono;
   }
 
   public get email(): string {
