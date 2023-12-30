@@ -59,14 +59,13 @@ export class PazienteDAO implements PazienteDAOInterface {
     return new Promise<void>((resolve, reject) =>
       this.pool.connect((err, client) => {
         if (err) {
-          console.error("Errore durante l'aggiunta", err);
           reject(err);
           return;
         }
 
-        let query: string;
-        query =
-          'INSERT INTO paziente (codice_fiscale, nome, cognome, data_di_nascita, med, cg_fam) VALUES ($1, $2, $3, $4, $5, $6)';
+        const query =
+          'INSERT INTO paziente (codice_fiscale, nome, cognome, ' +
+          'data_di_nascita, med, cg_fam) VALUES ($1, $2, $3, $4, $5, $6)';
 
         client?.query(
           query,
@@ -78,7 +77,7 @@ export class PazienteDAO implements PazienteDAOInterface {
             paziente.medico,
             paziente.caregiverFamiliare,
           ],
-          (err, res) => {
+          (err) => {
             if (err) {
               console.log(err.stack);
               reject(err);
@@ -87,9 +86,9 @@ export class PazienteDAO implements PazienteDAOInterface {
               client.release();
               resolve();
             }
-          }
+          },
         );
-      })
+      }),
     );
   }
 
@@ -97,15 +96,14 @@ export class PazienteDAO implements PazienteDAOInterface {
     return new Promise<void>((resolve, reject) =>
       this.pool.connect((err, client) => {
         if (err) {
-          console.error("Errore durante l'aggiornamento", err);
           reject(err);
           return;
         }
 
-        let query: string;
-        query =
-          'UPDATE Paziente SET (codice_fiscale, nome, cognome, data_di_nascita, med, cg_fam) = ' +
-          '($1, $2, $3, $4, $5, $6) WHERE codice_fiscale = $7';
+        const query =
+          'UPDATE Paziente SET (codice_fiscale, nome, cognome, ' +
+          'data_di_nascita, med, cg_fam) = ($1, $2, $3, $4, $5, $6) ' +
+          'WHERE codice_fiscale = $7';
 
         client?.query(
           query,
@@ -118,7 +116,7 @@ export class PazienteDAO implements PazienteDAOInterface {
             paziente.caregiverFamiliare,
             paziente.codiceFiscale,
           ],
-          (err, res) => {
+          (err) => {
             if (err) {
               console.log(err.stack);
               reject(err);
@@ -127,9 +125,9 @@ export class PazienteDAO implements PazienteDAOInterface {
               client.release();
               resolve();
             }
-          }
+          },
         );
-      })
+      }),
     );
   }
 }

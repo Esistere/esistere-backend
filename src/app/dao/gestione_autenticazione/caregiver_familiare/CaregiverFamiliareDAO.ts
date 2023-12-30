@@ -39,7 +39,9 @@ export class CaregiverFamiliareDAO implements CaregiverFamiliareDAOInterface {
           return;
         }
 
-        const query = 'SELECT * FROM caregiver_familiare WHERE codice_identificativo = $1';
+        const query =
+          'SELECT * FROM caregiver_familiare WHERE ' +
+          'codice_identificativo = $1';
 
         client?.query(query, [codice_identificativo], (err, res) => {
           if (err) {
@@ -59,16 +61,15 @@ export class CaregiverFamiliareDAO implements CaregiverFamiliareDAOInterface {
     return new Promise<void>((resolve, reject) =>
       this.pool.connect((err, client) => {
         if (err) {
-          console.error("Errore durante l'aggiunta", err);
           reject(err);
           return;
         }
 
-        let query: string;
-        query =
-            'INSERT INTO paziente (codice_identificativo, nome, cognome, indirizzo, citta,'
-          + ' numero_civico, data_di_nascita, numero_telefono, email, passwd)' + 
-            ' VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)';
+        const query =
+          'INSERT INTO paziente (codice_identificativo, nome, cognome, ' +
+          'indirizzo, citta, numero_civico, data_di_nascita, ' +
+          'numero_telefono, email, passwd)' +
+          ' VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)';
 
         client?.query(
           query,
@@ -82,9 +83,9 @@ export class CaregiverFamiliareDAO implements CaregiverFamiliareDAOInterface {
             caregiver_familiare.dataDiNascita,
             caregiver_familiare.numTelefono,
             caregiver_familiare.email,
-            caregiver_familiare.passwd
+            caregiver_familiare.passwd,
           ],
-          (err, res) => {
+          (err) => {
             if (err) {
               console.log(err.stack);
               reject(err);
@@ -93,9 +94,9 @@ export class CaregiverFamiliareDAO implements CaregiverFamiliareDAOInterface {
               client.release();
               resolve();
             }
-          }
+          },
         );
-      })
+      }),
     );
   }
 
@@ -103,16 +104,16 @@ export class CaregiverFamiliareDAO implements CaregiverFamiliareDAOInterface {
     return new Promise<void>((resolve, reject) =>
       this.pool.connect((err, client) => {
         if (err) {
-          console.error("Errore durante l'aggiornamento", err);
           reject(err);
           return;
         }
 
-        let query: string;
-        query =
-          'UPDATE caregiver_familiare SET (codice_identificativo, nome, cognome, indirizzo, citta,'
-          + ' numero_civico, data_di_nascita, numero_telefono, email, passwd) = '
-          '($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) WHERE codice_identificativo = $11';
+        const query =
+          'UPDATE caregiver_familiare SET (codice_identificativo, nome, ' +
+          'cognome, indirizzo, citta, numero_civico, data_di_nascita, ' +
+          'numero_telefono, email, passwd) = ' +
+          '($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) ' +
+          'WHERE codice_identificativo = $11';
 
         client?.query(
           query,
@@ -126,9 +127,9 @@ export class CaregiverFamiliareDAO implements CaregiverFamiliareDAOInterface {
             caregiver_familiare.dataDiNascita,
             caregiver_familiare.numTelefono,
             caregiver_familiare.email,
-            caregiver_familiare.passwd
+            caregiver_familiare.passwd,
           ],
-          (err, res) => {
+          (err) => {
             if (err) {
               console.log(err.stack);
               reject(err);
@@ -137,9 +138,9 @@ export class CaregiverFamiliareDAO implements CaregiverFamiliareDAOInterface {
               client.release();
               resolve();
             }
-          }
+          },
         );
-      })
+      }),
     );
   }
 }
