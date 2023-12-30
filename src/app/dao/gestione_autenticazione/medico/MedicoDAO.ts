@@ -59,16 +59,14 @@ export class MedicoDAO implements MedicoDAOInterface {
     return new Promise<void>((resolve, reject) =>
       this.pool.connect((err, client) => {
         if (err) {
-          console.error("Errore durante l'aggiunta", err);
           reject(err);
           return;
         }
 
-        let query: string;
-        query =
-          'INSERT INTO paziente (codice_identificativo, nome, cognome, indirizzo_studio, citta,' +
-          ' numero_civico, numero_telefono_studio, email, passwd)' +
-          ' VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)';
+        const query =
+          'INSERT INTO paziente (codice_identificativo, nome, cognome, ' +
+          'indirizzo_studio, citta, numero_civico, numero_telefono_studio, )' +
+          'email, passwd) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)';
 
         client?.query(
           query,
@@ -83,7 +81,7 @@ export class MedicoDAO implements MedicoDAOInterface {
             medico.email,
             medico.passwd,
           ],
-          (err, res) => {
+          (err) => {
             if (err) {
               console.log(err.stack);
               reject(err);
@@ -102,16 +100,15 @@ export class MedicoDAO implements MedicoDAOInterface {
     return new Promise<void>((resolve, reject) =>
       this.pool.connect((err, client) => {
         if (err) {
-          console.error("Errore durante l'aggiornamento", err);
           reject(err);
           return;
         }
 
-        let query: string;
-        query =
-          'UPDATE caregiver_familiare SET (codice_identificativo, nome, cognome, indirizzo_studio, citta,' +
-          ' numero_civico, numero_telefono_studio, email, passwd) = ' +
-          '($1, $2, $3, $4, $5, $6, $7, $8, $9) WHERE codice_identificativo = $10';
+        const query: string =
+          'UPDATE caregiver_familiare SET (codice_identificativo, nome, ' +
+          ' cognome, indirizzo_studio, citta, numero_civico, ' +
+          ' numero_telefono_studio, email, passwd) = $1, $2, $3, $4, $5, $6,' +
+          ' $7, $8, $9) WHERE codice_identificativo = $10';
 
         client?.query(
           query,
@@ -127,7 +124,7 @@ export class MedicoDAO implements MedicoDAOInterface {
             medico.passwd,
             medico.codiceIdentificativo,
           ],
-          (err, res) => {
+          (err) => {
             if (err) {
               console.log(err.stack);
               reject(err);
