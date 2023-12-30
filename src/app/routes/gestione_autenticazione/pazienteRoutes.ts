@@ -29,14 +29,9 @@ router.post('/salva_paziente', async (req: Request, res: Response) => {
       pazienteJSON.cg_fam
     );
 
-    // TODO remove this test ----------
-    if (await pazienteService.get(paziente.codiceFiscale)) {
-      paziente.nome = 'test';
-      pazienteService.update(paziente);
+    if (!(await pazienteService.get(paziente.codiceFiscale))) {
+      pazienteService.save(paziente);
     }
-    // --------------------------------
-
-    pazienteService.save(paziente);
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   }
