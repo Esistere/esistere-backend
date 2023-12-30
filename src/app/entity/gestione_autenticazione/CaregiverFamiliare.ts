@@ -7,7 +7,6 @@ export class CaregiverFamiliare {
   private _dataDiNascita: Date;
   private _numeroTelefono: string;
   private _citta: string;
-  private _provincia: string;
   private _email: string;
   private _passwd: string;
 
@@ -20,7 +19,6 @@ export class CaregiverFamiliare {
     dataDiNascita: Date,
     numeroTelefono: string,
     citta: string,
-    provincia: string,
     email: string,
     passwd: string
   ) {
@@ -30,9 +28,8 @@ export class CaregiverFamiliare {
     this._indirizzo = indirizzo;
     this._numCivico = numCivico;
     this._dataDiNascita = dataDiNascita;
-    this._numeroTelefono = numeroTelefono
+    this._numeroTelefono = numeroTelefono;
     this._citta = citta;
-    this._provincia = provincia;
     this._email = email;
     this._passwd = passwd;
   }
@@ -83,14 +80,6 @@ export class CaregiverFamiliare {
 
   public set citta(citta: string) {
     this._citta = citta;
-  }
-
-  public get provincia(): string {
-    return this._provincia;
-  }
-
-  public set provincia(provincia: string) {
-    this._provincia = provincia;
   }
 
   public get dataDiNascita(): Date {

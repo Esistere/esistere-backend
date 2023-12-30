@@ -1,6 +1,6 @@
 import { LineaGuida } from 'app/entity/gestione_autenticazione/LineaGuida';
 
-export interface MedicoServiceInterface {
+export interface LineeGuidaServiceInterface {
   getAll(): Promise<LineaGuida[]>;
   get(codice_identificativo: number): Promise<LineaGuida>;
   save(lineeGuida: LineaGuida): void;

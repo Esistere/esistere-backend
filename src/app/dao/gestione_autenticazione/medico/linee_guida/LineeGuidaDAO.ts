@@ -1,14 +1,13 @@
 import { Pool } from 'pg';
-import * as Database from 'app/Database';
+import { Database } from 'app/Database';
 import { LineeGuidaDAOInterface } from './LineeGuidaDAOInterface';
 import { LineaGuida } from 'app/entity/gestione_autenticazione/LineaGuida';
 
-export class LineeGuidaDAO implements LineeGuidaDAOInterface{
-
+export class LineeGuidaDAO implements LineeGuidaDAOInterface {
   private pool: Pool;
 
   constructor() {
-    this.pool = Database.Database.instance;
+    this.pool = Database.instance;
   }
 
   public getAll(): Promise<LineaGuida[]> {
@@ -55,48 +54,76 @@ export class LineeGuidaDAO implements LineeGuidaDAOInterface{
       });
     });
   }
-}
 
-public save(medico: Medico): Promise<void> {
-  return new Promise<void>((resolve, reject) =>
-    this.pool.connect((err, client) => {
-      if (err) {
-        console.error("Errore durante l'aggiunta", err);
-        reject(err);
-        return;
-      }
-
-      let query: string;
-      query =
-        'INSERT INTO paziente (codice_identificativo, nome, cognome, indirizzo_studio, citta,' +
-        ' numero_civico, numero_telefono_studio, email, passwd)' +
-        ' VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)';
-
-      client?.query(
-        query,
-        [
-          medico.codiceIdentificativo,
-          medico.nome,
-          medico.cognome,
-          medico.indirizzoStudio,
-          medico.citta,
-          medico.numCivico,
-          medico.numTelefonoStudio,
-          medico.email,
-          medico.passwd,
-        ],
-        (err, res) => {
-          if (err) {
-            console.log(err.stack);
-            reject(err);
-            return;
-          } else {
-            client.release();
-            resolve();
-          }
+  public save(linea_guida_quiz: LineaGuida): Promise<void> {
+    return new Promise<void>((resolve, reject) =>
+      this.pool.connect((err, client) => {
+        if (err) {
+          console.error("Errore durante l'aggiunta", err);
+          reject(err);
+          return;
         }
-      );
-    })
-  );
-}
 
+        let query: string;
+        query =
+          'INSERT INTO linea_guida_quiz (id,med,linea_guida)' +
+          ' VALUES ($1, $2, $3)';
+
+        client?.query(
+          query,
+          [
+            linea_guida_quiz.id,
+            linea_guida_quiz.medico,
+            linea_guida_quiz.lineeGuida,
+          ],
+          (err, res) => {
+            if (err) {
+              console.log(err.stack);
+              reject(err);
+              return;
+            } else {
+              client.release();
+              resolve();
+            }
+          }
+        );
+      })
+    );
+  }
+  public update(linea_guida_quiz: LineaGuida): Promise<void> {
+    return new Promise<void>((resolve, reject) =>
+      this.pool.connect((err, client) => {
+        if (err) {
+          console.error("Errore durante l'aggiornamento", err);
+          reject(err);
+          return;
+        }
+
+        let query: string;
+        query =
+          'UPDATE linea_guida_quiz SET (id,med,linea_guida) = ' +
+          '($1, $2, $3) WHERE id = $4';
+
+        client?.query(
+          query,
+          [
+            linea_guida_quiz.id,
+            linea_guida_quiz.medico,
+            linea_guida_quiz.lineeGuida,
+            linea_guida_quiz.id,
+          ],
+          (err, res) => {
+            if (err) {
+              console.log(err.stack);
+              reject(err);
+              return;
+            } else {
+              client.release();
+              resolve();
+            }
+          }
+        );
+      })
+    );
+  }
+}
