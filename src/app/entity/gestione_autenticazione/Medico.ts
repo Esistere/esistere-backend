@@ -6,7 +6,6 @@ export class Medico {
   private _numCivico: number;
   private _numTelefonoStudio: string;
   private _citta: string;
-  private _provincia: string;
   private _email: string;
   private _passwd: string;
 
