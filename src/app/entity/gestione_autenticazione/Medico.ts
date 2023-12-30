@@ -1,5 +1,5 @@
 export class Medico {
-  private _codiceIdentificativo: number;
+  private _codiceIdentificativo?: number;
   private _nome: string;
   private _cognome: string;
   private _indirizzoStudio: string;
@@ -11,7 +11,6 @@ export class Medico {
   private _passwd: string;
 
   constructor(
-    codiceIdentificativo: number,
     nome: string,
     cognome: string,
     indirizzoStudio: string,
@@ -20,9 +19,10 @@ export class Medico {
     citta: string,
     provincia: string,
     email: string,
-    passwd: string
+    passwd: string,
+    codiceIdentificativo?: number
   ) {
-    this._codiceIdentificativo = codiceIdentificativo;
+    if (codiceIdentificativo) this._codiceIdentificativo = codiceIdentificativo;
     this._nome = nome;
     this._cognome = cognome;
     this._indirizzoStudio = indirizzoStudio;
@@ -34,7 +34,7 @@ export class Medico {
     this._passwd = passwd;
   }
 
-  public get codiceIdentificativo(): number {
+  public get codiceIdentificativo(): number | undefined {
     return this._codiceIdentificativo;
   }
 
