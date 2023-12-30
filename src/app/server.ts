@@ -2,8 +2,13 @@ import cors from 'cors';
 import express from 'express';
 import fs from 'fs';
 import https from 'https';
+import dotenv from 'dotenv';
+import sessions from 'express-session';
 import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
 import pazienteRoutes from 'app/routes/gestione_autenticazione/pazienteRoutes';
+
+dotenv.config();
 
 const key = fs.readFileSync('./key.pem');
 const cert = fs.readFileSync('./cert.pem');
@@ -29,9 +34,23 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
+// Session middleware
+const oneDay = 1000 * 60 * 60 * 24;
+app.use(
+  sessions({
+    secret: String(process.env.SESSION_KEY),
+    saveUninitialized: true,
+    cookie: { maxAge: oneDay },
+    resave: false,
+  })
+);
+
 // Parsers
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(__dirname));
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 // Use routes
 app.use(pazienteRoutes);
