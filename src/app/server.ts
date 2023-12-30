@@ -7,6 +7,7 @@ import sessions from 'express-session';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import pazienteRoutes from 'app/routes/gestione_autenticazione/pazienteRoutes';
+import medicoRoutes from 'app/routes/gestione_autenticazione/medicoRoutes';
 
 dotenv.config();
 
@@ -54,6 +55,7 @@ app.use(cookieParser());
 
 // Use routes
 app.use(pazienteRoutes);
+app.use(medicoRoutes);
 
 const port = 3001;
 const server = https.createServer({ key: key, cert: cert }, app);
