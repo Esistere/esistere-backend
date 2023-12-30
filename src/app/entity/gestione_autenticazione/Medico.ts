@@ -6,7 +6,6 @@ export class Medico {
   private _numCivico: number;
   private _numTelefonoStudio: string;
   private _citta: string;
-  private _provincia: string;
   private _email: string;
   private _passwd: string;
 
@@ -17,7 +16,6 @@ export class Medico {
     numCivico: number,
     numTelefonoStudio: string,
     citta: string,
-    provincia: string,
     email: string,
     passwd: string,
     codiceIdentificativo?: number
@@ -29,7 +27,6 @@ export class Medico {
     this._numCivico = numCivico;
     this._numTelefonoStudio = numTelefonoStudio;
     this._citta = citta;
-    this._provincia = provincia;
     this._email = email;
     this._passwd = passwd;
   }
@@ -89,15 +86,7 @@ export class Medico {
   public set citta(citta: string) {
     this._citta = citta;
   }
-
-  public get provincia(): string {
-    return this._provincia;
-  }
-
-  public set provincia(provincia: string) {
-    this._provincia = provincia;
-  }
-
+ 
   public get email(): string {
     return this._email;
   }
