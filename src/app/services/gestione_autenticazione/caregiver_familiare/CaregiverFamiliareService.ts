@@ -1,9 +1,13 @@
-import { CaregiverFamiliareDAO } from "app/dao/gestione_autenticazione/caregiver_familiare/CaregiverFamiliareDAO";
-import { CaregiverFamiliare } from "app/entity/gestione_autenticazione/CaregiverFamiliare";
-import { CaregiverFamiliareServiceInterface } from "./CaregiverFamiliareServiceInterface";
+import { CaregiverFamiliareDAO } from 'app/dao/gestione_autenticazione/caregiver_familiare/CaregiverFamiliareDAO';
+import { CaregiverFamiliare } from 'app/entity/gestione_autenticazione/CaregiverFamiliare';
+import { CaregiverFamiliareServiceInterface } from './CaregiverFamiliareServiceInterface';
 
-export class CaregiverFamiliareService implements CaregiverFamiliareServiceInterface {
-  private caregiverFamiliareDAO: CaregiverFamiliareDAO ;
+/* eslint-disable */
+
+export class CaregiverFamiliareService
+  implements CaregiverFamiliareServiceInterface
+{
+  private caregiverFamiliareDAO: CaregiverFamiliareDAO;
 
   constructor() {
     this.caregiverFamiliareDAO = new CaregiverFamiliareDAO();
