@@ -1,6 +1,6 @@
 import { Paziente } from 'app/entity/gestione_autenticazione/Paziente';
-import { PazienteService } from 'app/services/gestione_autenticazione/PazienteService';
-import { PazienteServiceInterface } from 'app/services/gestione_autenticazione/PazienteServiceInterface';
+import { PazienteService } from 'app/services/gestione_autenticazione/paziente/PazienteService';
+import { PazienteServiceInterface } from 'app/services/gestione_autenticazione/paziente/PazienteServiceInterface';
 import express, { Request, Response } from 'express';
 
 const router = express.Router();
