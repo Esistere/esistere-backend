@@ -59,13 +59,11 @@ export class LineeGuidaDAO implements LineeGuidaDAOInterface {
     return new Promise<void>((resolve, reject) =>
       this.pool.connect((err, client) => {
         if (err) {
-          console.error("Errore durante l'aggiunta", err);
           reject(err);
           return;
         }
 
-        let query: string;
-        query =
+        const query =
           'INSERT INTO linea_guida_quiz (id,med,linea_guida)' +
           ' VALUES ($1, $2, $3)';
 
@@ -76,7 +74,7 @@ export class LineeGuidaDAO implements LineeGuidaDAOInterface {
             linea_guida_quiz.medico,
             linea_guida_quiz.lineeGuida,
           ],
-          (err, res) => {
+          (err) => {
             if (err) {
               console.log(err.stack);
               reject(err);
@@ -85,22 +83,20 @@ export class LineeGuidaDAO implements LineeGuidaDAOInterface {
               client.release();
               resolve();
             }
-          }
+          },
         );
-      })
+      }),
     );
   }
   public update(linea_guida_quiz: LineaGuida): Promise<void> {
     return new Promise<void>((resolve, reject) =>
       this.pool.connect((err, client) => {
         if (err) {
-          console.error("Errore durante l'aggiornamento", err);
           reject(err);
           return;
         }
 
-        let query: string;
-        query =
+        const query =
           'UPDATE linea_guida_quiz SET (id,med,linea_guida) = ' +
           '($1, $2, $3) WHERE id = $4';
 
@@ -112,7 +108,7 @@ export class LineeGuidaDAO implements LineeGuidaDAOInterface {
             linea_guida_quiz.lineeGuida,
             linea_guida_quiz.id,
           ],
-          (err, res) => {
+          (err) => {
             if (err) {
               console.log(err.stack);
               reject(err);
@@ -121,9 +117,9 @@ export class LineeGuidaDAO implements LineeGuidaDAOInterface {
               client.release();
               resolve();
             }
-          }
+          },
         );
-      })
+      }),
     );
   }
 }

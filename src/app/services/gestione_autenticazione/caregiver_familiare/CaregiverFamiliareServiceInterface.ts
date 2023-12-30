@@ -1,4 +1,4 @@
-import { CaregiverFamiliare } from "app/entity/gestione_autenticazione/CaregiverFamiliare";
+import { CaregiverFamiliare } from 'app/entity/gestione_autenticazione/CaregiverFamiliare';
 
 export interface CaregiverFamiliareServiceInterface {
   getAll(): Promise<CaregiverFamiliare[]>;
