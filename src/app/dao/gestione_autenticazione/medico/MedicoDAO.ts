@@ -64,14 +64,13 @@ export class MedicoDAO implements MedicoDAOInterface {
         }
 
         const query =
-          'INSERT INTO paziente (codice_identificativo, nome, cognome, ' +
-          'indirizzo_studio, citta, numero_civico, numero_telefono_studio, )' +
-          'email, passwd) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)';
+          'INSERT INTO medico (nome, cognome, ' +
+          'indirizzo_studio, citta, numero_civico, numero_telefono_studio, ' +
+          'email, passwd) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)';
 
         client?.query(
           query,
           [
-            medico.codiceIdentificativo,
             medico.nome,
             medico.cognome,
             medico.indirizzoStudio,
@@ -90,9 +89,9 @@ export class MedicoDAO implements MedicoDAOInterface {
               client.release();
               resolve();
             }
-          },
+          }
         );
-      }),
+      })
     );
   }
 
@@ -133,9 +132,9 @@ export class MedicoDAO implements MedicoDAOInterface {
               client.release();
               resolve();
             }
-          },
+          }
         );
-      }),
+      })
     );
   }
 }

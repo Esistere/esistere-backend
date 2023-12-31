@@ -21,7 +21,6 @@ router.post('/salva_medico', async (req: Request, res: Response) => {
 
     const medicoJSON = req.body;
     const medico = new Medico(
-      medicoJSON.codice_identificativo,
       medicoJSON.nome,
       medicoJSON.cognome,
       medicoJSON.indirizzo_studio,
@@ -29,7 +28,7 @@ router.post('/salva_medico', async (req: Request, res: Response) => {
       medicoJSON.numero_civico,
       medicoJSON.numero_telefono_studio,
       medicoJSON.email,
-      medicoJSON.password
+      medicoJSON.passwd
     );
 
     medicoService.save(medico);
