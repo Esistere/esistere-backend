@@ -1,5 +1,5 @@
 export class CaregiverFamiliare {
-  private _codiceIdentificativo: number;
+  private _codiceIdentificativo: number | undefined;
   private _nome: string;
   private _cognome: string;
   private _indirizzo: string;
@@ -11,7 +11,7 @@ export class CaregiverFamiliare {
   private _passwd: string;
 
   constructor(
-    codiceIdentificativo: number,
+    codiceIdentificativo: number | undefined,
     nome: string,
     cognome: string,
     indirizzo: string,
@@ -34,11 +34,11 @@ export class CaregiverFamiliare {
     this._passwd = passwd;
   }
 
-  public get codiceIdentificativo(): number {
+  public get codiceIdentificativo(): number | undefined {
     return this._codiceIdentificativo;
   }
 
-  public set codiceIdentificativo(codiceIdentificativo: number) {
+  public set codiceIdentificativo(codiceIdentificativo: number | undefined) {
     this._codiceIdentificativo = codiceIdentificativo;
   }
 
