@@ -1,5 +1,5 @@
 export class Medico {
-  private _codiceIdentificativo?: number;
+  private _codiceIdentificativo?: number | undefined;
   private _nome: string;
   private _cognome: string;
   private _indirizzoStudio: string;
@@ -18,7 +18,7 @@ export class Medico {
     citta: string,
     email: string,
     passwd: string,
-    codiceIdentificativo?: number
+    codiceIdentificativo?: number | undefined
   ) {
     if (codiceIdentificativo) this._codiceIdentificativo = codiceIdentificativo;
     this._nome = nome;
@@ -35,7 +35,7 @@ export class Medico {
     return this._codiceIdentificativo;
   }
 
-  public set codiceIdentificativo(codiceIdentificativo: number) {
+  public set codiceIdentificativo(codiceIdentificativo: number | undefined) {
     this._codiceIdentificativo = codiceIdentificativo;
   }
 
@@ -86,7 +86,7 @@ export class Medico {
   public set citta(citta: string) {
     this._citta = citta;
   }
- 
+
   public get email(): string {
     return this._email;
   }
