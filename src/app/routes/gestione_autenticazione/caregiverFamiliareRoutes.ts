@@ -30,10 +30,10 @@ router.post(
         caregiverFamiliareJSON.nome,
         caregiverFamiliareJSON.cognome,
         caregiverFamiliareJSON.indirizzo,
-        caregiverFamiliareJSON.citta,
         caregiverFamiliareJSON.numero_civico,
         caregiverFamiliareJSON.data_di_nascita,
         caregiverFamiliareJSON.numero_telefono,
+        caregiverFamiliareJSON.citta,
         caregiverFamiliareJSON.email,
         caregiverFamiliareJSON.passwd
       );
