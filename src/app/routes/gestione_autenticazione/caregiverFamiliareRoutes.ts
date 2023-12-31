@@ -8,7 +8,7 @@ const caregiverFamiliareService: CaregiverFamiliareServiceInterface =
   new CaregiverFamiliareService();
 
 router.get(
-  '/visualizza_caregiverFamiliari',
+  '/visualizza_caregiver_familiare',
   async (req: Request, res: Response) => {
     try {
       const caregiverFamiliari = await caregiverFamiliareService.getAll();
@@ -20,32 +20,25 @@ router.get(
 );
 
 router.post(
-  '/salva_caregiverFamiliare',
+  '/salva_caregiver_familiare',
   async (req: Request, res: Response) => {
     try {
       console.log('Dati ', req.body);
 
       const caregiverFamiliareJSON = req.body;
       const caregiverFamiliare = new CaregiverFamiliare(
-        caregiverFamiliareJSON.codice_identificativo,
         caregiverFamiliareJSON.nome,
         caregiverFamiliareJSON.cognome,
         caregiverFamiliareJSON.indirizzo,
+        caregiverFamiliareJSON.citta,
         caregiverFamiliareJSON.numero_civico,
         caregiverFamiliareJSON.data_di_nascita,
         caregiverFamiliareJSON.numero_telefono,
-        caregiverFamiliareJSON.citta,
         caregiverFamiliareJSON.email,
         caregiverFamiliareJSON.passwd
       );
 
-      if (
-        !(await caregiverFamiliareService.get(
-          caregiverFamiliare.codiceIdentificativo
-        ))
-      ) {
-        caregiverFamiliareService.save(caregiverFamiliare);
-      }
+      caregiverFamiliareService.save(caregiverFamiliare);
     } catch (error) {
       res.status(500).json({ error: 'Internal Server Error' });
     }

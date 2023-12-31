@@ -66,15 +66,14 @@ export class CaregiverFamiliareDAO implements CaregiverFamiliareDAOInterface {
         }
 
         const query =
-          'INSERT INTO paziente (codice_identificativo, nome, cognome, ' +
+          'INSERT INTO caregiver_familiare (nome, cognome, ' +
           'indirizzo, citta, numero_civico, data_di_nascita, ' +
           'numero_telefono, email, passwd)' +
-          ' VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)';
+          ' VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)';
 
         client?.query(
           query,
           [
-            caregiver_familiare.codiceIdentificativo,
             caregiver_familiare.nome,
             caregiver_familiare.cognome,
             caregiver_familiare.indirizzo,
