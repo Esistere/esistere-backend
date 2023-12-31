@@ -104,10 +104,10 @@ export class MedicoDAO implements MedicoDAOInterface {
         }
 
         const query =
-          'UPDATE caregiver_familiare SET (codice_identificativo, nome, ' +
-          ' cognome, indirizzo_studio, citta, numero_civico, ' +
-          ' numero_telefono_studio, email, passwd) = $1, $2, $3, $4, $5, $6,' +
-          ' $7, $8, $9) WHERE codice_identificativo = $10';
+          'UPDATE medico SET (codice_identificativo, nome, ' +
+          'cognome, indirizzo_studio, citta, numero_civico, ' +
+          'numero_telefono_studio, email, passwd) = $1, $2, $3, $4, $5, $6, ' +
+          '$7, $8, $9) WHERE codice_identificativo = $10';
 
         client?.query(
           query,
