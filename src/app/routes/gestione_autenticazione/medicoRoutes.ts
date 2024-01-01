@@ -24,14 +24,15 @@ router.post('/salva_medico', async (req: Request, res: Response) => {
       medicoJSON.nome,
       medicoJSON.cognome,
       medicoJSON.indirizzo_studio,
-      medicoJSON.citta,
       medicoJSON.numero_civico,
       medicoJSON.numero_telefono_studio,
+      medicoJSON.citta,
       medicoJSON.email,
       medicoJSON.passwd
     );
 
-    medicoService.save(medico);
+    const codice_identificativo = medicoService.save(medico);
+    res.json(codice_identificativo);
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   }

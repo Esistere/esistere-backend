@@ -57,8 +57,8 @@ export class CaregiverFamiliareDAO implements CaregiverFamiliareDAOInterface {
     });
   }
 
-  public save(caregiver_familiare: CaregiverFamiliare): Promise<void> {
-    return new Promise<void>((resolve, reject) =>
+  public save(caregiver_familiare: CaregiverFamiliare): Promise<number> {
+    return new Promise<number>((resolve, reject) =>
       this.pool.connect((err, client) => {
         if (err) {
           reject(err);
@@ -69,7 +69,8 @@ export class CaregiverFamiliareDAO implements CaregiverFamiliareDAOInterface {
           'INSERT INTO caregiver_familiare (nome, cognome, ' +
           'indirizzo, citta, numero_civico, data_di_nascita, ' +
           'numero_telefono, email, passwd) ' +
-          'VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)';
+          'VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) ' +
+          'RETURNING codice_identificativo';
 
         client?.query(
           query,
@@ -84,14 +85,14 @@ export class CaregiverFamiliareDAO implements CaregiverFamiliareDAOInterface {
             caregiver_familiare.email,
             caregiver_familiare.passwd,
           ],
-          (err) => {
+          (err, res) => {
             if (err) {
               console.log(err.stack);
               reject(err);
-              return;
             } else {
               client.release();
-              resolve();
+              const codice_identificativo = res.rows[0] as number; 
+              resolve(codice_identificativo);
             }
           }
         );
