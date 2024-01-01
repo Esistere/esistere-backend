@@ -86,9 +86,9 @@ export class PazienteDAO implements PazienteDAOInterface {
               client.release();
               resolve();
             }
-          },
+          }
         );
-      }),
+      })
     );
   }
 
@@ -125,9 +125,9 @@ export class PazienteDAO implements PazienteDAOInterface {
               client.release();
               resolve();
             }
-          },
+          }
         );
-      }),
+      })
     );
   }
 }

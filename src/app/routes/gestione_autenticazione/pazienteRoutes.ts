@@ -6,18 +6,6 @@ import express, { Request, Response } from 'express';
 const router = express.Router();
 const pazienteService: PazienteServiceInterface = new PazienteService();
 
-router.get('/dati_paziente', async (req: Request, res: Response) =>{
-  try{
-    const body = req.body;
-    const codice_fiscale: string = body.codice_fiscale;
-
-    const paziente = await pazienteService.get(codice_fiscale);
-    res.json(paziente);
-  } catch (error) {
-    res.status(500).json({error: 'Internal Server Error'});
-  }
-
-});
 router.get('/visualizza_pazienti', async (req: Request, res: Response) => {
   try {
     const pazienti = await pazienteService.getAll();
@@ -27,10 +15,20 @@ router.get('/visualizza_pazienti', async (req: Request, res: Response) => {
   }
 });
 
+router.post('/dati_paziente', async (req: Request, res: Response) => {
+  try {
+    const codice_fiscale: string = req.body.codice_fiscale;
+
+    const paziente = await pazienteService.get(codice_fiscale);
+
+    res.json(paziente);
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 router.post('/salva_paziente', async (req: Request, res: Response) => {
   try {
-    console.log('Dati ', req.body);
-
     const pazienteJSON = req.body;
     const paziente = new Paziente(
       pazienteJSON.codice_fiscale,
