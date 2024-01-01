@@ -21,8 +21,8 @@ export class CaregiverFamiliareService
     return this.caregiverFamiliareDAO.get(codice_identificativo);
   }
 
-  public save(caregiverFamiliare: CaregiverFamiliare): void {
-    this.caregiverFamiliareDAO.save(caregiverFamiliare);
+  public save(caregiverFamiliare: CaregiverFamiliare): Promise<number> {
+    return this.caregiverFamiliareDAO.save(caregiverFamiliare);
   }
 
   public update(caregiverFamiliare: CaregiverFamiliare): void {
