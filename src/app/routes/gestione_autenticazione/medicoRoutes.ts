@@ -31,8 +31,7 @@ router.post('/salva_medico', async (req: Request, res: Response) => {
       medicoJSON.passwd
     );
 
-    const codice_identificativo = medicoService.save(medico);
-    res.json(codice_identificativo);
+    medicoService.save(medico);
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   }

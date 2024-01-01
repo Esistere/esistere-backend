@@ -38,7 +38,9 @@ router.post(
         caregiverFamiliareJSON.passwd
       );
 
-      caregiverFamiliareService.save(caregiverFamiliare);
+      const codice_identificativo =
+        caregiverFamiliareService.save(caregiverFamiliare);
+      res.json(codice_identificativo);
     } catch (error) {
       res.status(500).json({ error: 'Internal Server Error' });
     }
