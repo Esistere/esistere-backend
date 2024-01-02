@@ -55,6 +55,28 @@ export class PazienteDAO implements PazienteDAOInterface {
     });
   }
 
+  public getPaziente(medico: number): Promise<Paziente[]> {
+    return new Promise((resolve, reject) => {
+      this.pool.connect((err, client) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+        const query = 'SELECT * FROM paziente WHERE med = $1';
+
+        client?.query(query, [medico], (err, res) => {
+          if (err) {
+            console.log(err.stack);
+            reject(err);
+          } else {
+            client.release();
+            resolve(res.rows as Paziente[]);
+          }
+        });
+      });
+    });
+  }
+
   public save(paziente: Paziente): Promise<void> {
     return new Promise<void>((resolve, reject) =>
       this.pool.connect((err, client) => {

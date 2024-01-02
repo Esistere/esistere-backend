@@ -15,6 +15,16 @@ router.get('/visualizza_pazienti', async (req: Request, res: Response) => {
   }
 });
 
+router.get('/visualizza_pazienti_med', async (req: Request, res: Response) => {
+  try {
+    const codice_identificativo: number = req.body.codice_identificativo;
+    const pazienti = await pazienteService.getPaziente(codice_identificativo);
+    res.json(pazienti);
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 router.post('/dati_paziente', async (req: Request, res: Response) => {
   try {
     const codice_fiscale: string = req.body.codice_fiscale;
