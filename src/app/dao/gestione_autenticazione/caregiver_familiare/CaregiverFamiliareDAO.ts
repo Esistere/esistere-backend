@@ -31,7 +31,7 @@ export class CaregiverFamiliareDAO implements CaregiverFamiliareDAOInterface {
     });
   }
 
-  public get(codice_identificativo: number): Promise<CaregiverFamiliare> {
+  public get(codice: string | number): Promise<CaregiverFamiliare> {
     return new Promise((resolve, reject) => {
       this.pool.connect((err, client) => {
         if (err) {
@@ -39,11 +39,14 @@ export class CaregiverFamiliareDAO implements CaregiverFamiliareDAOInterface {
           return;
         }
 
-        const query =
-          'SELECT * FROM caregiver_familiare WHERE ' +
-          'codice_identificativo = $1';
+        let key: string;
 
-        client?.query(query, [codice_identificativo], (err, res) => {
+        if (typeof codice === 'string') key = 'email';
+        else key = 'codice_identificativo';
+
+        const query = `SELECT * FROM caregiver_familiare WHERE ${key} = $1`;
+
+        client?.query(query, [codice], (err, res) => {
           if (err) {
             console.log(err.stack);
             reject(err);
@@ -91,7 +94,7 @@ export class CaregiverFamiliareDAO implements CaregiverFamiliareDAOInterface {
               reject(err);
             } else {
               client.release();
-              const codice_identificativo = res.rows[0] as number; 
+              const codice_identificativo = res.rows[0] as number;
               resolve(codice_identificativo);
             }
           }

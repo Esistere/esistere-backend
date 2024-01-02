@@ -31,7 +31,7 @@ export class MedicoDAO implements MedicoDAOInterface {
     });
   }
 
-  public get(codice_identificativo: number): Promise<Medico> {
+  public get(codice: string | number): Promise<Medico> {
     return new Promise((resolve, reject) => {
       this.pool.connect((err, client) => {
         if (err) {
@@ -39,9 +39,14 @@ export class MedicoDAO implements MedicoDAOInterface {
           return;
         }
 
-        const query = 'SELECT * FROM medico WHERE codice_identificativo = $1';
+        let key: string;
 
-        client?.query(query, [codice_identificativo], (err, res) => {
+        if (typeof codice === 'string') key = 'email';
+        else key = 'codice_identificativo';
+
+        const query = `SELECT * FROM medico WHERE ${key} = $1`;
+
+        client?.query(query, [codice], (err, res) => {
           if (err) {
             console.log(err.stack);
             reject(err);
