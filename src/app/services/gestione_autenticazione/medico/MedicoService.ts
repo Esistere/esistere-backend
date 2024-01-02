@@ -14,8 +14,8 @@ export class MedicoService implements MedicoServiceInterface {
     return this.medicoDAO.getAll();
   }
 
-  public get(codice_identificativo: number): Promise<Medico> {
-    return this.medicoDAO.get(codice_identificativo);
+  public get(codice: string | number): Promise<Medico> {
+    return this.medicoDAO.get(codice);
   }
 
   public save(medico: Medico): void {
