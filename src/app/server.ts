@@ -9,6 +9,7 @@ import cookieParser from 'cookie-parser';
 import pazienteRoutes from 'app/routes/gestione_autenticazione/pazienteRoutes';
 import medicoRoutes from 'app/routes/gestione_autenticazione/medicoRoutes';
 import caregiverFamiliareRoutes from 'app/routes/gestione_autenticazione/caregiverFamiliareRoutes';
+import loginRoutes from 'app/routes/gestione_autenticazione/loginRoutes';
 
 dotenv.config();
 
@@ -58,6 +59,7 @@ app.use(cookieParser());
 app.use(pazienteRoutes);
 app.use(medicoRoutes);
 app.use(caregiverFamiliareRoutes);
+app.use(loginRoutes);
 
 const port = 3001;
 const server = https.createServer({ key: key, cert: cert }, app);
