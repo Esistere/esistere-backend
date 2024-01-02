@@ -1,7 +1,7 @@
 import 'express-session';
 
 declare module 'express-session' {
-  interface Session {
+  export interface SessionData {
     user: {
       type: string;
       email: string;
