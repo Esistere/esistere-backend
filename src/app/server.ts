@@ -10,6 +10,7 @@ import pazienteRoutes from 'app/routes/gestione_autenticazione/pazienteRoutes';
 import medicoRoutes from 'app/routes/gestione_autenticazione/medicoRoutes';
 import caregiverFamiliareRoutes from 'app/routes/gestione_autenticazione/caregiverFamiliareRoutes';
 import loginRoutes from 'app/routes/gestione_autenticazione/loginRoutes';
+import './sesssionData';
 
 dotenv.config();
 
