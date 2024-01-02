@@ -13,24 +13,23 @@ const caregiverFamiliareService: CaregiverFamiliareServiceInterface =
   new CaregiverFamiliareService();
 
 router.post('/login', async (req: Request, res: Response) => {
-  const { email, passwd } = req.body;
+  try {
+    const { email, passwd } = req.body;
 
-  const medico: Medico | undefined = await medicoService.get(email);
-  const caregiverFamiliare: CaregiverFamiliare | undefined =
-    await caregiverFamiliareService.get(email);
+    const medico: Medico | undefined = await medicoService.get(email);
+    const caregiverFamiliare: CaregiverFamiliare | undefined =
+      await caregiverFamiliareService.get(email);
 
-  if (medico?.email === email && medico?.passwd === passwd) {
-    req.session.user = { type: 'medico', email: medico.email };
-    res.json({ success: true, userType: 'medico' });
-  } else if (
-    caregiverFamiliare?.email === email &&
-    caregiverFamiliare.passwd === passwd
-  ) {
-    req.session.user = { type: 'caregiver', email: caregiverFamiliare.email };
-    res.json({ success: true, userType: 'caregiver' });
+    if (medico?.passwd === passwd) {
+      req.session.user = { type: 'medico', email: medico.email };
+      res.json({ success: true, userType: 'medico' });
+    } else if (caregiverFamiliare?.passwd === passwd) {
+      req.session.user = { type: 'caregiver', email: caregiverFamiliare.email };
+      res.json({ success: true, userType: 'caregiver' });
+    }
+  } catch (error) {
+    res.status(401).json({ success: false, message: 'Credenziali non valide' });
   }
-
-  res.status(401).json({ success: false, message: 'Credenziali non valide' });
 });
 
 export default router;
