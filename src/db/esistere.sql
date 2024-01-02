@@ -11,8 +11,8 @@ CREATE TABLE medico (
     indirizzo_studio varchar(30) NOT NULL,
     citta varchar(30) NOT NULL,
     numero_civico varchar(6) NOT NULL,
-    numero_telefono_studio varchar(13) NOT NULL,
-    email varchar(50) NOT NULL,
+    numero_telefono_studio varchar(13) UNIQUE NOT NULL,
+    email varchar(50) UNIQUE NOT NULL,
     passwd varchar(50) NOT NULL
 );
 
@@ -26,8 +26,8 @@ CREATE TABLE caregiver_familiare (
     citta varchar(30) NOT NULL,
     numero_civico varchar(6) NOT NULL,
     data_di_nascita date NOT NULL,
-    numero_telefono varchar(13) NOT NULL,
-    email varchar(50) NOT NULL,
+    numero_telefono varchar(13) UNIQUE NOT NULL,
+    email varchar(50) UNIQUE NOT NULL,
     passwd varchar(50) NOT NULL
 );
 
