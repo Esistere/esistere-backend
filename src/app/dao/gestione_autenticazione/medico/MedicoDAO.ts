@@ -71,9 +71,7 @@ export class MedicoDAO implements MedicoDAOInterface {
         const query =
           'INSERT INTO medico (nome, cognome, ' +
           'indirizzo_studio, citta, numero_civico, numero_telefono_studio, ' +
-          'email, passwd) SELECT $1, $2, $3, $4, $5, $6, $7, $8 ' +
-          'WHERE NOT EXISTS (' +
-          'SELECT email FROM caregiver_familiare WHERE email = $7 ';
+          'email, passwd) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)';
 
         client?.query(
           query,
