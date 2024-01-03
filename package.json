@@ -19,7 +19,7 @@
   "scripts": {
     "test": "test",
     "start": "npx ts-node -r tsconfig-paths/register src/app/server.ts",
-    "nodemon": " npx nodemon -x 'npx ts-node -r tsconfig-paths/register src/app/server.ts'"
+    "nodemon": "npx nodemon"
   },
   "devDependencies": {
     "@types/express-session": "^1.17.10",
