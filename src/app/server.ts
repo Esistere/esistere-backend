@@ -3,14 +3,10 @@ import express from 'express';
 import fs from 'fs';
 import https from 'https';
 import dotenv from 'dotenv';
-import sessions from 'express-session';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
-import pazienteRoutes from 'app/routes/gestione_autenticazione/pazienteRoutes';
-import medicoRoutes from 'app/routes/gestione_autenticazione/medicoRoutes';
-import caregiverFamiliareRoutes from 'app/routes/gestione_autenticazione/caregiverFamiliareRoutes';
 import loginRoutes from 'app/routes/gestione_autenticazione/loginRoutes';
-import './sesssionData';
+import authRoutes from './routes/gestione_autenticazione/authRoutes';
 
 dotenv.config();
 
@@ -38,17 +34,6 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
-// Session middleware
-const oneDay = 1000 * 60 * 60 * 24;
-app.use(
-  sessions({
-    secret: String(process.env.SESSION_KEY),
-    saveUninitialized: true,
-    cookie: { maxAge: oneDay },
-    resave: false,
-  })
-);
-
 // Parsers
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -57,10 +42,8 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 // Use routes
-app.use(pazienteRoutes);
-app.use(medicoRoutes);
-app.use(caregiverFamiliareRoutes);
 app.use(loginRoutes);
+app.use(authRoutes);
 
 const port = 3001;
 const server = https.createServer({ key: key, cert: cert }, app);
