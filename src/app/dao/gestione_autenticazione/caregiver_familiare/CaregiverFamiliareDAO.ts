@@ -74,7 +74,7 @@ export class CaregiverFamiliareDAO implements CaregiverFamiliareDAOInterface {
           'numero_telefono, email, passwd) ' +
           'SELECT $1, $2, $3, $4, $5, $6, $7, $8, $9 ' +
           'WHERE NOT EXISTS (' +
-          'SELECT email FROM medico WHERE email = $8' +
+          'SELECT email FROM medico WHERE email = $8 )' +
           'RETURNING codice_identificativo';
 
         client?.query(
