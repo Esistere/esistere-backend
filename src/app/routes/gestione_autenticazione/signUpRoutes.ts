@@ -51,7 +51,20 @@ router.post('/salva_medico', async (req: Request, res: Response) => {
       medicoJSON.passwd
     );
 
-    medicoService.save(medico);
+    if (
+      !(
+        (await medicoService.get(medico.email)) &&
+        (await caregiverFamiliareService.get(medico.email))
+      )
+    ) {
+      medicoService.save(medico);
+      res.json({
+        success: true,
+        message: 'Signup completed',
+      });
+    } else {
+      res.status(400).json({ success: false, message: 'Email already in use' });
+    }
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   }
@@ -76,10 +89,25 @@ router.post(
         caregiverFamiliareJSON.passwd
       );
 
-      const codice_identificativo = await caregiverFamiliareService.save(
-        caregiverFamiliare
-      );
-      res.json(codice_identificativo);
+      if (
+        !(
+          (await medicoService.get(caregiverFamiliare.email)) &&
+          (await caregiverFamiliareService.get(caregiverFamiliare.email))
+        )
+      ) {
+        const codice_identificativo = await caregiverFamiliareService.save(
+          caregiverFamiliare
+        );
+        res.json({
+          success: true,
+          message: 'Signup completed',
+          codice_identificativo: codice_identificativo,
+        });
+      } else {
+        res
+          .status(400)
+          .json({ success: false, message: 'Email already in use' });
+      }
     } catch (error) {
       res.status(500).json({ error: 'Internal Server Error' });
     }
