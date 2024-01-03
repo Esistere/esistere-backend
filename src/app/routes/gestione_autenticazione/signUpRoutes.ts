@@ -53,7 +53,7 @@ router.post('/salva_medico', async (req: Request, res: Response) => {
 
     if (
       !(
-        (await medicoService.get(medico.email)) &&
+        (await medicoService.get(medico.email)) ||
         (await caregiverFamiliareService.get(medico.email))
       )
     ) {
@@ -91,7 +91,7 @@ router.post(
 
       if (
         !(
-          (await medicoService.get(caregiverFamiliare.email)) &&
+          (await medicoService.get(caregiverFamiliare.email)) ||
           (await caregiverFamiliareService.get(caregiverFamiliare.email))
         )
       ) {
