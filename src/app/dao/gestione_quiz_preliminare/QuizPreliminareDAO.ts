@@ -136,7 +136,8 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
         }
 
         const query =
-          'SELECT * FROM risposta_quiz_preliminare WHERE paziente= $1 AND domanda= $2';
+          'SELECT * FROM risposta_quiz_preliminare' +
+          'WHERE paziente= $1 AND domanda= $2';
 
         client?.query(query, [paziente, id], (err, res) => {
           if (err) {
