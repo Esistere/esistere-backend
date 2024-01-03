@@ -14,8 +14,8 @@ import './sesssionData';
 
 dotenv.config();
 
-const key = fs.readFileSync('./key.pem');
-const cert = fs.readFileSync('./cert.pem');
+const key = fs.readFileSync('src/app/key.pem');
+const cert = fs.readFileSync('src/app/cert.pem');
 
 const app = express();
 
