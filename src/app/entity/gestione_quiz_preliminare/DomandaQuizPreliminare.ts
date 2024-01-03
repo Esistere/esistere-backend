@@ -1,10 +1,12 @@
 export class DomandaQuizPreliminare {
   private _id: number;
   private _domanda: string;
+  private _quizPreliminare: number;
 
-  constructor(id: number, domanda: string) {
+  constructor(id: number, domanda: string, quizPreliminare: number) {
     this._id = id;
     this._domanda = domanda;
+    this._quizPreliminare = quizPreliminare;
   }
 
   public get id(): number {
@@ -21,5 +23,13 @@ export class DomandaQuizPreliminare {
 
   public set domanda(domanda: string) {
     this._domanda = domanda;
+  }
+
+  public get quizPreliminare(): number {
+    return this.quizPreliminare;
+  }
+
+  public set quizPreliminare(quizPreliminare: number) {
+    this.quizPreliminare = quizPreliminare;
   }
 }
