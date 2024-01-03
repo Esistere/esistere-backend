@@ -5,6 +5,7 @@ import https from 'https';
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
+import signUpRoutes from './routes/gestione_autenticazione/signUpRoutes';
 import loginRoutes from 'app/routes/gestione_autenticazione/loginRoutes';
 import authRoutes from './routes/gestione_autenticazione/authRoutes';
 
@@ -42,6 +43,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 // Use routes
+app.use(signUpRoutes);
 app.use(loginRoutes);
 app.use(authRoutes);
 
