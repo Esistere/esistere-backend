@@ -66,13 +66,12 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
         }
 
         const query =
-          'INSERT INTO quiz_preliminare (id, numero_domande, sage, ' +
-          'punteggio_totale , med, paziente) VALUES ($1, $2, $3, $4, $5, $6)';
+          'INSERT INTO quiz_preliminare (numero_domande, sage, ' +
+          'punteggio_totale , med, paziente) VALUES ($1, $2, $3, $4, $5)';
 
         client?.query(
           query,
           [
-            quizPreliminare.id,
             quizPreliminare.numDomande,
             quizPreliminare.sage,
             quizPreliminare.punteggioTot,
@@ -211,11 +210,11 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
 
         const query =
           'INSERT INTO domanda_quiz_preliminare' +
-          '(id, domanda, quiz_preliminare) VALUES ($1, $2, $3)';
+          '(domanda, quiz_preliminare) VALUES ($1, $2)';
 
         client?.query(
           query,
-          [domanda.id, domanda.domanda, domanda.quizPreliminare],
+          [domanda.domanda, domanda.quizPreliminare],
           (err) => {
             if (err) {
               console.log(err.stack);
@@ -343,16 +342,11 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
 
         const query =
           'INSERT INTO risposta_quiz_preliminare' +
-          '(id, domanda, paziente, risposta) VALUES ($1, $2, $3, $4)';
+          '(domanda, paziente, risposta) VALUES ($1, $2, $3)';
 
         client?.query(
           query,
-          [
-            risposta.id,
-            risposta.risposta,
-            risposta.domandaPreliminare,
-            risposta.paziente,
-          ],
+          [risposta.risposta, risposta.domandaPreliminare, risposta.paziente],
           (err) => {
             if (err) {
               console.log(err.stack);
@@ -403,7 +397,7 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
       })
     );
   }
-  
+
   public getRispostaByPaziente(
     paziente: string,
     id: number
