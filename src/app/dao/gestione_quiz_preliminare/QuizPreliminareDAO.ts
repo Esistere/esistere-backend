@@ -175,6 +175,32 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
     });
   }
 
+  public getDomandeByQuizPreliminare(
+    quizPreliminare: number
+  ): Promise<DomandaQuizPreliminare[]> {
+    return new Promise((resolve, reject) => {
+      this.pool.connect((err, client) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+
+        const query =
+          'SELECT * FROM domanda_quiz_preliminare WHERE quiz_preliminare = ?1';
+
+        client?.query(query, [quizPreliminare], (err, res) => {
+          if (err) {
+            console.log(err.stack);
+            reject(err);
+          } else {
+            client.release();
+            resolve(res.rows as DomandaQuizPreliminare[]);
+          }
+        });
+      });
+    });
+  }
+
   public getDomanda(id: number): Promise<DomandaQuizPreliminare> {
     return new Promise((resolve, reject) => {
       this.pool.connect((err, client) => {

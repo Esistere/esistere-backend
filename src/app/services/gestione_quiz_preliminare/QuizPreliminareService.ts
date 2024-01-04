@@ -24,6 +24,12 @@ export class QuizPreliminareService implements QuizPreliminareServiceInterface {
     return this.quizPreliminareDAO.getAllDomande();
   }
 
+  getDomandeByQuizPreliminare(
+    quizPreliminare: number
+  ): Promise<DomandaQuizPreliminare[]> {
+    return this.quizPreliminareDAO.getDomandeByQuizPreliminare(quizPreliminare);
+  }
+
   getDomanda(id: number): Promise<DomandaQuizPreliminare> {
     return this.quizPreliminareDAO.getDomanda(id);
   }
