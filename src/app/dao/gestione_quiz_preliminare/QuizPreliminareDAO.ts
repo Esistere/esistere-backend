@@ -33,177 +33,6 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
     });
   }
 
-  public getByMed(medico: number): Promise<QuizPreliminare[]> {
-    return new Promise((resolve, reject) => {
-      this.pool.connect((err, client) => {
-        if (err) {
-          reject(err);
-          return;
-        }
-
-        const query = 'SELECT * FROM quiz_preliminare WHERE med= ?1';
-
-        client?.query(query, [medico], (err, res) => {
-          if (err) {
-            console.log(err.stack);
-            reject(err);
-          } else {
-            client.release();
-            resolve(res.rows as QuizPreliminare[]);
-          }
-        });
-      });
-    });
-  }
-
-  public getByQuizPreliminare(
-    quizPreliminare: number
-  ): Promise<DomandaQuizPreliminare[]> {
-    return new Promise((resolve, reject) => {
-      this.pool.connect((err, client) => {
-        if (err) {
-          reject(err);
-          return;
-        }
-
-        const query =
-          'SELECT * FROM domanda_quiz_preliminare WHERE quiz_preliminare = ?1';
-
-        client?.query(query, [quizPreliminare], (err, res) => {
-          if (err) {
-            console.log(err.stack);
-            reject(err);
-          } else {
-            client.release();
-            resolve(res.rows as DomandaQuizPreliminare[]);
-          }
-        });
-      });
-    });
-  }
-
-  public getAllDomande(): Promise<DomandaQuizPreliminare[]> {
-    return new Promise((resolve, reject) => {
-      this.pool.connect((err, client) => {
-        if (err) {
-          reject(err);
-          return;
-        }
-
-        client?.query('SELECT * FROM domanda_quiz_preliminare', (err, res) => {
-          if (err) {
-            console.log(err.stack);
-            reject(err);
-          } else {
-            client.release();
-            resolve(res.rows as DomandaQuizPreliminare[]);
-          }
-        });
-      });
-    });
-  }
-
-  getAllRisposta(): Promise<RispostaQuizPreliminare[]> {
-    return new Promise((resolve, reject) => {
-      this.pool.connect((err, client) => {
-        if (err) {
-          reject(err);
-          return;
-        }
-
-        client?.query('SELECT * FROM risposta_quiz_preliminare', (err, res) => {
-          if (err) {
-            console.log(err.stack);
-            reject(err);
-          } else {
-            client.release();
-            resolve(res.rows as RispostaQuizPreliminare[]);
-          }
-        });
-      });
-    });
-  }
-
-  getRispostaByPaziente(
-    paziente: string,
-    id: number
-  ): Promise<RispostaQuizPreliminare> {
-    return new Promise((resolve, reject) => {
-      this.pool.connect((err, client) => {
-        if (err) {
-          reject(err);
-          return;
-        }
-
-        const query =
-          'SELECT * FROM risposta_quiz_preliminare' +
-          'WHERE paziente= $1 AND domanda= $2';
-
-        client?.query(query, [paziente, id], (err, res) => {
-          if (err) {
-            console.log(err.stack);
-            reject(err);
-          } else {
-            client.release();
-            const rispostaQuizPreliminare = res
-              .rows[0] as RispostaQuizPreliminare;
-            resolve(rispostaQuizPreliminare);
-          }
-        });
-      });
-    });
-  }
-
-  public getDomanda(id: number): Promise<DomandaQuizPreliminare> {
-    return new Promise((resolve, reject) => {
-      this.pool.connect((err, client) => {
-        if (err) {
-          reject(err);
-          return;
-        }
-
-        const query = 'SELECT * FROM domanda_quiz_preliminare WHERE id= $1';
-
-        client?.query(query, [id], (err, res) => {
-          if (err) {
-            console.log(err.stack);
-            reject(err);
-          } else {
-            client.release();
-            const domandaQuizPreliminare = res
-              .rows[0] as DomandaQuizPreliminare;
-            resolve(domandaQuizPreliminare);
-          }
-        });
-      });
-    });
-  }
-
-  getRisposta(id: number): Promise<RispostaQuizPreliminare> {
-    return new Promise((resolve, reject) => {
-      this.pool.connect((err, client) => {
-        if (err) {
-          reject(err);
-          return;
-        }
-
-        const query = 'SELECT * FROM risposta_quiz_preliminare WHERE id= $1';
-
-        client?.query(query, [id], (err, res) => {
-          if (err) {
-            console.log(err.stack);
-            reject(err);
-          } else {
-            client.release();
-            const rispostaQuizPreliminare = res
-              .rows[0] as RispostaQuizPreliminare;
-            resolve(rispostaQuizPreliminare);
-          }
-        });
-      });
-    });
-  }
-
   public get(id: number): Promise<QuizPreliminare> {
     return new Promise((resolve, reject) => {
       this.pool.connect((err, client) => {
@@ -265,71 +94,6 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
     );
   }
 
-  public saveDomanda(domanda: DomandaQuizPreliminare): Promise<void> {
-    return new Promise<void>((resolve, reject) =>
-      this.pool.connect((err, client) => {
-        if (err) {
-          reject(err);
-          return;
-        }
-
-        const query =
-          'INSERT INTO domanda_quiz_preliminare' +
-          '(id, domanda, quiz_preliminare) VALUES ($1, $2, $3)';
-
-        client?.query(
-          query,
-          [domanda.id, domanda.domanda, domanda.quizPreliminare],
-          (err) => {
-            if (err) {
-              console.log(err.stack);
-              reject(err);
-              return;
-            } else {
-              client.release();
-              resolve();
-            }
-          }
-        );
-      })
-    );
-  }
-
-  saveRisposta(risposta: RispostaQuizPreliminare): Promise<void> {
-    return new Promise<void>((resolve, reject) =>
-      this.pool.connect((err, client) => {
-        if (err) {
-          reject(err);
-          return;
-        }
-
-        const query =
-          'INSERT INTO risposta_quiz_preliminare' +
-          '(id, domanda, paziente, risposta) VALUES ($1, $2, $3, $4)';
-
-        client?.query(
-          query,
-          [
-            risposta.id,
-            risposta.risposta,
-            risposta.domandaPreliminare,
-            risposta.paziente,
-          ],
-          (err) => {
-            if (err) {
-              console.log(err.stack);
-              reject(err);
-              return;
-            } else {
-              client.release();
-              resolve();
-            }
-          }
-        );
-      })
-    );
-  }
-
   public update(quizPreliminare: QuizPreliminare): Promise<void> {
     return new Promise<void>((resolve, reject) =>
       this.pool.connect((err, client) => {
@@ -368,6 +132,105 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
     );
   }
 
+  public getByMed(medico: number): Promise<QuizPreliminare[]> {
+    return new Promise((resolve, reject) => {
+      this.pool.connect((err, client) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+
+        const query = 'SELECT * FROM quiz_preliminare WHERE med= ?1';
+
+        client?.query(query, [medico], (err, res) => {
+          if (err) {
+            console.log(err.stack);
+            reject(err);
+          } else {
+            client.release();
+            resolve(res.rows as QuizPreliminare[]);
+          }
+        });
+      });
+    });
+  }
+
+  public getAllDomande(): Promise<DomandaQuizPreliminare[]> {
+    return new Promise((resolve, reject) => {
+      this.pool.connect((err, client) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+
+        client?.query('SELECT * FROM domanda_quiz_preliminare', (err, res) => {
+          if (err) {
+            console.log(err.stack);
+            reject(err);
+          } else {
+            client.release();
+            resolve(res.rows as DomandaQuizPreliminare[]);
+          }
+        });
+      });
+    });
+  }
+
+  public getDomanda(id: number): Promise<DomandaQuizPreliminare> {
+    return new Promise((resolve, reject) => {
+      this.pool.connect((err, client) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+
+        const query = 'SELECT * FROM domanda_quiz_preliminare WHERE id= $1';
+
+        client?.query(query, [id], (err, res) => {
+          if (err) {
+            console.log(err.stack);
+            reject(err);
+          } else {
+            client.release();
+            const domandaQuizPreliminare = res
+              .rows[0] as DomandaQuizPreliminare;
+            resolve(domandaQuizPreliminare);
+          }
+        });
+      });
+    });
+  }
+
+  public saveDomanda(domanda: DomandaQuizPreliminare): Promise<void> {
+    return new Promise<void>((resolve, reject) =>
+      this.pool.connect((err, client) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+
+        const query =
+          'INSERT INTO domanda_quiz_preliminare' +
+          '(id, domanda, quiz_preliminare) VALUES ($1, $2, $3)';
+
+        client?.query(
+          query,
+          [domanda.id, domanda.domanda, domanda.quizPreliminare],
+          (err) => {
+            if (err) {
+              console.log(err.stack);
+              reject(err);
+              return;
+            } else {
+              client.release();
+              resolve();
+            }
+          }
+        );
+      })
+    );
+  }
+
   public updateDomanda(domanda: DomandaQuizPreliminare): Promise<void> {
     return new Promise<void>((resolve, reject) =>
       this.pool.connect((err, client) => {
@@ -383,6 +246,113 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
         client?.query(
           query,
           [domanda.id, domanda.domanda, domanda.quizPreliminare, domanda.id],
+          (err) => {
+            if (err) {
+              console.log(err.stack);
+              reject(err);
+              return;
+            } else {
+              client.release();
+              resolve();
+            }
+          }
+        );
+      })
+    );
+  }
+
+  public getByQuizPreliminare(
+    quizPreliminare: number
+  ): Promise<DomandaQuizPreliminare[]> {
+    return new Promise((resolve, reject) => {
+      this.pool.connect((err, client) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+
+        const query =
+          'SELECT * FROM domanda_quiz_preliminare WHERE quiz_preliminare = ?1';
+
+        client?.query(query, [quizPreliminare], (err, res) => {
+          if (err) {
+            console.log(err.stack);
+            reject(err);
+          } else {
+            client.release();
+            resolve(res.rows as DomandaQuizPreliminare[]);
+          }
+        });
+      });
+    });
+  }
+
+  public getAllRisposta(): Promise<RispostaQuizPreliminare[]> {
+    return new Promise((resolve, reject) => {
+      this.pool.connect((err, client) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+
+        client?.query('SELECT * FROM risposta_quiz_preliminare', (err, res) => {
+          if (err) {
+            console.log(err.stack);
+            reject(err);
+          } else {
+            client.release();
+            resolve(res.rows as RispostaQuizPreliminare[]);
+          }
+        });
+      });
+    });
+  }
+
+  public getRisposta(id: number): Promise<RispostaQuizPreliminare> {
+    return new Promise((resolve, reject) => {
+      this.pool.connect((err, client) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+
+        const query = 'SELECT * FROM risposta_quiz_preliminare WHERE id= $1';
+
+        client?.query(query, [id], (err, res) => {
+          if (err) {
+            console.log(err.stack);
+            reject(err);
+          } else {
+            client.release();
+            const rispostaQuizPreliminare = res
+              .rows[0] as RispostaQuizPreliminare;
+            resolve(rispostaQuizPreliminare);
+          }
+        });
+      });
+    });
+  }
+
+  public saveRisposta(risposta: RispostaQuizPreliminare): Promise<void> {
+    return new Promise<void>((resolve, reject) =>
+      this.pool.connect((err, client) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+
+        const query =
+          'INSERT INTO risposta_quiz_preliminare' +
+          '(id, domanda, paziente, risposta) VALUES ($1, $2, $3, $4)';
+
+        client?.query(
+          query,
+          [
+            risposta.id,
+            risposta.risposta,
+            risposta.domandaPreliminare,
+            risposta.paziente,
+          ],
           (err) => {
             if (err) {
               console.log(err.stack);
@@ -432,5 +402,35 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
         );
       })
     );
+  }
+  
+  public getRispostaByPaziente(
+    paziente: string,
+    id: number
+  ): Promise<RispostaQuizPreliminare> {
+    return new Promise((resolve, reject) => {
+      this.pool.connect((err, client) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+
+        const query =
+          'SELECT * FROM risposta_quiz_preliminare' +
+          'WHERE paziente = $1 AND domanda = $2';
+
+        client?.query(query, [paziente, id], (err, res) => {
+          if (err) {
+            console.log(err.stack);
+            reject(err);
+          } else {
+            client.release();
+            const rispostaQuizPreliminare = res
+              .rows[0] as RispostaQuizPreliminare;
+            resolve(rispostaQuizPreliminare);
+          }
+        });
+      });
+    });
   }
 }

@@ -20,6 +20,9 @@ DROP TABLE IF EXISTS caregiver_familiare;
 
 CREATE TABLE caregiver_familiare (
     codice_identificativo serial PRIMARY KEY,
+
+
+    
     nome varchar(30) NOT NULL,
     cognome varchar(30) NOT NULL,
     indirizzo varchar(30) NOT NULL,

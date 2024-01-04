@@ -1,14 +1,14 @@
 export class RispostaQuizPreliminare {
-  private _id: number;
+  private _id?: number;
   private _risposta: string;
   private _domandaPreliminare: number;
   private _paziente: string;
 
   constructor(
-    id: number,
     risposta: string,
     domandaPreliminare: number,
-    paziente: string
+    paziente: string,
+    id?: number
   ) {
     this._id = id;
     this._risposta = risposta;
@@ -16,11 +16,11 @@ export class RispostaQuizPreliminare {
     this._paziente = paziente;
   }
 
-  public get id(): number {
+  public get id(): number | undefined {
     return this._id;
   }
 
-  public set id(id: number) {
+  public set id(id: number | undefined) {
     this._id = id;
   }
 
