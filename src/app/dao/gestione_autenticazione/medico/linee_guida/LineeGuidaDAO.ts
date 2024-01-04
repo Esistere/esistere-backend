@@ -64,8 +64,7 @@ export class LineeGuidaDAO implements LineeGuidaDAOInterface {
         }
 
         const query =
-          'INSERT INTO linea_guida_quiz (id,med,linea_guida)' +
-          ' VALUES ($1, $2, $3)';
+          'INSERT INTO linea_guida_quiz (med,linea_guida)' + ' VALUES ($1, $2)';
 
         client?.query(
           query,
@@ -83,9 +82,9 @@ export class LineeGuidaDAO implements LineeGuidaDAOInterface {
               client.release();
               resolve();
             }
-          },
+          }
         );
-      }),
+      })
     );
   }
   public update(linea_guida_quiz: LineaGuida): Promise<void> {
@@ -117,9 +116,9 @@ export class LineeGuidaDAO implements LineeGuidaDAOInterface {
               client.release();
               resolve();
             }
-          },
+          }
         );
-      }),
+      })
     );
   }
 }

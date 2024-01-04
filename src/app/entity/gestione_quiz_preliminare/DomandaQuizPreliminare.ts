@@ -1,19 +1,23 @@
 export class DomandaQuizPreliminare {
-  private _id: number;
+  private _id?: number | undefined;
   private _domanda: string;
   private _quizPreliminare: number;
 
-  constructor(id: number, domanda: string, quizPreliminare: number) {
+  constructor(
+    domanda: string,
+    quizPreliminare: number,
+    id?: number | undefined
+  ) {
     this._id = id;
     this._domanda = domanda;
     this._quizPreliminare = quizPreliminare;
   }
 
-  public get id(): number {
+  public get id(): number | undefined {
     return this._id;
   }
 
-  public set id(id: number) {
+  public set id(id: number | undefined) {
     this._id = id;
   }
 
@@ -26,10 +30,10 @@ export class DomandaQuizPreliminare {
   }
 
   public get quizPreliminare(): number {
-    return this.quizPreliminare;
+    return this._quizPreliminare;
   }
 
   public set quizPreliminare(quizPreliminare: number) {
-    this.quizPreliminare = quizPreliminare;
+    this._quizPreliminare = quizPreliminare;
   }
 }

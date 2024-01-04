@@ -1,19 +1,19 @@
 export class LineaGuida {
-  private _id: number;
+  private _id?: number | undefined;
   private _lineeGuida: string;
   private _medico: number;
 
-  constructor(id: number, lineeGuida: string, medico: number) {
-    this._id = id;
+  constructor(lineeGuida: string, medico: number, id?: number) {
     this._lineeGuida = lineeGuida;
     this._medico = medico;
+    this._id = id;
   }
 
-  public get id(): number {
+  public get id(): number | undefined {
     return this._id;
   }
 
-  public set id(id: number) {
+  public set id(id: number | undefined) {
     this._id = id;
   }
 

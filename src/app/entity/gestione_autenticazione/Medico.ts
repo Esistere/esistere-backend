@@ -20,7 +20,7 @@ export class Medico {
     passwd: string,
     codiceIdentificativo?: number | undefined
   ) {
-    if (codiceIdentificativo) this._codiceIdentificativo = codiceIdentificativo;
+    this._codiceIdentificativo = codiceIdentificativo;
     this._nome = nome;
     this._cognome = cognome;
     this._indirizzoStudio = indirizzoStudio;

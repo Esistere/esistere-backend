@@ -6,6 +6,9 @@ export interface QuizPreliminareServiceInterface {
   getAll(): Promise<QuizPreliminare[]>;
   getByMed(medico: number): Promise<QuizPreliminare[]>;
   getAllDomande(): Promise<DomandaQuizPreliminare[]>;
+  getDomandeByQuizPreliminare(
+    quizPreliminare: number
+  ): Promise<DomandaQuizPreliminare[]>;
   getDomanda(id: number): Promise<DomandaQuizPreliminare>;
   get(id: number): Promise<QuizPreliminare>;
   save(quizPreliminare: QuizPreliminare): Promise<void>;
