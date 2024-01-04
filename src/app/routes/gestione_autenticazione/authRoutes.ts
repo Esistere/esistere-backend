@@ -38,7 +38,7 @@ authRoutes.use(async (req: Request, res: Response, next: NextFunction) => {
 authRoutes.use('/userType', async (req: Request, res: Response) => {
   const userType = (req as CustomRequest).token.userType;
 
-  res.send(userType);
+  res.json(userType);
 });
 
 authRoutes.use(pazienteRoutes);
