@@ -35,6 +35,12 @@ authRoutes.use(async (req: Request, res: Response, next: NextFunction) => {
   }
 });
 
+authRoutes.use('/userType', async (req: Request, res: Response) => {
+  const userType = (req as CustomRequest).token.userType;
+
+  res.send(userType);
+});
+
 authRoutes.use(pazienteRoutes);
 authRoutes.use(medicoRoutes);
 authRoutes.use(caregiverFamiliareRoutes);
