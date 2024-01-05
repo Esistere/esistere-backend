@@ -1,6 +1,8 @@
 import { QuizPreliminare } from 'app/entity/gestione_quiz_preliminare/QuizPreliminare';
-import { QuizPreliminareService } from 'app/services/gestione_quiz_preliminare/QuizPreliminareService';
+import { DomandaQuizPreliminare } from 'app/entity/gestione_quiz_preliminare/DomandaQuizPreliminare';
+import { RispostaQuizPreliminare } from 'app/entity/gestione_quiz_preliminare/RispostaQuizPreliminare';
 import { QuizPreliminareServiceInterface } from 'app/services/gestione_quiz_preliminare/QuizPreliminareServiceInterface';
+import { QuizPreliminareService } from 'app/services/gestione_quiz_preliminare/QuizPreliminareService';
 import express, { Request, Response } from 'express';
 
 const router = express.Router();
@@ -9,14 +11,12 @@ const quizPreliminareService: QuizPreliminareServiceInterface =
 
 router.post('/salva_quiz', async (req: Request, res: Response) => {
   try {
-    console.log('Dati ', req.body);
-
     const quizPreliminareJSON = req.body;
     const quizPreliminare = new QuizPreliminare(
-      quizPreliminareJSON.numDomande,
+      quizPreliminareJSON.numero_domande,
       quizPreliminareJSON.sage,
-      quizPreliminareJSON.punteggioTot,
-      quizPreliminareJSON.medico,
+      quizPreliminareJSON.punteggio_totale,
+      quizPreliminareJSON.med,
       quizPreliminareJSON.paziente
     );
     quizPreliminareService.save(quizPreliminare);
@@ -24,3 +24,49 @@ router.post('/salva_quiz', async (req: Request, res: Response) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
+router.post(
+  '/salva_domanda_preliminare',
+  async (req: Request, res: Response) => {
+    try {
+      console.log('Dati ', req.body);
+
+      const domandaPreliminareJSON = req.body;
+      const domandaPreliminare = new DomandaQuizPreliminare(
+        domandaPreliminareJSON.domanda,
+        domandaPreliminareJSON.quiz_preliminare
+      );
+      quizPreliminareService.saveDomanda(domandaPreliminare);
+    } catch (error) {
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  }
+);
+
+router.post('/salva_risposta', async (req: Request, res: Response) => {
+  try {
+    const rispostaPreliminareJSON = req.body;
+    const rispostaPreliminare = new RispostaQuizPreliminare(
+      rispostaPreliminareJSON.risposta,
+      rispostaPreliminareJSON.domanda,
+      rispostaPreliminareJSON.paziente
+    );
+    quizPreliminareService.saveRisposta(rispostaPreliminare);
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+router.post('/quiz_preliminari', async (req: Request, res: Response) => {
+  try {
+    const medico = req.body.codice_identificativo;
+
+    const domandaByMed = await quizPreliminareService.getByMed(medico);
+
+    res.json(domandaByMed);
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+router.post('/')
