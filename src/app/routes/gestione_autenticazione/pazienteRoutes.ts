@@ -19,10 +19,10 @@ router.get('/visualizza_pazienti', async (req: Request, res: Response) => {
 });
 
 router.get(
-  '/visualizza_pazienti_med/:medId',
+  '/visualizza_pazienti_med',
   async (req: Request, res: Response) => {
     try {
-      const codice_identificativo: number = +req.params.medId;
+      const codice_identificativo = Number(req.query.codice_identificativo);
       const pazienti = await pazienteService.getPaziente(codice_identificativo);
       res.json(pazienti);
     } catch (error) {
