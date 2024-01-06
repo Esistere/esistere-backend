@@ -139,7 +139,8 @@ export class TacDAO implements TacDAOInterface {
         }
 
         const query =
-          'UPDATE tac SET (id, paziente, med, allegato, stadio ) = ($1, $2, $3, $4, $5)  WHERE id = $6';
+          'UPDATE tac SET (id, paziente, med, allegato, stadio)' +
+          '= ($1, $2, $3, $4, $5)  WHERE id = $6';
 
         client?.query(
           query,
