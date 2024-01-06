@@ -6,11 +6,11 @@ export class ToDoList {
   private _paziente: string;
 
   constructor(
-    id: number | undefined,
     numAttivita: number,
     completata: boolean,
     med: number,
-    paziente: string
+    paziente: string,
+    id?: number
   ) {
     this._id = id;
     this._numAttivita = numAttivita;

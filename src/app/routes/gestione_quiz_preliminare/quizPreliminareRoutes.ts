@@ -57,13 +57,24 @@ router.post('/salva_risposta', async (req: Request, res: Response) => {
   }
 });
 
-router.post('/quiz_preliminari', async (req: Request, res: Response) => {
+router.get('/quiz_preliminari', async (req: Request, res: Response) => {
   try {
-    const medico = req.body.codice_identificativo;
-
-    const domandaByMed = await quizPreliminareService.getByMed(medico);
-
+    const id = Number(req.query.id);
+    const domandaByMed = await quizPreliminareService.getByMed(id);
     res.json(domandaByMed);
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// TODO da controllare il metodo del service
+router.get('/domande_quiz', async (req: Request, res: Response) => {
+  try {
+    const idQuiz = Number(req.query.id_quiz);
+    const domande = await quizPreliminareService.getDomandeByQuizPreliminare(
+      idQuiz
+    );
+    res.json(domande);
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   }

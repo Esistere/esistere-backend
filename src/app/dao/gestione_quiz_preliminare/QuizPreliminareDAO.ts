@@ -186,7 +186,7 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
         }
 
         const query =
-          'SELECT * FROM domanda_quiz_preliminare WHERE quiz_preliminare = ?1';
+          'SELECT * FROM domanda_quiz_preliminare WHERE quiz_preliminare = $1';
 
         client?.query(query, [quizPreliminare], (err, res) => {
           if (err) {
@@ -297,7 +297,7 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
         }
 
         const query =
-          'SELECT * FROM domanda_quiz_preliminare WHERE quiz_preliminare = ?1';
+          'SELECT * FROM domanda_quiz_preliminare WHERE quiz_preliminare = $1';
 
         client?.query(query, [quizPreliminare], (err, res) => {
           if (err) {

@@ -3,7 +3,7 @@ import { Paziente } from 'app/entity/gestione_autenticazione/Paziente';
 export interface PazienteServiceInterface {
   getAll(): Promise<Paziente[]>;
   get(codice_fiscale: string): Promise<Paziente>;
-  getPaziente(med: number): Promise<Paziente[]>;
+  getPazienteByMed(med: number): Promise<Paziente[]>;
   save(paziente: Paziente): void;
   update(paziente: Paziente): void;
 }

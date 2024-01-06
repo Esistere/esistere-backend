@@ -110,6 +110,7 @@ export class CaregiverFamiliareDAO implements CaregiverFamiliareDAOInterface {
             } else {
               client.release();
               const codice_identificativo = res.rows[0] as number;
+              console.log(codice_identificativo);  
               resolve(codice_identificativo);
             }
           }

@@ -55,7 +55,7 @@ export class PazienteDAO implements PazienteDAOInterface {
     });
   }
 
-  public getPaziente(medico: number): Promise<Paziente[]> {
+  public getPazienteByMed(medico: number): Promise<Paziente[]> {
     return new Promise((resolve, reject) => {
       this.pool.connect((err, client) => {
         if (err) {

@@ -21,7 +21,7 @@ router.get('/visualizza_pazienti', async (req: Request, res: Response) => {
 router.get('/visualizza_pazienti_med', async (req: Request, res: Response) => {
   try {
     const id = Number(req.query.id);
-    const pazienti = await pazienteService.getPaziente(id);
+    const pazienti = await pazienteService.getPazienteByMed(id);
     res.json(pazienti);
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
@@ -33,7 +33,6 @@ router.post('/dati_paziente', async (req: Request, res: Response) => {
     const codice_fiscale: string = req.body.codice_fiscale;
 
     const paziente = await pazienteService.get(codice_fiscale);
-
     res.json(paziente);
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
