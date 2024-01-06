@@ -7,19 +7,19 @@ export class Attivita {
   private _valutazione: number;
 
   constructor(
-    id: number | undefined,
     toDoList: number,
     testo: string,
     completata: boolean,
     commento: string,
-    valutazione: number
+    valutazione: number,
+    id?: number
   ) {
-    this._id = id;
     this._toDoList = toDoList;
     this._testo = testo;
     this._completata = completata;
     this._commento = commento;
     this._valutazione = valutazione;
+    this._id = id;
   }
 
   public get id(): number | undefined {
