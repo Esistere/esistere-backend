@@ -50,9 +50,22 @@ export class MedicoDAO implements MedicoDAOInterface {
           if (err) {
             console.log(err.stack);
             reject(err);
+          } else if (!res.rows[0]) {
+            resolve(res.rows[0]);
           } else {
             client.release();
-            const medico = res.rows[0] as Medico;
+            const data = res.rows[0];
+            const medico = new Medico(
+              data.nome,
+              data.cognome,
+              data.indirizzo_studio,
+              data.numero_civico,
+              data.numero_telefono_studio,
+              data.citta,
+              data.email,
+              data.passwd,
+              data.codice_identificativo
+            );
             resolve(medico);
           }
         });

@@ -1,5 +1,5 @@
 export class Medico {
-  private _codiceIdentificativo?: number | undefined;
+  private _codiceIdentificativo: number | undefined;
   private _nome: string;
   private _cognome: string;
   private _indirizzoStudio: string;
@@ -18,8 +18,7 @@ export class Medico {
     citta: string,
     email: string,
     passwd: string,
-    codiceIdentificativo?: number | undefined
-  ) {
+    codiceIdentificativo?: number) {
     this._codiceIdentificativo = codiceIdentificativo;
     this._nome = nome;
     this._cognome = cognome;

@@ -1,5 +1,5 @@
 export class CaregiverFamiliare {
-  private _codiceIdentificativo?: number;
+  private _codiceIdentificativo: number | undefined;
   private _nome: string;
   private _cognome: string;
   private _indirizzo: string;
@@ -20,7 +20,8 @@ export class CaregiverFamiliare {
     citta: string,
     email: string,
     passwd: string,
-    codiceIdentificativo?: number) {
+    codiceIdentificativo?: number
+  ) {
     this._codiceIdentificativo = codiceIdentificativo;
     this._nome = nome;
     this._cognome = cognome;

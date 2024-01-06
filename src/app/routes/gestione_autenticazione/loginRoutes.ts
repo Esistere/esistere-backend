@@ -22,12 +22,15 @@ router.post('/login', async (req: Request, res: Response) => {
       await caregiverFamiliareService.get(email);
 
     const body = {
-      email: email,
       userType: '',
+      id: 0,
     };
 
     if (medico?.passwd === passwd || caregiverFamiliare?.passwd === passwd) {
       body.userType = medico ? 'medico' : 'caregiver';
+      body.id = medico
+        ? Number(medico.codiceIdentificativo)
+        : Number(caregiverFamiliare.codiceIdentificativo);
       const token = jwt.sign(body, String(process.env.SECRET_KEY), {
         expiresIn: '1h',
       });
@@ -37,6 +40,7 @@ router.post('/login', async (req: Request, res: Response) => {
         message: 'Logged',
         userType: body.userType,
         jwt: token,
+        id: body.id,
       });
     } else throw new Error();
   } catch (error) {

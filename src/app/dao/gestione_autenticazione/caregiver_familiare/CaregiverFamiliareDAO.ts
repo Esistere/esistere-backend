@@ -50,9 +50,24 @@ export class CaregiverFamiliareDAO implements CaregiverFamiliareDAOInterface {
           if (err) {
             console.log(err.stack);
             reject(err);
+          } else if (!res.rows[0]) {
+            resolve(res.rows[0]);
           } else {
             client.release();
-            const caregiver_familiare = res.rows[0] as CaregiverFamiliare;
+            client.release();
+            const data = res.rows[0];
+            const caregiver_familiare = new CaregiverFamiliare(
+              data.nome,
+              data.cognome,
+              data.indirizzo,
+              data.numero_civico,
+              data.data_di_nascita,
+              data.numero_telefono,
+              data.citta,
+              data.email,
+              data.passwd,
+              data.codice_identificativo
+            );
             resolve(caregiver_familiare);
           }
         });
