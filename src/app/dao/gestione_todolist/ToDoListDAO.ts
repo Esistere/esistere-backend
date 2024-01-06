@@ -4,7 +4,7 @@ import { ToDoListDAOInterface } from './ToDoListDAOInterface';
 import { ToDoList } from 'app/entity/gestione_todolist/ToDoList';
 import { Attivita } from 'app/entity/gestione_todolist/Attivita';
 
-export class ToDoLIstDAO implements ToDoListDAOInterface {
+export class ToDoListDAO implements ToDoListDAOInterface {
   private pool: Pool;
 
   constructor() {
