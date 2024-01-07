@@ -8,7 +8,7 @@ import cookieParser from 'cookie-parser';
 import signUpRoutes from './routes/gestione_autenticazione/signUpRoutes';
 import loginRoutes from 'app/routes/gestione_autenticazione/loginRoutes';
 import authRoutes from './routes/gestione_autenticazione/authRoutes';
-
+import utilsRoutes from 'app/routes/utilsRoutes';
 dotenv.config();
 
 const key = fs.readFileSync('src/app/key.pem');
@@ -43,6 +43,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 // Use routes
+app.use(utilsRoutes);
 app.use(signUpRoutes);
 app.use(loginRoutes);
 app.use(authRoutes);
