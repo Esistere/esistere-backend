@@ -1,8 +1,8 @@
 import { Filastrocca } from 'app/entity/gestione filastrocca/Filastrocca';
 
-export interface FilastroccaDAOInterface {
+export interface FilastroccaServiceInterface {
   get(id: number): Promise<Filastrocca>;
-  save(filastrocca: Filastrocca): Promise<void>;
-  update(filastrocca: Filastrocca): Promise<void>;
+  save(filastrocca: Filastrocca): void;
+  update(filastrocca: Filastrocca): void;
   getByCargiverFamiliare(caregiverFamiliare: number): Promise<Filastrocca[]>;
 }

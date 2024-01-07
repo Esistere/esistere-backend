@@ -8,6 +8,7 @@ export interface QuizPreliminareDAOInterface {
   save(quizPreliminare: QuizPreliminare): Promise<void>;
   update(quizPreliminare: QuizPreliminare): Promise<void>;
   getByMed(medico: number): Promise<QuizPreliminare[]>;
+  getByPaziente(paziente: string): Promise<QuizPreliminare[]>;
 
   getAllDomande(): Promise<DomandaQuizPreliminare[]>;
   getDomandeByQuizPreliminare(

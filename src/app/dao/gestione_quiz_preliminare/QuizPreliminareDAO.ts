@@ -5,6 +5,7 @@ import { QuizPreliminare } from 'app/entity/gestione_quiz_preliminare/QuizPrelim
 import { DomandaQuizPreliminare } from 'app/entity/gestione_quiz_preliminare/DomandaQuizPreliminare';
 import { RispostaQuizPreliminare } from 'app/entity/gestione_quiz_preliminare/RispostaQuizPreliminare';
 
+// TODO ma il paziente non dovrebbe avere la chiave del quiz preliminare?
 export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
   private pool: Pool;
 
@@ -49,7 +50,15 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
             reject(err);
           } else {
             client.release();
-            const quizPreliminare = res.rows[0] as QuizPreliminare;
+            const data = res.rows[0];
+            const quizPreliminare = new QuizPreliminare(
+              data.numero_domande,
+              data.sage,
+              data.punteggio_totale,
+              data.med,
+              data.paziente,
+              data.id
+            );
             resolve(quizPreliminare);
           }
         });
@@ -102,7 +111,8 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
         }
 
         const query =
-          'UPDATE medico SET (id, numero_domande, sage, punteggio_totale,' +
+          'UPDATE quiz_preliminare SET (id, numero_domande, ' +
+          'sage, punteggio_totale,' +
           ' med, paziente) = ($1, $2, $3, $4, $5, $6)  WHERE id = $7';
 
         client?.query(
@@ -139,9 +149,31 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
           return;
         }
 
-        const query = 'SELECT * FROM quiz_preliminare WHERE med= ?1';
+        const query = 'SELECT * FROM quiz_preliminare WHERE med= $1';
 
         client?.query(query, [medico], (err, res) => {
+          if (err) {
+            console.log(err.stack);
+            reject(err);
+          } else {
+            client.release();
+            resolve(res.rows as QuizPreliminare[]);
+          }
+        });
+      });
+    });
+  }
+  public getByPaziente(paziente: string): Promise<QuizPreliminare[]> {
+    return new Promise((resolve, reject) => {
+      this.pool.connect((err, client) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+
+        const query = 'SELECT * FROM quiz_preliminare WHERE paziente= $1';
+
+        client?.query(query, [paziente], (err, res) => {
           if (err) {
             console.log(err.stack);
             reject(err);
@@ -217,8 +249,12 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
             reject(err);
           } else {
             client.release();
-            const domandaQuizPreliminare = res
-              .rows[0] as DomandaQuizPreliminare;
+            const data = res.rows[0];
+            const domandaQuizPreliminare = new DomandaQuizPreliminare(
+              data.id,
+              data.domanda,
+              data.quiz_preliminare
+            );
             resolve(domandaQuizPreliminare);
           }
         });
@@ -349,8 +385,12 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
             reject(err);
           } else {
             client.release();
-            const rispostaQuizPreliminare = res
-              .rows[0] as RispostaQuizPreliminare;
+            const data = res.rows[0];
+            const rispostaQuizPreliminare = new RispostaQuizPreliminare(
+              data.risposta,
+              data.domanda_preliminare,
+              data.paziente
+            );
             resolve(rispostaQuizPreliminare);
           }
         });
