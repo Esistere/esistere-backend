@@ -125,6 +125,7 @@ export class QuizAllenamentoDAO implements QuizAllenamentoDAOInterface {
       });
     });
   }
+
   public getAllDomande(): Promise<DomandaQuizAllenamento[]> {
     return new Promise((resolve, reject) => {
       this.pool.connect((err, client) => {
@@ -279,7 +280,7 @@ export class QuizAllenamentoDAO implements QuizAllenamentoDAOInterface {
               data.risposta,
               data.corretta,
               data.selezionata,
-              data.id,
+              data.id
             );
             resolve(rispostaAllenamento);
           }
@@ -287,7 +288,7 @@ export class QuizAllenamentoDAO implements QuizAllenamentoDAOInterface {
       });
     });
   }
-  
+
   public saveRisposta(
     rispostaQuizAllenamento: RispostaQuizAllenamento
   ): Promise<void> {

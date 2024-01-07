@@ -9,9 +9,9 @@ const filastroccaService: FilastroccaServiceInterface =
 
 router.get('/filastrocche_cgfam', async (req: Request, res: Response) => {
   try {
-    const id_cgfam = Number(req.query.id_cgfam);
+    const idCgFam = Number(req.query.idCgFam);
     const filastrocche = await filastroccaService.getByCaregiverFamiliare(
-      id_cgfam
+      idCgFam
     );
     res.json(filastrocche);
   } catch (error) {
@@ -40,7 +40,7 @@ router.post('/salva_filastrocca', async (req: Request, res: Response) => {
     );
 
     filastroccaService.save(filastrocca);
-    res.status(201).json({ success: 'Filastrocca aggiunta' });
+    res.status(201).json({ success: true, message: 'Filastrocca aggiunta' });
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   }
@@ -58,7 +58,7 @@ router.post('/update_filastrocca', async (req: Request, res: Response) => {
     );
 
     filastroccaService.update(filastrocca);
-    res.status(200).json(filastrocca);
+    res.status(200).json({ success: true, filastrocca });
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   }

@@ -9,16 +9,22 @@ export class FilastroccaService implements FilastroccaServiceInterface {
   constructor() {
     this.filastroccaDAO = new FilastroccaDAO();
   }
-  get(id: number): Promise<Filastrocca> {
+
+  public get(id: number): Promise<Filastrocca> {
     return this.filastroccaDAO.get(id);
   }
-  save(filastrocca: Filastrocca): void {
+
+  public save(filastrocca: Filastrocca): void {
     this.filastroccaDAO.save(filastrocca);
   }
-  update(filastrocca: Filastrocca): void {
+
+  public update(filastrocca: Filastrocca): void {
     this.filastroccaDAO.update(filastrocca);
   }
-  getByCaregiverFamiliare(caregiverFamiliare: number): Promise<Filastrocca[]> {
+
+  public getByCaregiverFamiliare(
+    caregiverFamiliare: number
+  ): Promise<Filastrocca[]> {
     return this.filastroccaDAO.getByCaregiverFamiliare(caregiverFamiliare);
   }
 }

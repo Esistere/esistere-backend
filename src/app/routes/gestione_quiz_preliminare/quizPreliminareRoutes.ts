@@ -9,6 +9,16 @@ const router = express.Router();
 const quizPreliminareService: QuizPreliminareServiceInterface =
   new QuizPreliminareService();
 
+router.get('/quiz_preliminari', async (req: Request, res: Response) => {
+  try {
+    const id = Number(req.query.id);
+    const domandaByMed = await quizPreliminareService.getByMed(id);
+    res.json(domandaByMed);
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 router.post('/salva_quiz', async (req: Request, res: Response) => {
   try {
     const quizPreliminareJSON = req.body;
@@ -52,16 +62,6 @@ router.post('/salva_risposta', async (req: Request, res: Response) => {
       rispostaPreliminareJSON.paziente
     );
     quizPreliminareService.saveRisposta(rispostaPreliminare);
-  } catch (error) {
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
-
-router.get('/quiz_preliminari', async (req: Request, res: Response) => {
-  try {
-    const id = Number(req.query.id);
-    const domandaByMed = await quizPreliminareService.getByMed(id);
-    res.json(domandaByMed);
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   }

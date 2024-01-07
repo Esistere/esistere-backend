@@ -15,40 +15,51 @@ export class QuizAllenamentoService implements QuizAllenamentoServiceInterface {
   public getAll(): Promise<QuizAllenamentoGiornaliero[]> {
     return this.quizAllenamentoDAO.getAll();
   }
+
   public get(id: number): Promise<QuizAllenamentoGiornaliero> {
     return this.quizAllenamentoDAO.get(id);
   }
+
   public save(quizAllenamento: QuizAllenamentoGiornaliero): Promise<void> {
     return this.quizAllenamentoDAO.save(quizAllenamento);
   }
+
   public getByCaregiverFamiliare(
     caregiverFamiliare: number
   ): Promise<QuizAllenamentoGiornaliero[]> {
     return this.quizAllenamentoDAO.getByCaregiverFamiliare(caregiverFamiliare);
   }
+
   public getAllDomande(): Promise<DomandaQuizAllenamento[]> {
     return this.quizAllenamentoDAO.getAllDomande();
   }
+
   public getDomanda(id: number): Promise<DomandaQuizAllenamento> {
     return this.quizAllenamentoDAO.getDomanda(id);
   }
+
   public saveDomanda(domanda: DomandaQuizAllenamento): Promise<void> {
     return this.quizAllenamentoDAO.saveDomanda(domanda);
   }
+
   public getByQuizAllenamento(id: number): Promise<DomandaQuizAllenamento[]> {
     return this.quizAllenamentoDAO.getByQuizAllenamento(id);
   }
+
   public getAllRisposta(): Promise<RispostaQuizAllenamento[]> {
     return this.quizAllenamentoDAO.getAllRisposta();
   }
+
   public getRisposta(id: number): Promise<RispostaQuizAllenamento> {
     return this.quizAllenamentoDAO.getRisposta(id);
   }
+
   public saveRisposta(
     rispostaQuizAllenamento: RispostaQuizAllenamento
   ): Promise<void> {
     return this.quizAllenamentoDAO.saveRisposta(rispostaQuizAllenamento);
   }
+
   public getByDomandaAllenamento(
     id: number
   ): Promise<RispostaQuizAllenamento[]> {
