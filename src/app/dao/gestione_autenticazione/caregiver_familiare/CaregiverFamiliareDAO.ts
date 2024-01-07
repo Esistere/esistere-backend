@@ -54,7 +54,6 @@ export class CaregiverFamiliareDAO implements CaregiverFamiliareDAOInterface {
             resolve(res.rows[0]);
           } else {
             client.release();
-            client.release();
             const data = res.rows[0];
             const caregiver_familiare = new CaregiverFamiliare(
               data.nome,

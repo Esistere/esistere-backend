@@ -18,7 +18,7 @@ export class FilastroccaService implements FilastroccaServiceInterface {
   update(filastrocca: Filastrocca): void {
     this.filastroccaDAO.update(filastrocca);
   }
-  getByCargiverFamiliare(caregiverFamiliare: number): Promise<Filastrocca[]> {
-    return this.filastroccaDAO.getByCargiverFamiliare(caregiverFamiliare);
+  getByCaregiverFamiliare(caregiverFamiliare: number): Promise<Filastrocca[]> {
+    return this.filastroccaDAO.getByCaregiverFamiliare(caregiverFamiliare);
   }
 }

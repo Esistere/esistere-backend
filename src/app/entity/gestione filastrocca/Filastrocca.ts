@@ -6,17 +6,17 @@ export class Filastrocca {
   private _autore: string;
 
   constructor(
-    caregiverFamiliare: number,
     titolo: string,
     testo: string,
     autore: string,
+    caregiverFamiliare: number,
     id?: number
   ) {
-    this._id = id;
     this._caregiverFamiliare = caregiverFamiliare;
     this._titolo = titolo;
     this._testo = testo;
     this._autore = autore;
+    this._id = id;
   }
 
   public get id(): number | undefined {

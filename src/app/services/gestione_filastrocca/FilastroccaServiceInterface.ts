@@ -4,5 +4,5 @@ export interface FilastroccaServiceInterface {
   get(id: number): Promise<Filastrocca>;
   save(filastrocca: Filastrocca): void;
   update(filastrocca: Filastrocca): void;
-  getByCargiverFamiliare(caregiverFamiliare: number): Promise<Filastrocca[]>;
+  getByCaregiverFamiliare(caregiverFamiliare: number): Promise<Filastrocca[]>;
 }

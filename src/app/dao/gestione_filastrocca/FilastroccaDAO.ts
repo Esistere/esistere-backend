@@ -30,7 +30,7 @@ export class FilastroccaDAO implements FilastroccaDAOInterface {
               data.titolo,
               data.testo,
               data.autore,
-              data.caregivere_familiare,
+              data.cg_fam,
               data.id
             );
             resolve(filastrocca);
@@ -39,7 +39,7 @@ export class FilastroccaDAO implements FilastroccaDAOInterface {
       });
     });
   }
-  
+
   save(filastrocca: Filastrocca): Promise<void> {
     return new Promise<void>((resolve, reject) =>
       this.pool.connect((err, client) => {
@@ -50,7 +50,7 @@ export class FilastroccaDAO implements FilastroccaDAOInterface {
 
         const query =
           'INSERT INTO filastrocca (titolo, testo, ' +
-          'autore, caregiver_familiare) VALUES ($1, $2, $3, $4)';
+          'autore, cg_fam) VALUES ($1, $2, $3, $4)';
 
         client?.query(
           query,
@@ -85,7 +85,7 @@ export class FilastroccaDAO implements FilastroccaDAOInterface {
 
         const query =
           'UPDATE filastrocca SET (id, titolo, testo, autore, ' +
-          'caregiver_familiare) = ($1, $2, $3, $4, $5)  WHERE id = $7';
+          'cg_fam) = ($1, $2, $3, $4, $5)  WHERE id = $6';
 
         client?.query(
           query,
@@ -95,6 +95,7 @@ export class FilastroccaDAO implements FilastroccaDAOInterface {
             filastrocca.testo,
             filastrocca.autore,
             filastrocca.caregiverFamiliare,
+            filastrocca.id,
           ],
           (err) => {
             if (err) {
@@ -110,7 +111,7 @@ export class FilastroccaDAO implements FilastroccaDAOInterface {
       })
     );
   }
-  getByCargiverFamiliare(caregiverFamiliare: number): Promise<Filastrocca[]> {
+  getByCaregiverFamiliare(caregiverFamiliare: number): Promise<Filastrocca[]> {
     return new Promise((resolve, reject) => {
       this.pool.connect((err, client) => {
         if (err) {
@@ -118,8 +119,7 @@ export class FilastroccaDAO implements FilastroccaDAOInterface {
           return;
         }
 
-        const query =
-          'SELECT * FROM quiz_preliminare WHERE caregiver_familiare= $1';
+        const query = 'SELECT * FROM filastrocca WHERE cg_fam= $1';
 
         client?.query(query, [caregiverFamiliare], (err, res) => {
           if (err) {
