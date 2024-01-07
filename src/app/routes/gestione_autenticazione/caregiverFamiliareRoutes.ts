@@ -18,4 +18,19 @@ router.get(
   }
 );
 
+router.get(
+  '/visualizza_caregiver_familiare',
+  async (req: Request, res: Response) => {
+    try {
+      const idCaregiverFamiliare = Number(req.query.id);
+      const caregiverFamiliare = await caregiverFamiliareService.get(
+        idCaregiverFamiliare
+      );
+      res.json(caregiverFamiliare);
+    } catch (error) {
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  }
+);
+
 export default router;

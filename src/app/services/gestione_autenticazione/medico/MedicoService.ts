@@ -2,12 +2,17 @@ import { Medico } from 'app/entity/gestione_autenticazione/Medico';
 import { MedicoServiceInterface } from './MedicoServiceInterface';
 import { MedicoDAO } from 'app/dao/gestione_autenticazione/medico/MedicoDAO';
 import { MedicoDAOInterface } from 'app/dao/gestione_autenticazione/medico/MedicoDAOInterface';
+import { PazienteDAOInterface } from 'app/dao/gestione_autenticazione/paziente/PazienteDAOInterface';
+import { PazienteDAO } from 'app/dao/gestione_autenticazione/paziente/PazienteDAO';
+import { Paziente } from 'app/entity/gestione_autenticazione/Paziente';
 
 export class MedicoService implements MedicoServiceInterface {
   private medicoDAO: MedicoDAOInterface;
+  private pazienteDAO: PazienteDAOInterface;
 
   constructor() {
     this.medicoDAO = new MedicoDAO();
+    this.pazienteDAO = new PazienteDAO();
   }
 
   public getAll(): Promise<Medico[]> {
@@ -24,5 +29,13 @@ export class MedicoService implements MedicoServiceInterface {
 
   public update(medico: Medico): void {
     this.medicoDAO.update(medico);
+  }
+
+  public getPazientiByMed(med: number): Promise<Paziente[]> {
+    return this.pazienteDAO.getPazienteByMed(med);
+  }
+
+  public getPazienteByMed(cf: string): Promise<Paziente> {
+    return this.pazienteDAO.get(cf);
   }
 }

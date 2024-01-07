@@ -1,13 +1,9 @@
 import { PazienteService } from 'app/services/gestione_autenticazione/paziente/PazienteService';
 import { PazienteServiceInterface } from 'app/services/gestione_autenticazione/paziente/PazienteServiceInterface';
-import { CaregiverFamiliareService } from 'app/services/gestione_autenticazione/caregiver_familiare/CaregiverFamiliareService';
-import { CaregiverFamiliareServiceInterface } from 'app/services/gestione_autenticazione/caregiver_familiare/CaregiverFamiliareServiceInterface';
 import express, { Request, Response } from 'express';
 
 const router = express.Router();
 const pazienteService: PazienteServiceInterface = new PazienteService();
-const caregiverFamiliareService: CaregiverFamiliareServiceInterface =
-  new CaregiverFamiliareService();
 
 router.get('/visualizza_pazienti', async (req: Request, res: Response) => {
   try {
@@ -18,31 +14,21 @@ router.get('/visualizza_pazienti', async (req: Request, res: Response) => {
   }
 });
 
-router.get('/visualizza_pazienti_med', async (req: Request, res: Response) => {
+router.post('/visualizza_paziente', async (req: Request, res: Response) => {
   try {
-    const id = Number(req.query.id);
-    const pazienti = await pazienteService.getPazienteByMed(id);
-    res.json(pazienti);
-  } catch (error) {
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
+    const id: string = req.body.id;
 
-router.post('/dati_paziente', async (req: Request, res: Response) => {
-  try {
-    const codice_fiscale: string = req.body.codice_fiscale;
-
-    const paziente = await pazienteService.get(codice_fiscale);
+    const paziente = await pazienteService.get(id);
     res.json(paziente);
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
-router.post('/visualizza_caregiver', async (req: Request, res: Response) => {
+router.get('/visualizza_caregiver', async (req: Request, res: Response) => {
   try {
-    const id: number = req.body.codice_identificativo;
-    const caregiverFamiliare = await caregiverFamiliareService.get(id);
+    const id: number = req.body.id;
+    const caregiverFamiliare = await pazienteService.getCgFamByPaziente(id);
     res.json(caregiverFamiliare);
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
