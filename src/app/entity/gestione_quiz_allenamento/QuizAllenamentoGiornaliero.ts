@@ -1,16 +1,16 @@
 export class QuizAllenamentoGiornaliero {
   private _id: number | undefined;
-  private _cgFam: number;
+  private _caregiverFamiliare: number;
   private _numDomande: number;
   private _punteggioTot: number;
 
   constructor(
-    cgFam: number,
+    caregiverFamiliare: number,
     numDomande: number,
     punteggioTot: number,
     id?: number
   ) {
-    this._cgFam = cgFam;
+    this._caregiverFamiliare = caregiverFamiliare;
     this._numDomande = numDomande;
     this._punteggioTot = punteggioTot;
     this._id = id;
@@ -24,12 +24,12 @@ export class QuizAllenamentoGiornaliero {
     this._id = id;
   }
 
-  public get cgFam(): number {
-    return this._cgFam;
+  public get caregiverFamiliare(): number {
+    return this._caregiverFamiliare;
   }
 
-  public set cgFam(cgFam: number) {
-    this._cgFam = cgFam;
+  public set caregiverFamiliare(caregiverFamiliare: number) {
+    this._caregiverFamiliare = caregiverFamiliare;
   }
 
   public get numDomande(): number {

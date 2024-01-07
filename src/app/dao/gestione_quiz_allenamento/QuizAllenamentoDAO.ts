@@ -52,7 +52,13 @@ export class QuizAllenamentoDAO implements QuizAllenamentoDAOInterface {
             reject(err);
           } else {
             client.release();
-            const quizAllenamento = res.rows[0] as QuizAllenamentoGiornaliero;
+            const data = res.rows[0];
+            const quizAllenamento = new QuizAllenamentoGiornaliero(
+              data.cg_fam,
+              data.numero_domande,
+              data.punteggio_totale,
+              data.id
+            );
             resolve(quizAllenamento);
           }
         });
@@ -75,7 +81,7 @@ export class QuizAllenamentoDAO implements QuizAllenamentoDAOInterface {
         client?.query(
           query,
           [
-            quizAllenamento.cgFam,
+            quizAllenamento.caregiverFamiliare,
             quizAllenamento.numDomande,
             quizAllenamento.punteggioTot,
           ],
@@ -105,7 +111,7 @@ export class QuizAllenamentoDAO implements QuizAllenamentoDAOInterface {
         }
 
         const query =
-          'SELECT * FROM quiz_allenamento_giornaliero WHERE cg_fam= ?1';
+          'SELECT * FROM quiz_allenamento_giornaliero WHERE cg_fam= $1';
 
         client?.query(query, [caregiverFamiliare], (err, res) => {
           if (err) {
@@ -127,21 +133,21 @@ export class QuizAllenamentoDAO implements QuizAllenamentoDAOInterface {
           return;
         }
 
-        client?.query(
-          'SELECT * FROM domanda_allenamento_giornaliero',
-          (err, res) => {
-            if (err) {
-              console.log(err.stack);
-              reject(err);
-            } else {
-              client.release();
-              resolve(res.rows as DomandaQuizAllenamento[]);
-            }
+        const query = 'SELECT * FROM domanda_allenamento_giornaliero';
+
+        client?.query(query, (err, res) => {
+          if (err) {
+            console.log(err.stack);
+            reject(err);
+          } else {
+            client.release();
+            resolve(res.rows as DomandaQuizAllenamento[]);
           }
-        );
+        });
       });
     });
   }
+
   public getDomanda(id: number): Promise<DomandaQuizAllenamento> {
     return new Promise((resolve, reject) => {
       this.pool.connect((err, client) => {
@@ -159,7 +165,13 @@ export class QuizAllenamentoDAO implements QuizAllenamentoDAOInterface {
             reject(err);
           } else {
             client.release();
-            const domandaAllenamento = res.rows[0] as DomandaQuizAllenamento;
+            const data = res.rows[0];
+            const domandaAllenamento = new DomandaQuizAllenamento(
+              data.quiz_ag,
+              data.domanda,
+              data.corretta,
+              data.id
+            );
             resolve(domandaAllenamento);
           }
         });
@@ -196,6 +208,7 @@ export class QuizAllenamentoDAO implements QuizAllenamentoDAOInterface {
       })
     );
   }
+
   public getByQuizAllenamento(id: number): Promise<DomandaQuizAllenamento[]> {
     return new Promise((resolve, reject) => {
       this.pool.connect((err, client) => {
@@ -205,7 +218,7 @@ export class QuizAllenamentoDAO implements QuizAllenamentoDAOInterface {
         }
 
         const query =
-          'SELECT * FROM domanda_allenamento_giornaliero WHERE quiz_ag= ?1';
+          'SELECT * FROM domanda_allenamento_giornaliero WHERE quiz_ag= $1';
 
         client?.query(query, [id], (err, res) => {
           if (err) {
@@ -219,6 +232,7 @@ export class QuizAllenamentoDAO implements QuizAllenamentoDAOInterface {
       });
     });
   }
+
   public getAllRisposta(): Promise<RispostaQuizAllenamento[]> {
     return new Promise((resolve, reject) => {
       this.pool.connect((err, client) => {
@@ -227,21 +241,21 @@ export class QuizAllenamentoDAO implements QuizAllenamentoDAOInterface {
           return;
         }
 
-        client?.query(
-          'SELECT * FROM risposta_allenamento_giornaliero',
-          (err, res) => {
-            if (err) {
-              console.log(err.stack);
-              reject(err);
-            } else {
-              client.release();
-              resolve(res.rows as RispostaQuizAllenamento[]);
-            }
+        const query = 'SELECT * FROM risposta_allenamento_giornaliero';
+
+        client?.query(query, (err, res) => {
+          if (err) {
+            console.log(err.stack);
+            reject(err);
+          } else {
+            client.release();
+            resolve(res.rows as RispostaQuizAllenamento[]);
           }
-        );
+        });
       });
     });
   }
+
   public getRisposta(id: number): Promise<RispostaQuizAllenamento> {
     return new Promise((resolve, reject) => {
       this.pool.connect((err, client) => {
@@ -259,13 +273,21 @@ export class QuizAllenamentoDAO implements QuizAllenamentoDAOInterface {
             reject(err);
           } else {
             client.release();
-            const rispostaAllenamento = res.rows[0] as RispostaQuizAllenamento;
+            const data = res.rows[0];
+            const rispostaAllenamento = new RispostaQuizAllenamento(
+              data.domanda_ag,
+              data.risposta,
+              data.corretta,
+              data.selezionata,
+              data.id,
+            );
             resolve(rispostaAllenamento);
           }
         });
       });
     });
   }
+  
   public saveRisposta(
     rispostaQuizAllenamento: RispostaQuizAllenamento
   ): Promise<void> {
@@ -278,7 +300,8 @@ export class QuizAllenamentoDAO implements QuizAllenamentoDAOInterface {
 
         const query =
           'INSERT INTO risposta_allenamento_giornaliero ' +
-          '(domanda_ag,risposta,corretta,selezionata) VALUES ($1, $2, $3, $4)';
+          '(domanda_ag, risposta, corretta, ' +
+          'selezionata) VALUES ($1, $2, $3, $4)';
 
         client?.query(
           query,
