@@ -19,4 +19,9 @@ export interface QuizAllenamentoServiceInterface {
   getRisposta(id: number): Promise<RispostaQuizAllenamento>;
   saveRisposta(rispostaQuizAllenamento: RispostaQuizAllenamento): Promise<void>;
   getByDomandaAllenamento(id: number): Promise<RispostaQuizAllenamento[]>;
+
+  createQuizAllenamento(
+    quizAllenamento: QuizAllenamentoGiornaliero,
+    risposteDomanda: Map<DomandaQuizAllenamento, RispostaQuizAllenamento[]>
+  ): Promise<void>;
 }

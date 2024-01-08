@@ -35,19 +35,19 @@ router.get('/quiz_allenamento_cgfam', async (req: Request, res: Response) => {
   }
 });
 
-router.post('/salva_quiz_allenamento', async (req: Request, res: Response) => {
-  try {
-    const quizAllenamentoJSON = req.body;
-    const quizAllenamentoGiornaliero = new QuizAllenamentoGiornaliero(
-      quizAllenamentoJSON.cg_fam,
-      quizAllenamentoJSON.numero_domande,
-      quizAllenamentoJSON.punteggio_totale
-    );
-    quizAllenamentoService.save(quizAllenamentoGiornaliero);
-  } catch (error) {
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
+// router.post('/salva_quiz_allenamento', async (req: Request, res: Response) => {
+//   try {
+//     const quizAllenamentoJSON = req.body;
+//     const quizAllenamentoGiornaliero = new QuizAllenamentoGiornaliero(
+//       quizAllenamentoJSON.cg_fam,
+//       quizAllenamentoJSON.numero_domande,
+//       quizAllenamentoJSON.punteggio_totale
+//     );
+//     quizAllenamentoService.save(quizAllenamentoGiornaliero);
+//   } catch (error) {
+//     res.status(500).json({ error: 'Internal Server Error' });
+//   }
+// });
 
 router.get(
   '/domanda_allenamento_giornaliero',
@@ -139,3 +139,45 @@ router.post(
     }
   }
 );
+
+router.post('/salva_quiz_allenamento', async (req: Request, res: Response) => {
+  try {
+    const quizAllenamentoJSON = req.body;
+    const risposteDomanda = new Map<
+      DomandaQuizAllenamento,
+      RispostaQuizAllenamento[]
+    >();
+
+    for (const domandaJSON of quizAllenamentoJSON.quiz) {
+      const domanda = new DomandaQuizAllenamento(
+        domandaJSON.quiz_ag,
+        domandaJSON.domanda,
+        domandaJSON.corretta
+      );
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const risposte = domandaJSON.risposte.map((rispostaJSON: any) => {
+        return new RispostaQuizAllenamento(
+          rispostaJSON.domanda_ag,
+          rispostaJSON.risposta,
+          rispostaJSON.corretta,
+          rispostaJSON.selezionata
+        );
+      });
+      risposteDomanda.set(domanda, risposte);
+    }
+
+    const quizAllenamentoGiornaliero = new QuizAllenamentoGiornaliero(
+      quizAllenamentoJSON.cg_fam,
+      quizAllenamentoJSON.numero_domande,
+      quizAllenamentoJSON.punteggio_totale
+    );
+    quizAllenamentoService.createQuizAllenamento(
+      quizAllenamentoGiornaliero,
+      risposteDomanda
+    );
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+export default router;

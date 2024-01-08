@@ -4,6 +4,7 @@ import * as jwt from 'jsonwebtoken';
 import pazienteRoutes from './pazienteRoutes';
 import medicoRoutes from './medicoRoutes';
 import caregiverFamiliareRoutes from './caregiverFamiliareRoutes';
+import quizAllenamentoRoutes from 'app/routes/gestione_quiz_allenamento/quizAllenamentoRoutes';
 import filastroccaRoutes from '../gestione_filastrocca/filastroccaRoutes';
 
 const authRoutes = Router();
@@ -45,6 +46,7 @@ authRoutes.use('/userType', async (req: Request, res: Response) => {
 authRoutes.use(pazienteRoutes);
 authRoutes.use(medicoRoutes);
 authRoutes.use(caregiverFamiliareRoutes);
+authRoutes.use(quizAllenamentoRoutes);
 authRoutes.use(filastroccaRoutes);
 
 export default authRoutes;
