@@ -4,6 +4,7 @@ import { RispostaQuizAllenamento } from 'app/entity/gestione_quiz_allenamento/Ri
 import { QuizAllenamentoServiceInterface } from './QuizAllenamentoServiceInterface';
 import { QuizAllenamentoDAOInterface } from 'app/dao/gestione_quiz_allenamento/QuizAllenamentoDAOInterface';
 import { QuizAllenamentoDAO } from 'app/dao/gestione_quiz_allenamento/QuizAllenamentoDAO';
+import { validateHeaderName } from 'http';
 
 export class QuizAllenamentoService implements QuizAllenamentoServiceInterface {
   private quizAllenamentoDAO: QuizAllenamentoDAOInterface;
@@ -64,5 +65,20 @@ export class QuizAllenamentoService implements QuizAllenamentoServiceInterface {
     id: number
   ): Promise<RispostaQuizAllenamento[]> {
     return this.quizAllenamentoDAO.getByDomandaAllenamento(id);
+  }
+
+  public createQuizAllenamento(
+    quizAllenamento: QuizAllenamentoGiornaliero,
+    domandeAllenamento: DomandaQuizAllenamento[],
+    rispostaQuizAllenamento: Map<
+      DomandaQuizAllenamento,
+      RispostaQuizAllenamento[]
+    >
+  ): void {
+    this.quizAllenamentoDAO.save(quizAllenamento);
+    domandeAllenamento.forEach((d) => this.quizAllenamentoDAO.saveDomanda(d));
+    rispostaQuizAllenamento.forEach((value) => {
+      value.forEach((v) => this.quizAllenamentoDAO.saveRisposta(v));
+    });
   }
 }

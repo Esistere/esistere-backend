@@ -95,13 +95,11 @@ router.post(
           (await caregiverFamiliareService.get(caregiverFamiliare.email))
         )
       ) {
-        const codice_identificativo = await caregiverFamiliareService.save(
-          caregiverFamiliare
-        );
+        const id = await caregiverFamiliareService.save(caregiverFamiliare);
         res.json({
           success: true,
           message: 'Signup completed',
-          codice_identificativo: codice_identificativo,
+          id: id,
         });
       } else {
         res
