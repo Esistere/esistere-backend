@@ -35,20 +35,6 @@ router.get('/quiz_allenamento_cgfam', async (req: Request, res: Response) => {
   }
 });
 
-// router.post('/salva_quiz_allenamento', async (req: Request, res: Response) => {
-//   try {
-//     const quizAllenamentoJSON = req.body;
-//     const quizAllenamentoGiornaliero = new QuizAllenamentoGiornaliero(
-//       quizAllenamentoJSON.cg_fam,
-//       quizAllenamentoJSON.numero_domande,
-//       quizAllenamentoJSON.punteggio_totale
-//     );
-//     quizAllenamentoService.save(quizAllenamentoGiornaliero);
-//   } catch (error) {
-//     res.status(500).json({ error: 'Internal Server Error' });
-//   }
-// });
-
 router.get(
   '/domanda_allenamento_giornaliero',
   async (req: Request, res: Response) => {
@@ -148,33 +134,25 @@ router.post('/salva_quiz_allenamento', async (req: Request, res: Response) => {
       RispostaQuizAllenamento[]
     >();
 
-    for (const domandaJSON of quizAllenamentoJSON.quiz) {
-      const domanda = new DomandaQuizAllenamento(
-        domandaJSON.quiz_ag,
-        domandaJSON.domanda,
-        domandaJSON.corretta
-      );
+    for (const domandaKey of Object.keys(quizAllenamentoJSON.quiz)) {
+      const domandaJSON = quizAllenamentoJSON.quiz[domandaKey];
+      const domanda = new DomandaQuizAllenamento(domandaJSON.domanda);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const risposte = domandaJSON.risposte.map((rispostaJSON: any) => {
-        return new RispostaQuizAllenamento(
-          rispostaJSON.domanda_ag,
-          rispostaJSON.risposta,
-          rispostaJSON.corretta,
-          rispostaJSON.selezionata
-        );
+        return new RispostaQuizAllenamento(rispostaJSON.risposta);
       });
       risposteDomanda.set(domanda, risposte);
     }
 
     const quizAllenamentoGiornaliero = new QuizAllenamentoGiornaliero(
       quizAllenamentoJSON.cg_fam,
-      quizAllenamentoJSON.numero_domande,
-      quizAllenamentoJSON.punteggio_totale
+      quizAllenamentoJSON.numero_domande
     );
     quizAllenamentoService.createQuizAllenamento(
       quizAllenamentoGiornaliero,
       risposteDomanda
     );
+    res.json({ message: 'Quiz correctly saved' });
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   }

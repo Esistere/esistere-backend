@@ -1,15 +1,15 @@
 export class RispostaQuizAllenamento {
   private _id: number | undefined;
-  private _domanda: number;
+  private _domanda: number | undefined;
   private _risposta: string;
-  private _corretta: boolean;
-  private _selezionata: boolean;
+  private _corretta: boolean | undefined;
+  private _selezionata: boolean | undefined;
 
   constructor(
-    domanda: number,
     risposta: string,
-    corretta: boolean,
-    selezionata: boolean,
+    domanda?: number,
+    corretta?: boolean,
+    selezionata?: boolean,
     id?: number
   ) {
     this._domanda = domanda;
@@ -27,11 +27,11 @@ export class RispostaQuizAllenamento {
     this._id = id;
   }
 
-  public get domanda(): number {
+  public get domanda(): number | undefined {
     return this._domanda;
   }
 
-  public set domanda(domanda: number) {
+  public set domanda(domanda: number | undefined) {
     this.domanda = domanda;
   }
 
@@ -43,19 +43,19 @@ export class RispostaQuizAllenamento {
     this._risposta = risposta;
   }
 
-  public get corretta(): boolean {
+  public get corretta(): boolean | undefined {
     return this._corretta;
   }
 
-  public set corretta(corretta: boolean) {
+  public set corretta(corretta: boolean | undefined) {
     this._corretta = corretta;
   }
 
-  public get selezionata(): boolean {
+  public get selezionata(): boolean | undefined {
     return this._selezionata;
   }
 
-  public set selezionata(selezionata: boolean) {
+  public set selezionata(selezionata: boolean | undefined) {
     this._selezionata = selezionata;
   }
 }

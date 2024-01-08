@@ -1,13 +1,13 @@
 export class DomandaQuizAllenamento {
   private _id: number | undefined;
-  private _quizAllenamento: number;
+  private _quizAllenamento: number | undefined;
   private _domanda: string;
-  private _corretta: boolean;
+  private _corretta: boolean | undefined;
 
   constructor(
-    quizAllenamento: number,
     domanda: string,
-    corretta: boolean,
+    quizAllenamento?: number,
+    corretta?: boolean,
     id?: number
   ) {
     this._quizAllenamento = quizAllenamento;
@@ -24,11 +24,11 @@ export class DomandaQuizAllenamento {
     this._id = id;
   }
 
-  public get quizAllenamento(): number {
+  public get quizAllenamento(): number | undefined {
     return this._quizAllenamento;
   }
 
-  public set quizAllenamento(quizAllenamento: number) {
+  public set quizAllenamento(quizAllenamento: number | undefined) {
     this._quizAllenamento = quizAllenamento;
   }
 
@@ -37,14 +37,14 @@ export class DomandaQuizAllenamento {
   }
 
   public set domanda(domanda: string) {
-    this.domanda = domanda;
+    this._domanda = domanda;
   }
 
-  public get corretta(): boolean {
-    return this.corretta;
+  public get corretta(): boolean | undefined {
+    return this._corretta;
   }
 
-  public set corretta(corretta: boolean) {
-    this.corretta = corretta;
+  public set corretta(corretta: boolean | undefined) {
+    this._corretta = corretta;
   }
 }
