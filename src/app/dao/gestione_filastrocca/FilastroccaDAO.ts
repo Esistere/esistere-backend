@@ -1,4 +1,4 @@
-import { Filastrocca } from 'app/entity/gestione filastrocca/Filastrocca';
+import { Filastrocca } from 'app/entity/gestione_filastrocca/Filastrocca';
 import { FilastroccaDAOInterface } from './FilastroccaDAOInterface';
 import { Pool } from 'pg';
 import * as Database from 'app/Database';
