@@ -5,14 +5,16 @@ import { RispostaQuizAllenamento } from 'app/entity/gestione_quiz_allenamento/Ri
 export interface QuizAllenamentoDAOInterface {
   getAll(): Promise<QuizAllenamentoGiornaliero[]>;
   get(id: number): Promise<QuizAllenamentoGiornaliero>;
-  save(quizAllenamento: QuizAllenamentoGiornaliero): Promise<void>;
+  save(quizAllenamento: QuizAllenamentoGiornaliero): Promise<number>;
   getByCaregiverFamiliare(
     caregiverFamiliare: number
   ): Promise<QuizAllenamentoGiornaliero[]>;
+
   getAllDomande(): Promise<DomandaQuizAllenamento[]>;
   getDomanda(id: number): Promise<DomandaQuizAllenamento>;
-  saveDomanda(domanda: DomandaQuizAllenamento): Promise<void>;
+  saveDomanda(domanda: DomandaQuizAllenamento): Promise<number>;
   getByQuizAllenamento(id: number): Promise<DomandaQuizAllenamento[]>;
+
   getAllRisposta(): Promise<RispostaQuizAllenamento[]>;
   getRisposta(id: number): Promise<RispostaQuizAllenamento>;
   saveRisposta(rispostaQuizAllenamento: RispostaQuizAllenamento): Promise<void>;

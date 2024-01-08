@@ -66,8 +66,8 @@ export class QuizAllenamentoDAO implements QuizAllenamentoDAOInterface {
     });
   }
 
-  public save(quizAllenamento: QuizAllenamentoGiornaliero): Promise<void> {
-    return new Promise<void>((resolve, reject) =>
+  public save(quizAllenamento: QuizAllenamentoGiornaliero): Promise<number> {
+    return new Promise<number>((resolve, reject) =>
       this.pool.connect((err, client) => {
         if (err) {
           reject(err);
@@ -76,7 +76,8 @@ export class QuizAllenamentoDAO implements QuizAllenamentoDAOInterface {
 
         const query =
           'INSERT INTO quiz_allenamento_giornaliero ' +
-          '(cg_fam, numero_domande, punteggio_totale) VALUES ($1, $2, $3)';
+          '(cg_fam, numero_domande, punteggio_totale)' +
+          ' VALUES ($1, $2, $3) RETURNING id';
 
         client?.query(
           query,
@@ -85,14 +86,15 @@ export class QuizAllenamentoDAO implements QuizAllenamentoDAOInterface {
             quizAllenamento.numDomande,
             quizAllenamento.punteggioTot,
           ],
-          (err) => {
+          (err, res) => {
             if (err) {
               console.log(err.stack);
               reject(err);
               return;
             } else {
               client.release();
-              resolve();
+              const result = res.rows[0];
+              resolve(result.id);
             }
           }
         );
@@ -180,8 +182,8 @@ export class QuizAllenamentoDAO implements QuizAllenamentoDAOInterface {
     });
   }
 
-  public saveDomanda(domanda: DomandaQuizAllenamento): Promise<void> {
-    return new Promise<void>((resolve, reject) =>
+  public saveDomanda(domanda: DomandaQuizAllenamento): Promise<number> {
+    return new Promise<number>((resolve, reject) =>
       this.pool.connect((err, client) => {
         if (err) {
           reject(err);
@@ -190,19 +192,20 @@ export class QuizAllenamentoDAO implements QuizAllenamentoDAOInterface {
 
         const query =
           'INSERT INTO domanda_allenamento_giornaliero ' +
-          '(quiz_ag, domanda, corretta) VALUES ($1, $2, $3)';
+          '(quiz_ag, domanda, corretta) VALUES ($1, $2, $3) RETURNING id';
 
         client?.query(
           query,
           [domanda.quizAllenamento, domanda.domanda, domanda.corretta],
-          (err) => {
+          (err, res) => {
             if (err) {
               console.log(err.stack);
               reject(err);
               return;
             } else {
               client.release();
-              resolve();
+              const result = res.rows[0];
+              resolve(result.id);
             }
           }
         );

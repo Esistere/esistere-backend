@@ -4,7 +4,6 @@ import { RispostaQuizAllenamento } from 'app/entity/gestione_quiz_allenamento/Ri
 import { QuizAllenamentoServiceInterface } from './QuizAllenamentoServiceInterface';
 import { QuizAllenamentoDAOInterface } from 'app/dao/gestione_quiz_allenamento/QuizAllenamentoDAOInterface';
 import { QuizAllenamentoDAO } from 'app/dao/gestione_quiz_allenamento/QuizAllenamentoDAO';
-import { validateHeaderName } from 'http';
 
 export class QuizAllenamentoService implements QuizAllenamentoServiceInterface {
   private quizAllenamentoDAO: QuizAllenamentoDAOInterface;
@@ -21,7 +20,7 @@ export class QuizAllenamentoService implements QuizAllenamentoServiceInterface {
     return this.quizAllenamentoDAO.get(id);
   }
 
-  public save(quizAllenamento: QuizAllenamentoGiornaliero): Promise<void> {
+  public save(quizAllenamento: QuizAllenamentoGiornaliero): Promise<number> {
     return this.quizAllenamentoDAO.save(quizAllenamento);
   }
 
@@ -39,7 +38,7 @@ export class QuizAllenamentoService implements QuizAllenamentoServiceInterface {
     return this.quizAllenamentoDAO.getDomanda(id);
   }
 
-  public saveDomanda(domanda: DomandaQuizAllenamento): Promise<void> {
+  public saveDomanda(domanda: DomandaQuizAllenamento): Promise<number> {
     return this.quizAllenamentoDAO.saveDomanda(domanda);
   }
 
@@ -67,18 +66,18 @@ export class QuizAllenamentoService implements QuizAllenamentoServiceInterface {
     return this.quizAllenamentoDAO.getByDomandaAllenamento(id);
   }
 
-  public createQuizAllenamento(
+  public async createQuizAllenamento(
     quizAllenamento: QuizAllenamentoGiornaliero,
-    domandeAllenamento: DomandaQuizAllenamento[],
-    rispostaQuizAllenamento: Map<
-      DomandaQuizAllenamento,
-      RispostaQuizAllenamento[]
-    >
-  ): void {
-    this.quizAllenamentoDAO.save(quizAllenamento);
-    domandeAllenamento.forEach((d) => this.quizAllenamentoDAO.saveDomanda(d));
-    rispostaQuizAllenamento.forEach((value) => {
-      value.forEach((v) => this.quizAllenamentoDAO.saveRisposta(v));
+    risposteAllenamento: Map<DomandaQuizAllenamento, RispostaQuizAllenamento[]>
+  ): Promise<void> {
+    const idQuiz = await this.quizAllenamentoDAO.save(quizAllenamento);
+    risposteAllenamento.forEach(async (value, key) => {
+      key.quizAllenamento = idQuiz;
+      const idDomanda = await this.quizAllenamentoDAO.saveDomanda(key);
+      value.forEach(async (v) => {
+        v.domanda = idDomanda;
+        this.quizAllenamentoDAO.saveRisposta(v);
+      });
     });
   }
 }
