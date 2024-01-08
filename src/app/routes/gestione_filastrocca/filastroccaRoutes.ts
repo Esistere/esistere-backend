@@ -1,4 +1,4 @@
-import { Filastrocca } from 'app/entity/gestione filastrocca/Filastrocca';
+import { Filastrocca } from 'app/entity/gestione_filastrocca/Filastrocca';
 import { FilastroccaService } from 'app/services/gestione_filastrocca/FilastroccaService';
 import { FilastroccaServiceInterface } from 'app/services/gestione_filastrocca/FilastroccaServiceInterface';
 import express, { Request, Response } from 'express';

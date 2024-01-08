@@ -1,7 +1,7 @@
 import { FilastroccaDAOInterface } from 'app/dao/gestione_filastrocca/FilastroccaDAOInterface';
 import { FilastroccaServiceInterface } from './FilastroccaServiceInterface';
 import { FilastroccaDAO } from 'app/dao/gestione_filastrocca/FilastroccaDAO';
-import { Filastrocca } from 'app/entity/gestione filastrocca/Filastrocca';
+import { Filastrocca } from 'app/entity/gestione_filastrocca/Filastrocca';
 
 export class FilastroccaService implements FilastroccaServiceInterface {
   filastroccaDAO: FilastroccaDAOInterface;

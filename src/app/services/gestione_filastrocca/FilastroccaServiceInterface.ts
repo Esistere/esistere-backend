@@ -1,4 +1,4 @@
-import { Filastrocca } from 'app/entity/gestione filastrocca/Filastrocca';
+import { Filastrocca } from 'app/entity/gestione_filastrocca/Filastrocca';
 
 export interface FilastroccaServiceInterface {
   get(id: number): Promise<Filastrocca>;
