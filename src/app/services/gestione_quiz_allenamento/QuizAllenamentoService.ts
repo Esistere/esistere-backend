@@ -80,4 +80,25 @@ export class QuizAllenamentoService implements QuizAllenamentoServiceInterface {
       });
     });
   }
+
+  public async getDomandeRisposte(
+    quizAllenamento: number
+  ): Promise<Map<DomandaQuizAllenamento, RispostaQuizAllenamento[]>> {
+    const domande = await this.quizAllenamentoDAO.getByQuizAllenamento(
+      quizAllenamento
+    );
+    const domandeRisposte: Map<
+      DomandaQuizAllenamento,
+      RispostaQuizAllenamento[]
+    > = new Map<DomandaQuizAllenamento, RispostaQuizAllenamento[]>();
+    domande.forEach(async (d) => {
+      const risposte: RispostaQuizAllenamento[] =
+        await this.quizAllenamentoDAO.getByDomandaAllenamento(Number(d.id));
+      domandeRisposte.set(d, risposte);
+    });
+
+    return domandeRisposte;
+  }
+
+  
 }

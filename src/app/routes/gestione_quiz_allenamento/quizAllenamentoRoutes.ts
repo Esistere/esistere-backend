@@ -158,4 +158,28 @@ router.post('/salva_quiz_allenamento', async (req: Request, res: Response) => {
   }
 });
 
+router.get(
+  '/visualizza_quiz_allenamento',
+  async (req: Request, res: Response) => {
+    try {
+      const data = req.body;
+      const idCaregiverFamiliare = data.id;
+
+      const quizAllenamentoGiornaliero =
+        quizAllenamentoService.get(idCaregiverFamiliare);
+
+      const domandeRisposte = quizAllenamentoService.getDomandeRisposte(
+        Number((await quizAllenamentoGiornaliero).id)
+      );
+
+      res.json({
+        domandeRisposte: domandeRisposte,
+        quizAllenamento: quizAllenamentoGiornaliero,
+      });
+    } catch (error) {
+      res.status(500).json({ error: 'Inernal Server Error' });
+    }
+  }
+);
+
 export default router;

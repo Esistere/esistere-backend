@@ -24,4 +24,8 @@ export interface QuizAllenamentoServiceInterface {
     quizAllenamento: QuizAllenamentoGiornaliero,
     risposteDomanda: Map<DomandaQuizAllenamento, RispostaQuizAllenamento[]>
   ): Promise<void>;
+
+  getDomandeRisposte(
+    quizAllenamento: number
+  ): Promise<Map<DomandaQuizAllenamento, RispostaQuizAllenamento[]>>;
 }
