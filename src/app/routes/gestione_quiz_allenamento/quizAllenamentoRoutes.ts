@@ -137,29 +137,32 @@ router.post(
 router.post('/salva_quiz_allenamento', async (req: Request, res: Response) => {
   try {
     const quizAllenamentoJSON = req.body;
-    const risposteDomanda = new Map<
+    const domandeRisposte = new Map<
       DomandaQuizAllenamento,
       RispostaQuizAllenamento[]
     >();
 
-    for (const domandaKey of Object.keys(quizAllenamentoJSON.quiz)) {
-      const domandaJSON = quizAllenamentoJSON.quiz[domandaKey];
+    for (const domandaKey of Object.keys(quizAllenamentoJSON.domandeRisposte)) {
+      const domandaJSON = quizAllenamentoJSON.domandeRisposte[domandaKey];
       const domanda = new DomandaQuizAllenamento(domandaJSON.domanda);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const risposte = domandaJSON.risposte.map((rispostaJSON: any) => {
         return new RispostaQuizAllenamento(rispostaJSON.risposta);
       });
-      risposteDomanda.set(domanda, risposte);
+      domandeRisposte.set(domanda, risposte);
     }
 
+    const quizAllenamento = quizAllenamentoJSON.quizAllenamento;
+
     const quizAllenamentoGiornaliero = new QuizAllenamentoGiornaliero(
-      quizAllenamentoJSON.cg_fam,
-      quizAllenamentoJSON.numero_domande
+      quizAllenamento.cg_fam,
+      quizAllenamento.numero_domande
     );
     quizAllenamentoService.createQuizAllenamento(
       quizAllenamentoGiornaliero,
-      risposteDomanda
+      domandeRisposte
     );
+
     res.json({ message: 'Quiz correctly saved' });
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
