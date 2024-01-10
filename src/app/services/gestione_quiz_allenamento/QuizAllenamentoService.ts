@@ -5,6 +5,18 @@ import { QuizAllenamentoServiceInterface } from './QuizAllenamentoServiceInterfa
 import { QuizAllenamentoDAOInterface } from 'app/dao/gestione_quiz_allenamento/QuizAllenamentoDAOInterface';
 import { QuizAllenamentoDAO } from 'app/dao/gestione_quiz_allenamento/QuizAllenamentoDAO';
 
+export interface DomandaRisposta {
+  quiz_ag: number;
+  domanda: string;
+  corretta: boolean;
+  risposte: {
+    domanda_ag: number;
+    risposta: string;
+    corretta: boolean;
+    selezionata: boolean;
+  }[];
+}
+
 export class QuizAllenamentoService implements QuizAllenamentoServiceInterface {
   private quizAllenamentoDAO: QuizAllenamentoDAOInterface;
 
@@ -83,24 +95,32 @@ export class QuizAllenamentoService implements QuizAllenamentoServiceInterface {
 
   public async getDomandeRisposte(
     quizAllenamento: number
-  ): Promise<Map<DomandaQuizAllenamento, RispostaQuizAllenamento[]>> {
+  ): Promise<{ [key: string]: DomandaRisposta }> {
     const domande = await this.quizAllenamentoDAO.getByQuizAllenamento(
       quizAllenamento
     );
-    const domandeRisposte: Map<
-      DomandaQuizAllenamento,
-      RispostaQuizAllenamento[]
-    > = new Map<DomandaQuizAllenamento, RispostaQuizAllenamento[]>();
+
+    const responseObject: { [key: string]: DomandaRisposta } = {};
 
     await Promise.all(
       domande.map(async (d) => {
         const risposte = await this.quizAllenamentoDAO.getByDomandaAllenamento(
           Number(d.id)
         );
-        domandeRisposte.set(d, risposte);
+        responseObject[d.domanda] = {
+          quiz_ag: Number(d.quizAllenamento),
+          domanda: d.domanda,
+          corretta: Boolean(d.corretta),
+          risposte: risposte.map((r) => ({
+            domanda_ag: Number(r.domanda),
+            risposta: r.risposta,
+            corretta: Boolean(r.corretta),
+            selezionata: Boolean(r.selezionata),
+          })),
+        };
       })
     );
 
-    return domandeRisposte;
+    return responseObject;
   }
 }

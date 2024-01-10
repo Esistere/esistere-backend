@@ -1,13 +1,21 @@
 import { DomandaQuizAllenamento } from 'app/entity/gestione_quiz_allenamento/DomandaQuizAllenamento';
 import { QuizAllenamentoGiornaliero } from 'app/entity/gestione_quiz_allenamento/QuizAllenamentoGiornaliero';
 import { RispostaQuizAllenamento } from 'app/entity/gestione_quiz_allenamento/RispostaQuizAllenamento';
-import { QuizAllenamentoService } from 'app/services/gestione_quiz_allenamento/QuizAllenamentoService';
+import {
+  DomandaRisposta,
+  QuizAllenamentoService,
+} from 'app/services/gestione_quiz_allenamento/QuizAllenamentoService';
 import { QuizAllenamentoServiceInterface } from 'app/services/gestione_quiz_allenamento/QuizAllenamentoServiceInterface';
 import express, { Request, Response } from 'express';
 
 const router = express.Router();
 const quizAllenamentoService: QuizAllenamentoServiceInterface =
   new QuizAllenamentoService();
+
+interface ResponseObject {
+  domandeRisposta: { [key: string]: DomandaRisposta };
+  quizAllenamento: QuizAllenamentoGiornaliero;
+}
 
 router.get(
   '/quiz_allenamento_giornaliero',
@@ -173,12 +181,14 @@ router.get(
         Number(quizAllenamentoGiornaliero.id)
       );
 
-      res.json({
-        domandeRisposte: domandeRisposte,
+      const responseObject: ResponseObject = {
+        domandeRisposta: domandeRisposte,
         quizAllenamento: quizAllenamentoGiornaliero,
-      });
+      };
+
+      res.json(responseObject);
     } catch (error) {
-      res.status(500).json({ error: 'Inernal Server Error' });
+      res.status(500).json({ error: 'Internal Server Error' });
     }
   }
 );
