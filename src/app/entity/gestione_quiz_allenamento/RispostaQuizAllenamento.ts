@@ -32,7 +32,7 @@ export class RispostaQuizAllenamento {
   }
 
   public set domanda(domanda: number | undefined) {
-    this.domanda = domanda;
+    this._domanda = domanda;
   }
 
   public get risposta(): string {
