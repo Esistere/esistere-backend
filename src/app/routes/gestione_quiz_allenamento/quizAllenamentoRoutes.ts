@@ -163,13 +163,14 @@ router.get(
   async (req: Request, res: Response) => {
     try {
       const data = req.body;
-      const idCaregiverFamiliare = data.id;
+      const idQuizAg = data.id;
 
-      const quizAllenamentoGiornaliero =
-        quizAllenamentoService.get(idCaregiverFamiliare);
+      const quizAllenamentoGiornaliero = await quizAllenamentoService.get(
+        idQuizAg
+      );
 
-      const domandeRisposte = quizAllenamentoService.getDomandeRisposte(
-        Number((await quizAllenamentoGiornaliero).id)
+      const domandeRisposte = await quizAllenamentoService.getDomandeRisposte(
+        Number(quizAllenamentoGiornaliero.id)
       );
 
       res.json({

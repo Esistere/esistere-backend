@@ -341,7 +341,7 @@ export class QuizAllenamentoDAO implements QuizAllenamentoDAOInterface {
         }
 
         const query =
-          'SELECT * FROM risposta_allenamento_giornaliero WHERE domanda_ag= ?1';
+          'SELECT * FROM risposta_allenamento_giornaliero WHERE domanda_ag= $1';
 
         client?.query(query, [id], (err, res) => {
           if (err) {

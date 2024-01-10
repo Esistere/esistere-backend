@@ -91,14 +91,16 @@ export class QuizAllenamentoService implements QuizAllenamentoServiceInterface {
       DomandaQuizAllenamento,
       RispostaQuizAllenamento[]
     > = new Map<DomandaQuizAllenamento, RispostaQuizAllenamento[]>();
-    domande.forEach(async (d) => {
-      const risposte: RispostaQuizAllenamento[] =
-        await this.quizAllenamentoDAO.getByDomandaAllenamento(Number(d.id));
-      domandeRisposte.set(d, risposte);
-    });
+
+    await Promise.all(
+      domande.map(async (d) => {
+        const risposte = await this.quizAllenamentoDAO.getByDomandaAllenamento(
+          Number(d.id)
+        );
+        domandeRisposte.set(d, risposte);
+      })
+    );
 
     return domandeRisposte;
   }
-
-  
 }
