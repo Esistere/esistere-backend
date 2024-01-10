@@ -5,7 +5,7 @@ import { QuizAllenamentoServiceInterface } from './QuizAllenamentoServiceInterfa
 import { QuizAllenamentoDAOInterface } from 'app/dao/gestione_quiz_allenamento/QuizAllenamentoDAOInterface';
 import { QuizAllenamentoDAO } from 'app/dao/gestione_quiz_allenamento/QuizAllenamentoDAO';
 
-export interface DomandaRisposta {
+export interface DomandeRisposte {
   quiz_ag: number | undefined ;
   domanda: string;
   corretta: boolean | undefined;
@@ -95,12 +95,12 @@ export class QuizAllenamentoService implements QuizAllenamentoServiceInterface {
 
   public async getDomandeRisposte(
     quizAllenamento: number
-  ): Promise<{ [key: string]: DomandaRisposta }> {
+  ): Promise<{ [key: string]: DomandeRisposte }> {
     const domande = await this.quizAllenamentoDAO.getByQuizAllenamento(
       quizAllenamento
     );
 
-    const responseObject: { [key: string]: DomandaRisposta } = {};
+    const responseObject: { [key: string]: DomandeRisposte } = {};
 
     await Promise.all(
       domande.map(async (d) => {

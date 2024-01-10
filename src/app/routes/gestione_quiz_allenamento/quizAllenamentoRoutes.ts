@@ -2,7 +2,7 @@ import { DomandaQuizAllenamento } from 'app/entity/gestione_quiz_allenamento/Dom
 import { QuizAllenamentoGiornaliero } from 'app/entity/gestione_quiz_allenamento/QuizAllenamentoGiornaliero';
 import { RispostaQuizAllenamento } from 'app/entity/gestione_quiz_allenamento/RispostaQuizAllenamento';
 import {
-  DomandaRisposta,
+  DomandeRisposte,
   QuizAllenamentoService,
 } from 'app/services/gestione_quiz_allenamento/QuizAllenamentoService';
 import { QuizAllenamentoServiceInterface } from 'app/services/gestione_quiz_allenamento/QuizAllenamentoServiceInterface';
@@ -13,7 +13,7 @@ const quizAllenamentoService: QuizAllenamentoServiceInterface =
   new QuizAllenamentoService();
 
 interface ResponseObject {
-  domandeRisposta: { [key: string]: DomandaRisposta };
+  domandeRisposte: { [key: string]: DomandeRisposte };
   quizAllenamento: QuizAllenamentoGiornaliero;
 }
 
@@ -158,6 +158,7 @@ router.post('/salva_quiz_allenamento', async (req: Request, res: Response) => {
       quizAllenamento.cg_fam,
       quizAllenamento.numero_domande
     );
+
     quizAllenamentoService.createQuizAllenamento(
       quizAllenamentoGiornaliero,
       domandeRisposte
@@ -185,7 +186,7 @@ router.get(
       );
 
       const responseObject: ResponseObject = {
-        domandeRisposta: domandeRisposte,
+        domandeRisposte: domandeRisposte,
         quizAllenamento: quizAllenamentoGiornaliero,
       };
 
