@@ -6,14 +6,14 @@ import { QuizAllenamentoDAOInterface } from 'app/dao/gestione_quiz_allenamento/Q
 import { QuizAllenamentoDAO } from 'app/dao/gestione_quiz_allenamento/QuizAllenamentoDAO';
 
 export interface DomandaRisposta {
-  quiz_ag: number;
+  quiz_ag: number | undefined ;
   domanda: string;
-  corretta: boolean;
+  corretta: boolean | undefined;
   risposte: {
-    domanda_ag: number;
+    domanda_ag: number | undefined;
     risposta: string;
-    corretta: boolean;
-    selezionata: boolean;
+    corretta: boolean | undefined;
+    selezionata: boolean | undefined;
   }[];
 }
 
@@ -108,14 +108,14 @@ export class QuizAllenamentoService implements QuizAllenamentoServiceInterface {
           Number(d.id)
         );
         responseObject[d.domanda] = {
-          quiz_ag: Number(d.quizAllenamento),
+          quiz_ag: d.quizAllenamento,
           domanda: d.domanda,
-          corretta: Boolean(d.corretta),
+          corretta: d.corretta,
           risposte: risposte.map((r) => ({
-            domanda_ag: Number(r.domanda),
+            domanda_ag: d.id,
             risposta: r.risposta,
-            corretta: Boolean(r.corretta),
-            selezionata: Boolean(r.selezionata),
+            corretta: r.corretta,
+            selezionata: r.selezionata,
           })),
         };
       })
