@@ -23,12 +23,16 @@ export class ToDoListService implements ToDoListServiceInterface {
     return this.toDoListDAO.getByPaziente(paz);
   }
 
+  public getByMedAndPaz(med: number, paz: number): Promise<ToDoList[]> {
+    return this.toDoListDAO.getByMedAndPaz(med, paz);
+  }
+
   public get(id: number): Promise<ToDoList> {
     return this.toDoListDAO.get(id);
   }
 
-  public getAllAttivitaByList(toDoList: ToDoList): Promise<Attivita[]> {
-    return this.toDoListDAO.getAllAttivitaByList(toDoList);
+  public getAllAttivitaByToDoList(toDoList: number): Promise<Attivita[]> {
+    return this.toDoListDAO.getAllAttivitaByToDoList(toDoList);
   }
 
   public getAttivita(id: number): Promise<Attivita> {
@@ -39,7 +43,7 @@ export class ToDoListService implements ToDoListServiceInterface {
     return this.toDoListDAO.updateAttivita(attivita);
   }
 
-  public saveAttivita(attivita: Attivita): Promise<void> {
+  public saveAttivita(attivita: Attivita): Promise<number> {
     return this.toDoListDAO.saveAttivita(attivita);
   }
 
@@ -47,7 +51,18 @@ export class ToDoListService implements ToDoListServiceInterface {
     return this.toDoListDAO.update(toDoList);
   }
 
-  public save(toDoList: ToDoList): Promise<void> {
+  public save(toDoList: ToDoList): Promise<number> {
     return this.toDoListDAO.save(toDoList);
+  }
+
+  public async createToDoList(
+    toDoList: ToDoList,
+    attivita: Attivita[]
+  ): Promise<void> {
+    const idToDoList = await this.toDoListDAO.save(toDoList);
+    attivita.forEach(async (attivita) => {
+      attivita.toDoList = idToDoList;
+      await this.toDoListDAO.saveAttivita(attivita);
+    });
   }
 }

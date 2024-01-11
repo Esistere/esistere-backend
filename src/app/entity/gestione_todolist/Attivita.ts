@@ -1,17 +1,17 @@
 export class Attivita {
   private _id: number | undefined;
-  private _toDoList: number;
+  private _toDoList: number | undefined;
   private _testo: string;
   private _completata: boolean;
   private _commento: string;
   private _valutazione: number;
 
   constructor(
-    toDoList: number,
     testo: string,
     completata: boolean,
     commento: string,
     valutazione: number,
+    toDoList?: number,
     id?: number,
   ) {
     this._id = id;
@@ -30,11 +30,11 @@ export class Attivita {
     this._id = id;
   }
 
-  public get toDolist(): number {
+  public get toDolist(): number | undefined {
     return this._toDoList;
   }
 
-  public set toDoList(toDoList: number) {
+  public set toDoList(toDoList: number | undefined) {
     this._toDoList = toDoList;
   }
 
