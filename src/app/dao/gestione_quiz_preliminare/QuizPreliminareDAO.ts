@@ -66,8 +66,8 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
     });
   }
 
-  public save(quizPreliminare: QuizPreliminare): Promise<void> {
-    return new Promise<void>((resolve, reject) =>
+  public save(quizPreliminare: QuizPreliminare): Promise<number> {
+    return new Promise<number>((resolve, reject) =>
       this.pool.connect((err, client) => {
         if (err) {
           reject(err);
@@ -76,7 +76,8 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
 
         const query =
           'INSERT INTO quiz_preliminare (numero_domande, sage, ' +
-          'punteggio_totale , med, paziente) VALUES ($1, $2, $3, $4, $5)';
+          'punteggio_totale , med, paziente) VALUES ($1, $2, $3, $4, $5) ' +
+          'RETURNING id';
 
         client?.query(
           query,
@@ -87,14 +88,15 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
             quizPreliminare.medico,
             quizPreliminare.paziente,
           ],
-          (err) => {
+          (err, res) => {
             if (err) {
               console.log(err.stack);
               reject(err);
               return;
             } else {
               client.release();
-              resolve();
+              const result = res.rows[0];
+              resolve(result.id);
             }
           }
         );
@@ -262,8 +264,8 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
     });
   }
 
-  public saveDomanda(domanda: DomandaQuizPreliminare): Promise<void> {
-    return new Promise<void>((resolve, reject) =>
+  public saveDomanda(domanda: DomandaQuizPreliminare): Promise<number> {
+    return new Promise<number>((resolve, reject) =>
       this.pool.connect((err, client) => {
         if (err) {
           reject(err);
@@ -272,19 +274,20 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
 
         const query =
           'INSERT INTO domanda_quiz_preliminare' +
-          '(domanda, quiz_preliminare) VALUES ($1, $2)';
+          '(domanda, quiz_preliminare) VALUES ($1, $2) RETURNING id';
 
         client?.query(
           query,
           [domanda.domanda, domanda.quizPreliminare],
-          (err) => {
+          (err, res) => {
             if (err) {
               console.log(err.stack);
               reject(err);
               return;
             } else {
               client.release();
-              resolve();
+              const result = res.rows[0];
+              resolve(result.id);
             }
           }
         );

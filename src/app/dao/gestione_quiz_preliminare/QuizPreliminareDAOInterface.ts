@@ -5,7 +5,7 @@ import { RispostaQuizPreliminare } from 'app/entity/gestione_quiz_preliminare/Ri
 export interface QuizPreliminareDAOInterface {
   getAll(): Promise<QuizPreliminare[]>;
   get(id: number): Promise<QuizPreliminare>;
-  save(quizPreliminare: QuizPreliminare): Promise<void>;
+  save(quizPreliminare: QuizPreliminare): Promise<number>;
   update(quizPreliminare: QuizPreliminare): Promise<void>;
   getByMed(medico: number): Promise<QuizPreliminare[]>;
   getByPaziente(paziente: string): Promise<QuizPreliminare[]>;
@@ -15,7 +15,7 @@ export interface QuizPreliminareDAOInterface {
     quizPreliminare: number
   ): Promise<DomandaQuizPreliminare[]>;
   getDomanda(id: number): Promise<DomandaQuizPreliminare>;
-  saveDomanda(domanda: DomandaQuizPreliminare): Promise<void>;
+  saveDomanda(domanda: DomandaQuizPreliminare): Promise<number>;
   updateDomanda(domanda: DomandaQuizPreliminare): Promise<void>;
 
   getByQuizPreliminare(

@@ -12,7 +12,7 @@ export interface QuizPreliminareServiceInterface {
   getDomanda(id: number): Promise<DomandaQuizPreliminare>;
   get(id: number): Promise<QuizPreliminare>;
   save(quizPreliminare: QuizPreliminare): Promise<void>;
-  saveDomanda(domanda: DomandaQuizPreliminare): Promise<void>;
+  saveDomanda(domanda: DomandaQuizPreliminare): Promise<number>;
   update(quizPreliminare: QuizPreliminare): Promise<void>;
   updateDomanda(domanda: DomandaQuizPreliminare): Promise<void>;
   getByQuizPreliminare(
@@ -25,4 +25,9 @@ export interface QuizPreliminareServiceInterface {
   getRisposta(id: number): Promise<RispostaQuizPreliminare>;
   saveRisposta(risposta: RispostaQuizPreliminare): Promise<void>;
   updateRisposta(risposta: RispostaQuizPreliminare): Promise<void>;
+
+  saveQuizPreliminare(
+    quizPreliminare: QuizPreliminare,
+    domandeRisposte: Map<DomandaQuizPreliminare, RispostaQuizPreliminare>
+  ): Promise<void>;
 }

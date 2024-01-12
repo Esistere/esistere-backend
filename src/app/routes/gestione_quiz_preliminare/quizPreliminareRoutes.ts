@@ -78,3 +78,43 @@ router.get('/domande_quiz', async (req: Request, res: Response) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
+router.post('/salva_quiz_preliminare', async (req: Request, res: Response) => {
+  try {
+    const quizPreliminareJSON = req.body;
+    const domandeRisposte = new Map<
+      DomandaQuizPreliminare,
+      RispostaQuizPreliminare
+    >();
+
+    const quizPreliminare = new QuizPreliminare(
+      quizPreliminareJSON.numero_domande,
+      quizPreliminareJSON.sage,
+      quizPreliminareJSON.med,
+      quizPreliminareJSON.paziente
+    );
+
+    for (const domandeRisposte of quizPreliminareJSON.domandeRisposte) {
+      const domanda = new DomandaQuizPreliminare(
+        domandeRisposte.domanda,
+        domandeRisposte.quiz_preliminare
+      );
+      const risposta = new RispostaQuizPreliminare(
+        domandeRisposte.risposta.risposta,
+        domandeRisposte.risposta.domanda,
+        domandeRisposte.risposta.paziente
+      );
+      domandeRisposte.set(domanda, risposta);
+    }
+    quizPreliminareService.saveQuizPreliminare(
+      quizPreliminare,
+      domandeRisposte
+    );
+
+    res.json({ message: 'Quiz correctly saved' });
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+export default router;
