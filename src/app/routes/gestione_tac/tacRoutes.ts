@@ -6,7 +6,7 @@ import { TacService } from 'app/services/gestione_tac/TacService';
 import { TacFile } from 'app/adapter/gestione_tac/tacAdapter';
 
 const router = express.Router();
-const upload = multer({ dest: 'uploads/' });
+const upload = multer({ storage: multer.memoryStorage() });
 const tacService: TacServiceInterface = new TacService();
 
 router.get('/tac', async (req: Request, res: Response) => {
@@ -51,8 +51,10 @@ router.post(
   upload.single('image'),
   async (req: Request, res: Response) => {
     try {
-      const tacJSON = req.body;
+      // TODO: check if req.body.data is a valid JSON
+      const tacJSON = JSON.parse(req.body.data);
       const file = req.file;
+
       if (file) {
         const allegato: TacFile = {
           originalname: file.originalname,
@@ -62,13 +64,13 @@ router.post(
 
         const tac = new Tac(
           tacJSON.stadio,
-          tacJSON.medico,
+          tacJSON.med,
           tacJSON.paziente,
           allegato
         );
 
         await tacService.save(tac);
-        res.json({ message: 'Tac salvata correttamente' });
+        res.json({ message: 'Tac correctly saved' });
       } else {
         res.status(400).json({ error: 'File not provided' });
       }

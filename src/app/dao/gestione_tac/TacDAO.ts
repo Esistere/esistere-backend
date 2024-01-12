@@ -122,7 +122,7 @@ export class TacDAO implements TacDAOInterface {
 
         client?.query(
           query,
-          [tac.paziente, tac.medico, tac.allegato, tac.stadio],
+          [tac.paziente, tac.medico, tac.allegato.buffer, tac.stadio],
           (err) => {
             if (err) {
               console.log(err.stack);
