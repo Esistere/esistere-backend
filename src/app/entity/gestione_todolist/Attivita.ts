@@ -58,7 +58,7 @@ export class Attivita {
     return this._commento;
   }
 
-  public set commento(commento: string) {
+  public set commento(commento: string | undefined) {
     this._commento = commento;
   }
 
@@ -66,7 +66,7 @@ export class Attivita {
     return this._valutazione;
   }
 
-  public set valutazione(valutazione: number) {
+  public set valutazione(valutazione: number | undefined) {
     this._valutazione = valutazione;
   }
 }
