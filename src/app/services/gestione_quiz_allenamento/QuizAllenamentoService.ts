@@ -4,7 +4,7 @@ import { RispostaQuizAllenamento } from 'app/entity/gestione_quiz_allenamento/Ri
 import { QuizAllenamentoServiceInterface } from './QuizAllenamentoServiceInterface';
 import { QuizAllenamentoDAOInterface } from 'app/dao/gestione_quiz_allenamento/QuizAllenamentoDAOInterface';
 import { QuizAllenamentoDAO } from 'app/dao/gestione_quiz_allenamento/QuizAllenamentoDAO';
-import { DomandeRisposte } from 'app/adapter/gestione_quiz_preliminare/quizPreliminareAdapter';
+import { DomandeRisposte } from 'app/adapter/gestione_quiz_allenamento/quizAllenamentoAdapter';
 
 export class QuizAllenamentoService implements QuizAllenamentoServiceInterface {
   private quizAllenamentoDAO: QuizAllenamentoDAOInterface;
