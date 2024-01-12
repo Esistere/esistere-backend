@@ -6,6 +6,7 @@ import medicoRoutes from './medicoRoutes';
 import caregiverFamiliareRoutes from './caregiverFamiliareRoutes';
 import quizAllenamentoRoutes from 'app/routes/gestione_quiz_allenamento/quizAllenamentoRoutes';
 import filastroccaRoutes from '../gestione_filastrocca/filastroccaRoutes';
+import toDoListRoutes from '../gestione_todolist/toDoListRoutes';
 
 const authRoutes = Router();
 
@@ -48,5 +49,6 @@ authRoutes.use(medicoRoutes);
 authRoutes.use(caregiverFamiliareRoutes);
 authRoutes.use(quizAllenamentoRoutes);
 authRoutes.use(filastroccaRoutes);
+authRoutes.use(toDoListRoutes);
 
 export default authRoutes;
