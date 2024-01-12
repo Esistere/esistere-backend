@@ -167,8 +167,7 @@ router.get(
   '/visualizza_quiz_allenamento',
   async (req: Request, res: Response) => {
     try {
-      const data = req.body;
-      const idQuizAg = data.id;
+      const idQuizAg = Number(req.query.id);
 
       const quizAllenamentoGiornaliero = await quizAllenamentoService.get(
         idQuizAg
