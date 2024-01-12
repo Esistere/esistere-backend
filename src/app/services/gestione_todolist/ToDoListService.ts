@@ -60,9 +60,11 @@ export class ToDoListService implements ToDoListServiceInterface {
     attivita: Attivita[]
   ): Promise<void> {
     const idToDoList = await this.toDoListDAO.save(toDoList);
-    attivita.forEach(async (attivita) => {
-      attivita.toDoList = idToDoList;
-      await this.toDoListDAO.saveAttivita(attivita);
-    });
+    await Promise.all(
+      attivita.map(async (a) => {
+        a.toDoList = idToDoList;
+        await this.toDoListDAO.saveAttivita(a);
+      })
+    );
   }
 }
