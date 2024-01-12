@@ -108,11 +108,11 @@ router.post('/save_attivita', async (req: Request, res: Response) => {
   try {
     const attivitaJSON = req.body;
     const attivita = new Attivita(
-      attivitaJSON.to_do_list,
       attivitaJSON.testo,
       attivitaJSON.completata,
       attivitaJSON.commento,
-      attivitaJSON.valutazione
+      attivitaJSON.valutazione,
+      attivitaJSON.to_do_list
     );
     const idAttivita = await toDoListService.saveAttivita(attivita);
 
@@ -126,11 +126,11 @@ router.post('/update_attivita', async (req: Request, res: Response) => {
   try {
     const attivitaJSON = req.body;
     const attivita = new Attivita(
-      attivitaJSON.to_do_list,
       attivitaJSON.testo,
       attivitaJSON.completata,
       attivitaJSON.commento,
       attivitaJSON.valutazione,
+      attivitaJSON.to_do_list,
       attivitaJSON.id
     );
     await toDoListService.updateAttivita(attivita);
@@ -156,11 +156,11 @@ router.post('/save_to_do_list', async (req: Request, res: Response) => {
     attivitaJSON.forEach((attivita: any) => {
       arrayAttivita.push(
         new Attivita(
-          attivita.to_do_list,
           attivita.testo,
           attivita.completata,
           attivita.commento,
-          attivita.valutazione
+          attivita.valutazione,
+          attivita.to_do_list
         )
       );
     });
