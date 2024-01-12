@@ -3,14 +3,14 @@ export class QuizPreliminare {
   private _numDomande: number;
   private _sage: boolean;
   private _medico: number;
-  private _paziente: number;
+  private _paziente: string;
   private _punteggioTot: number | undefined;
 
   constructor(
     numDomande: number,
     sage: boolean,
     medico: number,
-    paziente: number,
+    paziente: string,
     punteggioTot?: number,
     id?: number
   ) {
@@ -62,11 +62,11 @@ export class QuizPreliminare {
     this._medico = medico;
   }
 
-  public get paziente(): number {
+  public get paziente(): string {
     return this._paziente;
   }
 
-  public set paziente(paziente: number) {
+  public set paziente(paziente: string) {
     this._paziente = paziente;
   }
 }

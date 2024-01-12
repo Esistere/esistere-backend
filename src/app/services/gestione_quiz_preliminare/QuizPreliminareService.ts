@@ -4,6 +4,7 @@ import { RispostaQuizPreliminare } from 'app/entity/gestione_quiz_preliminare/Ri
 import { QuizPreliminareServiceInterface } from './QuizPreliminareServiceInterface';
 import { QuizPreliminareDAOInterface } from 'app/dao/gestione_quiz_preliminare/QuizPreliminareDAOInterface';
 import { QuizPreliminareDAO } from 'app/dao/gestione_quiz_preliminare/QuizPreliminareDAO';
+import { DomandeRisposte } from 'app/adapter/gestione_quiz_preliminare/quizPreliminareAdapter';
 
 export class QuizPreliminareService implements QuizPreliminareServiceInterface {
   private quizPreliminareDAO: QuizPreliminareDAOInterface;
@@ -90,5 +91,36 @@ export class QuizPreliminareService implements QuizPreliminareServiceInterface {
       value.domandaPreliminare = idDomanda;
       await this.quizPreliminareDAO.saveRisposta(value);
     });
+  }
+
+  public async getDomandeRisposte(
+    quizAllenamento: number
+  ): Promise<{ [key: string]: DomandeRisposte }> {
+    const domande = await this.quizPreliminareDAO.getByQuizPreliminare(
+      quizAllenamento
+    );
+
+    const responseObject: { [key: string]: DomandeRisposte } = {};
+
+    await Promise.all(
+      domande.map(async (d) => {
+        const risposta = await this.quizPreliminareDAO.getRisposta(
+          Number(d.id)
+        );
+        responseObject[d.domanda] = {
+          id_domanda: d.id,
+          quiz_preliminare: d.quizPreliminare,
+          domanda: d.domanda,
+          risposta: {
+            id: d.id,
+            domanda_preliminare: risposta.domandaPreliminare,
+            risposta: risposta.risposta,
+            paziente: risposta.paziente,
+          },
+        };
+      })
+    );
+
+    return responseObject;
   }
 }

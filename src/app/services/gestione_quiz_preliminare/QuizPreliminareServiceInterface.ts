@@ -1,6 +1,7 @@
 import { QuizPreliminare } from 'app/entity/gestione_quiz_preliminare/QuizPreliminare';
 import { DomandaQuizPreliminare } from 'app/entity/gestione_quiz_preliminare/DomandaQuizPreliminare';
 import { RispostaQuizPreliminare } from 'app/entity/gestione_quiz_preliminare/RispostaQuizPreliminare';
+import { DomandeRisposte } from 'app/adapter/gestione_quiz_preliminare/quizPreliminareAdapter';
 
 export interface QuizPreliminareServiceInterface {
   getAll(): Promise<QuizPreliminare[]>;
@@ -30,4 +31,8 @@ export interface QuizPreliminareServiceInterface {
     quizPreliminare: QuizPreliminare,
     domandeRisposte: Map<DomandaQuizPreliminare, RispostaQuizPreliminare>
   ): Promise<void>;
+
+  getDomandeRisposte(
+    quizPreliminare: number
+  ): Promise<{ [key: string]: DomandeRisposte }>;
 }
