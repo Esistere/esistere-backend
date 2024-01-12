@@ -94,7 +94,8 @@ export class QuizPreliminareService implements QuizPreliminareServiceInterface {
   }
 
   public async getDomandeRisposte(
-    quizAllenamento: number
+    quizAllenamento: number,
+    paziente: string
   ): Promise<{ [key: string]: DomandeRisposte }> {
     const domande = await this.quizPreliminareDAO.getByQuizPreliminare(
       quizAllenamento
@@ -104,8 +105,9 @@ export class QuizPreliminareService implements QuizPreliminareServiceInterface {
 
     await Promise.all(
       domande.map(async (d) => {
-        const risposta = await this.quizPreliminareDAO.getRisposta(
-          Number(d.id)
+        const risposta = await this.quizPreliminareDAO.getByDomandaAndPaziente(
+          Number(d.id),
+          paziente
         );
         responseObject[d.domanda] = {
           id_domanda: d.id,

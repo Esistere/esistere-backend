@@ -129,7 +129,8 @@ router.get(
       const quizPreliminare = await quizPreliminareService.get(idQuiz);
 
       const domandeRisposte = await quizPreliminareService.getDomandeRisposte(
-        Number(quizPreliminare.id)
+        Number(quizPreliminare.id),
+        quizPreliminare.paziente
       );
 
       const quizPreliminareJSON = {

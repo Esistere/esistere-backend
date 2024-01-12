@@ -380,7 +380,7 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
           return;
         }
 
-        const query = 'SELECT * FROM risposta_quiz_preliminare WHERE id= $1';
+        const query = 'SELECT * FROM risposta_quiz_preliminare WHERE id = $1';
 
         client?.query(query, [id], (err, res) => {
           if (err) {
@@ -391,8 +391,41 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
             const data = res.rows[0];
             const rispostaQuizPreliminare = new RispostaQuizPreliminare(
               data.risposta,
-              data.domanda_preliminare,
-              data.paziente
+              data.paziente,
+              data.domanda_preliminare
+            );
+            resolve(rispostaQuizPreliminare);
+          }
+        });
+      });
+    });
+  }
+
+  public getByDomandaAndPaziente(
+    domanda: number,
+    paziente: string
+  ): Promise<RispostaQuizPreliminare> {
+    return new Promise<RispostaQuizPreliminare>((resolve, reject) => {
+      this.pool.connect((err, client) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+        const query =
+          'SELECT * FROM risposta_quiz_preliminare WHERE ' +
+          'domanda_preliminare = $1 AND paziente = $2';
+
+        client?.query(query, [domanda, paziente], (err, res) => {
+          if (err) {
+            console.log(err.stack);
+            reject(err);
+          } else {
+            client.release();
+            const data = res.rows[0];
+            const rispostaQuizPreliminare = new RispostaQuizPreliminare(
+              data.risposta,
+              data.paziente,
+              data.domanda_preliminare
             );
             resolve(rispostaQuizPreliminare);
           }

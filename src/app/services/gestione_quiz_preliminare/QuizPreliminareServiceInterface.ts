@@ -33,6 +33,7 @@ export interface QuizPreliminareServiceInterface {
   ): Promise<void>;
 
   getDomandeRisposte(
-    quizPreliminare: number
+    quizPreliminare: number,
+    paziente: string
   ): Promise<{ [key: string]: DomandeRisposte }>;
 }
