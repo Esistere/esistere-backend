@@ -1,7 +1,7 @@
 import { QuizAllenamentoGiornaliero } from 'app/entity/gestione_quiz_allenamento/QuizAllenamentoGiornaliero';
 import { DomandaQuizAllenamento } from 'app/entity/gestione_quiz_allenamento/DomandaQuizAllenamento';
 import { RispostaQuizAllenamento } from 'app/entity/gestione_quiz_allenamento/RispostaQuizAllenamento';
-import { DomandaRisposta } from './QuizAllenamentoService';
+import { DomandeRisposte } from 'app/adapter/gestione_quiz_preliminare/quizPreliminareAdapter';
 
 export interface QuizAllenamentoServiceInterface {
   getAll(): Promise<QuizAllenamentoGiornaliero[]>;
@@ -28,5 +28,5 @@ export interface QuizAllenamentoServiceInterface {
 
   getDomandeRisposte(
     quizAllenamento: number
-  ): Promise<{ [key: string]: DomandaRisposta }>;
+  ): Promise<{ [key: string]: DomandeRisposte }>;
 }

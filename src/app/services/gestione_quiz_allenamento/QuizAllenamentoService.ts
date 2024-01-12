@@ -4,18 +4,7 @@ import { RispostaQuizAllenamento } from 'app/entity/gestione_quiz_allenamento/Ri
 import { QuizAllenamentoServiceInterface } from './QuizAllenamentoServiceInterface';
 import { QuizAllenamentoDAOInterface } from 'app/dao/gestione_quiz_allenamento/QuizAllenamentoDAOInterface';
 import { QuizAllenamentoDAO } from 'app/dao/gestione_quiz_allenamento/QuizAllenamentoDAO';
-
-export interface DomandeRisposte {
-  quiz_ag: number | undefined ;
-  domanda: string;
-  corretta: boolean | undefined;
-  risposte: {
-    domanda_ag: number | undefined;
-    risposta: string;
-    corretta: boolean | undefined;
-    selezionata: boolean | undefined;
-  }[];
-}
+import { DomandeRisposte } from 'app/adapter/gestione_quiz_preliminare/quizPreliminareAdapter';
 
 export class QuizAllenamentoService implements QuizAllenamentoServiceInterface {
   private quizAllenamentoDAO: QuizAllenamentoDAOInterface;

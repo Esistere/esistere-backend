@@ -1,21 +1,14 @@
 import { DomandaQuizAllenamento } from 'app/entity/gestione_quiz_allenamento/DomandaQuizAllenamento';
 import { QuizAllenamentoGiornaliero } from 'app/entity/gestione_quiz_allenamento/QuizAllenamentoGiornaliero';
 import { RispostaQuizAllenamento } from 'app/entity/gestione_quiz_allenamento/RispostaQuizAllenamento';
-import {
-  DomandeRisposte,
-  QuizAllenamentoService,
-} from 'app/services/gestione_quiz_allenamento/QuizAllenamentoService';
+import { QuizAllenamentoService } from 'app/services/gestione_quiz_allenamento/QuizAllenamentoService';
 import { QuizAllenamentoServiceInterface } from 'app/services/gestione_quiz_allenamento/QuizAllenamentoServiceInterface';
+import { ResponseObject } from 'app/adapter/gestione_quiz_preliminare/quizPreliminareAdapter';
 import express, { Request, Response } from 'express';
 
 const router = express.Router();
 const quizAllenamentoService: QuizAllenamentoServiceInterface =
   new QuizAllenamentoService();
-
-interface ResponseObject {
-  domandeRisposte: { [key: string]: DomandeRisposte };
-  quizAllenamento: QuizAllenamentoGiornaliero;
-}
 
 router.get(
   '/quiz_allenamento_giornaliero',

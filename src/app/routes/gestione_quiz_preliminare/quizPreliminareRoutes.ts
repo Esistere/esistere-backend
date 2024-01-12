@@ -67,7 +67,6 @@ router.post('/salva_risposta', async (req: Request, res: Response) => {
   }
 });
 
-// TODO da controllare il metodo del service
 router.get('/domande_quiz', async (req: Request, res: Response) => {
   try {
     const idQuiz = Number(req.query.id_quiz);
