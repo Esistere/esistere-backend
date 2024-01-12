@@ -3,7 +3,7 @@ import { QuizAllenamentoGiornaliero } from 'app/entity/gestione_quiz_allenamento
 import { RispostaQuizAllenamento } from 'app/entity/gestione_quiz_allenamento/RispostaQuizAllenamento';
 import { QuizAllenamentoService } from 'app/services/gestione_quiz_allenamento/QuizAllenamentoService';
 import { QuizAllenamentoServiceInterface } from 'app/services/gestione_quiz_allenamento/QuizAllenamentoServiceInterface';
-import { ResponseObject } from 'app/adapter/gestione_quiz_allenamento/quizAllenamentoAdapter';
+import { ResponseObjectQA } from 'app/adapter/gestione_quiz_allenamento/quizAllenamentoAdapter';
 import express, { Request, Response } from 'express';
 
 const router = express.Router();
@@ -178,7 +178,7 @@ router.get(
         Number(quizAllenamentoGiornaliero.id)
       );
 
-      const responseObject: ResponseObject = {
+      const responseObject: ResponseObjectQA = {
         domandeRisposte: domandeRisposte,
         quizAllenamento: quizAllenamentoGiornaliero,
       };

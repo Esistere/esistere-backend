@@ -51,21 +51,21 @@ router.get(
   }
 );
 
-router.post('/save_to_do_list', async (req: Request, res: Response) => {
-  try {
-    const toDoListJSON = req.body;
-    const toDoList = new ToDoList(
-      toDoListJSON.num_attivita,
-      toDoListJSON.completata,
-      toDoListJSON.med,
-      toDoListJSON.paziente
-    );
-    const idToDoList = await toDoListService.save(toDoList);
-    res.json({ message: 'ToDoList saved', idToDoList: idToDoList });
-  } catch (error) {
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
+// router.post('/save_to_do_list', async (req: Request, res: Response) => {
+//   try {
+//     const toDoListJSON = req.body;
+//     const toDoList = new ToDoList(
+//       toDoListJSON.num_attivita,
+//       toDoListJSON.completata,
+//       toDoListJSON.med,
+//       toDoListJSON.paziente
+//     );
+//     const idToDoList = await toDoListService.save(toDoList);
+//     res.json({ message: 'ToDoList saved', idToDoList: idToDoList });
+//   } catch (error) {
+//     res.status(500).json({ error: 'Internal Server Error' });
+//   }
+// });
 
 router.post('/update_to_do_list', async (req: Request, res: Response) => {
   try {
@@ -135,6 +135,39 @@ router.post('/update_attivita', async (req: Request, res: Response) => {
     );
     await toDoListService.updateAttivita(attivita);
     res.json({ message: 'Attivita updated' });
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+router.post('/save_to_do_list', async (req: Request, res: Response) => {
+  try {
+    const toDoListJSON = req.body.toDoList;
+    const toDoList = new ToDoList(
+      toDoListJSON.num_attivita,
+      toDoListJSON.completata,
+      toDoListJSON.med,
+      toDoListJSON.paziente
+    );
+
+    const attivitaJSON = req.body.attivita;
+    const arrayAttivita: Attivita[] = [];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    attivitaJSON.forEach((attivita: any) => {
+      arrayAttivita.push(
+        new Attivita(
+          attivita.to_do_list,
+          attivita.testo,
+          attivita.completata,
+          attivita.commento,
+          attivita.valutazione
+        )
+      );
+    });
+
+    await toDoListService.createToDoList(toDoList, arrayAttivita);
+
+    res.json({ success: 'true', message: 'ToDoList saved' });
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   }

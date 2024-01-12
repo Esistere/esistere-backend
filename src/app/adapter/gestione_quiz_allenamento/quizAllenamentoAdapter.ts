@@ -12,7 +12,7 @@ export interface DomandeRisposte {
   }[];
 }
 
-export interface ResponseObject {
+export interface ResponseObjectQA {
   domandeRisposte: { [key: string]: DomandeRisposte };
   quizAllenamento: QuizAllenamentoGiornaliero;
 }
