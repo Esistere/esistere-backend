@@ -88,24 +88,26 @@ router.post('/salva_quiz_preliminare', async (req: Request, res: Response) => {
     >();
 
     const quizPreliminare = new QuizPreliminare(
-      quizPreliminareJSON.numero_domande,
-      quizPreliminareJSON.sage,
-      quizPreliminareJSON.med,
-      quizPreliminareJSON.paziente
+      quizPreliminareJSON.quizPreliminare.numero_domande,
+      quizPreliminareJSON.quizPreliminare.sage,
+      quizPreliminareJSON.quizPreliminare.med,
+      quizPreliminareJSON.quizPreliminare.paziente
     );
 
-    for (const domandeRisposte of quizPreliminareJSON.domandeRisposte) {
+    for (const domandaKey of Object.keys(quizPreliminareJSON.domandeRisposte)) {
+      const domandaJSON = quizPreliminareJSON.domandeRisposte[domandaKey];
       const domanda = new DomandaQuizPreliminare(
-        domandeRisposte.domanda,
-        domandeRisposte.quiz_preliminare
+        domandaJSON.domanda,
+        domandaJSON.quiz_preliminare
       );
       const risposta = new RispostaQuizPreliminare(
-        domandeRisposte.risposta.risposta,
-        domandeRisposte.risposta.domanda,
-        domandeRisposte.risposta.paziente
+        domandaJSON.rispostaPaziente.risposta,
+        domandaJSON.rispostaPaziente.paziente,
+        domandaJSON.rispostaPaziente.domanda
       );
       domandeRisposte.set(domanda, risposta);
     }
+
     quizPreliminareService.saveQuizPreliminare(
       quizPreliminare,
       domandeRisposte

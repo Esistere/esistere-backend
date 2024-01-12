@@ -415,7 +415,7 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
 
         client?.query(
           query,
-          [risposta.risposta, risposta.domandaPreliminare, risposta.paziente],
+          [risposta.domandaPreliminare, risposta.paziente, risposta.risposta],
           (err) => {
             if (err) {
               console.log(err.stack);
