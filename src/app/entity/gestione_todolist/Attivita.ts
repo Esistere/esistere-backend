@@ -3,16 +3,16 @@ export class Attivita {
   private _toDoList: number | undefined;
   private _testo: string;
   private _completata: boolean;
-  private _commento: string;
-  private _valutazione: number;
+  private _commento: string | undefined;
+  private _valutazione: number | undefined;
 
   constructor(
     testo: string,
     completata: boolean,
-    commento: string,
-    valutazione: number,
+    commento?: string,
+    valutazione?: number,
     toDoList?: number,
-    id?: number,
+    id?: number
   ) {
     this._id = id;
     this._toDoList = toDoList;
@@ -54,7 +54,7 @@ export class Attivita {
     this._completata = completata;
   }
 
-  public get commento(): string {
+  public get commento(): string | undefined {
     return this._commento;
   }
 
@@ -62,7 +62,7 @@ export class Attivita {
     this._commento = commento;
   }
 
-  public get valutazione(): number {
+  public get valutazione(): number | undefined {
     return this._valutazione;
   }
 
