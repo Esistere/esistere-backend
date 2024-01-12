@@ -92,16 +92,20 @@ export class StoriaDAO implements StoriaDAOInterface {
         const query =
           'UPDATE storia SET (id, cg_fam, testo) = ($1, $2, $3)  WHERE id = $4';
 
-        client?.query(query, [storia.id, storia.cgFam, storia.testo], (err) => {
-          if (err) {
-            console.log(err.stack);
-            reject(err);
-            return;
-          } else {
-            client.release();
-            resolve();
+        client?.query(
+          query,
+          [storia.id, storia.cgFam, storia.testo, storia.id],
+          (err) => {
+            if (err) {
+              console.log(err.stack);
+              reject(err);
+              return;
+            } else {
+              client.release();
+              resolve();
+            }
           }
-        });
+        );
       })
     );
   }
@@ -116,7 +120,7 @@ export class StoriaDAO implements StoriaDAOInterface {
           return;
         }
 
-        const query = 'SELECT * FROM storia WHERE cg_fam= $1';
+        const query = 'SELECT * FROM storia WHERE cg_fam = $1';
 
         client?.query(query, [caregiverFamiliare], (err, res) => {
           if (err) {
@@ -160,7 +164,7 @@ export class StoriaDAO implements StoriaDAOInterface {
           return;
         }
 
-        const query = 'SELECT * FROM media WHERE id= $1';
+        const query = 'SELECT * FROM media WHERE id = $1';
 
         client?.query(query, [id], (err, res) => {
           if (err) {
@@ -233,6 +237,7 @@ export class StoriaDAO implements StoriaDAOInterface {
             media.allegato,
             media.descrizione,
             media.tipo,
+            media.id,
           ],
           (err) => {
             if (err) {
@@ -249,7 +254,7 @@ export class StoriaDAO implements StoriaDAOInterface {
     );
   }
 
-  public getByStoria(storia: number): Promise<Media[]> {
+  public getMediaByStoria(storia: number): Promise<Media[]> {
     return new Promise((resolve, reject) => {
       this.pool.connect((err, client) => {
         if (err) {
@@ -257,7 +262,7 @@ export class StoriaDAO implements StoriaDAOInterface {
           return;
         }
 
-        const query = 'SELECT * FROM media WHERE storia= $1';
+        const query = 'SELECT * FROM media WHERE storia = $1';
 
         client?.query(query, [storia], (err, res) => {
           if (err) {
