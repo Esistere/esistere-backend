@@ -1,5 +1,3 @@
-import { QuizAllenamentoGiornaliero } from 'app/entity/gestione_quiz_allenamento/QuizAllenamentoGiornaliero';
-
 export interface DomandeRisposte {
   quiz_ag: number | undefined;
   domanda: string;
@@ -14,5 +12,10 @@ export interface DomandeRisposte {
 
 export interface ResponseObjectQA {
   domandeRisposte: { [key: string]: DomandeRisposte };
-  quizAllenamento: QuizAllenamentoGiornaliero;
+  quizAllenamento: {
+    caregiver_familiare: number | undefined;
+    numero_domande: number | undefined;
+    punteggio_totale: number | undefined;
+    id: number | undefined;
+  };
 }

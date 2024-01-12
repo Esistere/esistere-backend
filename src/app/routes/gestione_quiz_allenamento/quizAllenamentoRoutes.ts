@@ -178,9 +178,16 @@ router.get(
         Number(quizAllenamentoGiornaliero.id)
       );
 
+      const quizAllenamentoJSON = {
+        caregiver_familiare: quizAllenamentoGiornaliero.caregiverFamiliare,
+        numero_domande: quizAllenamentoGiornaliero.numDomande,
+        punteggio_totale: quizAllenamentoGiornaliero.punteggioTot,
+        id: quizAllenamentoGiornaliero.id,
+      };
+
       const responseObject: ResponseObjectQA = {
         domandeRisposte: domandeRisposte,
-        quizAllenamento: quizAllenamentoGiornaliero,
+        quizAllenamento: quizAllenamentoJSON,
       };
 
       res.json(responseObject);

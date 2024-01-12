@@ -1,7 +1,12 @@
 import { Attivita } from 'app/entity/gestione_todolist/Attivita';
-import { ToDoList } from 'app/entity/gestione_todolist/ToDoList';
 
 export interface ResponseObjectToDoList {
-  toDoList: ToDoList;
+  toDoList: {
+    num_attivita: number | undefined;
+    completata: boolean | undefined;
+    med: number | undefined;
+    paziente: string;
+    id: number | undefined;
+  };
   attivita: Attivita[];
 }

@@ -1,3 +1,4 @@
+import { ResponseObjectToDoList } from 'app/adapter/gestione_todolist/toDoListAdapter';
 import { Attivita } from 'app/entity/gestione_todolist/Attivita';
 import { ToDoList } from 'app/entity/gestione_todolist/ToDoList';
 import { ToDoListService } from 'app/services/gestione_todolist/ToDoListService';
@@ -50,22 +51,6 @@ router.get(
     }
   }
 );
-
-// router.post('/save_to_do_list', async (req: Request, res: Response) => {
-//   try {
-//     const toDoListJSON = req.body;
-//     const toDoList = new ToDoList(
-//       toDoListJSON.num_attivita,
-//       toDoListJSON.completata,
-//       toDoListJSON.med,
-//       toDoListJSON.paziente
-//     );
-//     const idToDoList = await toDoListService.save(toDoList);
-//     res.json({ message: 'ToDoList saved', idToDoList: idToDoList });
-//   } catch (error) {
-//     res.status(500).json({ error: 'Internal Server Error' });
-//   }
-// });
 
 router.post('/update_to_do_list', async (req: Request, res: Response) => {
   try {
@@ -167,6 +152,31 @@ router.post('/save_to_do_list', async (req: Request, res: Response) => {
     await toDoListService.createToDoList(toDoList, arrayAttivita);
 
     res.json({ success: 'true', message: 'ToDoList saved' });
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+router.get('/visualizza_to_do_list', async (req: Request, res: Response) => {
+  try {
+    const id = Number(req.query.id);
+    const toDoList = await toDoListService.get(id);
+    const toDoListJSON = {
+      id: toDoList.id,
+      num_attivita: toDoList.numAttivita,
+      completata: toDoList.completata,
+      med: toDoList.med,
+      paziente: toDoList.paziente,
+    };
+
+    const arrayAttivita = await toDoListService.getAllAttivitaByToDoList(id);
+
+    const responseObject: ResponseObjectToDoList = {
+      toDoList: toDoListJSON,
+      attivita: arrayAttivita,
+    };
+
+    res.json(responseObject);
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   }
