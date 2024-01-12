@@ -159,8 +159,7 @@ router.post('/save_to_do_list', async (req: Request, res: Response) => {
           attivita.testo,
           attivita.completata,
           attivita.commento,
-          attivita.valutazione,
-          attivita.to_do_list
+          attivita.valutazione
         )
       );
     });
