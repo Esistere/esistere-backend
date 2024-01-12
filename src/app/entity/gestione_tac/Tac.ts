@@ -1,16 +1,16 @@
 export class Tac {
-  private _id: number;
+  private _id: number | undefined;
   private _stadio: string;
   private _allegato: Blob;
   private _medico: number;
   private _paziente: string;
 
   constructor(
-    id: number,
     stadio: string,
     allegato: Blob,
     medico: number,
-    paziente: string
+    paziente: string,
+    id?: number
   ) {
     this._id = id;
     this._stadio = stadio;
@@ -19,11 +19,11 @@ export class Tac {
     this._paziente = paziente;
   }
 
-  public get id(): number {
+  public get id(): number | undefined {
     return this._id;
   }
 
-  public set id(id: number) {
+  public set id(id: number | undefined) {
     this._id = id;
   }
 

@@ -47,8 +47,15 @@ export class TacDAO implements TacDAOInterface {
             reject(err);
           } else {
             client.release();
-            const quizAllenamento = res.rows[0] as Tac;
-            resolve(quizAllenamento);
+            const data = res.rows[0];
+            const tac = new Tac(
+              data.stadio,
+              data.allegato,
+              data.medico,
+              data.paziente,
+              data.id
+            );
+            resolve(tac);
           }
         });
       });
@@ -63,7 +70,7 @@ export class TacDAO implements TacDAOInterface {
           return;
         }
 
-        const query = 'SELECT * FROM tac WHERE med= ?1';
+        const query = 'SELECT * FROM tac WHERE med= $1';
 
         client?.query(query, [medico], (err, res) => {
           if (err) {
@@ -86,7 +93,7 @@ export class TacDAO implements TacDAOInterface {
           return;
         }
 
-        const query = 'SELECT * FROM tac WHERE paziente= ?1';
+        const query = 'SELECT * FROM tac WHERE paziente= $1';
 
         client?.query(query, [paz], (err, res) => {
           if (err) {
