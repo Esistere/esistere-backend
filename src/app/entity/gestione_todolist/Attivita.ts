@@ -30,7 +30,7 @@ export class Attivita {
     this._id = id;
   }
 
-  public get toDolist(): number | undefined {
+  public get toDoList(): number | undefined {
     return this._toDoList;
   }
 
