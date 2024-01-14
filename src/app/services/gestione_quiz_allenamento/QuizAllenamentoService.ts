@@ -69,10 +69,10 @@ export class QuizAllenamentoService implements QuizAllenamentoServiceInterface {
 
   public async createQuizAllenamento(
     quizAllenamento: QuizAllenamentoGiornaliero,
-    risposteDomanda: Map<DomandaQuizAllenamento, RispostaQuizAllenamento[]>
+    domandeRisposte: Map<DomandaQuizAllenamento, RispostaQuizAllenamento[]>
   ): Promise<void> {
     const idQuiz = await this.quizAllenamentoDAO.save(quizAllenamento);
-    risposteDomanda.forEach(async (value, key) => {
+    domandeRisposte.forEach(async (value, key) => {
       key.quizAllenamento = idQuiz;
       const idDomanda = await this.quizAllenamentoDAO.saveDomanda(key);
       value.forEach(async (v) => {

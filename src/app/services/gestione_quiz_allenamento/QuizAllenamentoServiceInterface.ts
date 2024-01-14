@@ -23,7 +23,7 @@ export interface QuizAllenamentoServiceInterface {
 
   createQuizAllenamento(
     quizAllenamento: QuizAllenamentoGiornaliero,
-    risposteDomanda: Map<DomandaQuizAllenamento, RispostaQuizAllenamento[]>
+    domandeRisposte: Map<DomandaQuizAllenamento, RispostaQuizAllenamento[]>
   ): Promise<void>;
 
   getDomandeRisposte(

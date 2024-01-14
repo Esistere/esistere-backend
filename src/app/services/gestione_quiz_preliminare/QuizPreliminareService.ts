@@ -4,6 +4,7 @@ import { RispostaQuizPreliminare } from 'app/entity/gestione_quiz_preliminare/Ri
 import { QuizPreliminareServiceInterface } from './QuizPreliminareServiceInterface';
 import { QuizPreliminareDAOInterface } from 'app/dao/gestione_quiz_preliminare/QuizPreliminareDAOInterface';
 import { QuizPreliminareDAO } from 'app/dao/gestione_quiz_preliminare/QuizPreliminareDAO';
+import { DomandeRisposte } from 'app/adapter/gestione_quiz_preliminare/quizPreliminareAdapter';
 
 export class QuizPreliminareService implements QuizPreliminareServiceInterface {
   private quizPreliminareDAO: QuizPreliminareDAOInterface;
@@ -12,68 +13,116 @@ export class QuizPreliminareService implements QuizPreliminareServiceInterface {
     this.quizPreliminareDAO = new QuizPreliminareDAO();
   }
 
-  getAll(): Promise<QuizPreliminare[]> {
+  public getAll(): Promise<QuizPreliminare[]> {
     return this.quizPreliminareDAO.getAll();
   }
 
-  getByMed(medico: number): Promise<QuizPreliminare[]> {
+  public getByMed(medico: number): Promise<QuizPreliminare[]> {
     return this.quizPreliminareDAO.getByMed(medico);
   }
 
-  getAllDomande(): Promise<DomandaQuizPreliminare[]> {
+  public getAllDomande(): Promise<DomandaQuizPreliminare[]> {
     return this.quizPreliminareDAO.getAllDomande();
   }
 
-  getDomandeByQuizPreliminare(
+  public getDomandeByQuizPreliminare(
     quizPreliminare: number
   ): Promise<DomandaQuizPreliminare[]> {
     return this.quizPreliminareDAO.getDomandeByQuizPreliminare(quizPreliminare);
   }
 
-  getDomanda(id: number): Promise<DomandaQuizPreliminare> {
+  public getDomanda(id: number): Promise<DomandaQuizPreliminare> {
     return this.quizPreliminareDAO.getDomanda(id);
   }
 
-  get(id: number): Promise<QuizPreliminare> {
+  public get(id: number): Promise<QuizPreliminare> {
     return this.quizPreliminareDAO.get(id);
   }
 
-  save(quizPreliminare: QuizPreliminare): Promise<void> {
+  public save(quizPreliminare: QuizPreliminare): Promise<void> {
     return this.save(quizPreliminare);
   }
 
-  saveDomanda(domanda: DomandaQuizPreliminare): Promise<void> {
+  public saveDomanda(domanda: DomandaQuizPreliminare): Promise<number> {
     return this.quizPreliminareDAO.saveDomanda(domanda);
   }
-  update(quizPreliminare: QuizPreliminare): Promise<void> {
+
+  public update(quizPreliminare: QuizPreliminare): Promise<void> {
     return this.quizPreliminareDAO.update(quizPreliminare);
   }
 
-  updateDomanda(domanda: DomandaQuizPreliminare): Promise<void> {
+  public updateDomanda(domanda: DomandaQuizPreliminare): Promise<void> {
     return this.quizPreliminareDAO.updateDomanda(domanda);
   }
 
-  getByQuizPreliminare(
+  public getByQuizPreliminare(
     quizPreliminare: number
   ): Promise<DomandaQuizPreliminare[]> {
     return this.quizPreliminareDAO.getByQuizPreliminare(quizPreliminare);
   }
 
-  getRispostaByPaziente(
+  public getRispostaByPaziente(
     paziente: string,
     id: number
   ): Promise<RispostaQuizPreliminare> {
     return this.quizPreliminareDAO.getRispostaByPaziente(paziente, id);
   }
 
-  getRisposta(id: number): Promise<RispostaQuizPreliminare> {
+  public getRisposta(id: number): Promise<RispostaQuizPreliminare> {
     return this.quizPreliminareDAO.getRisposta(id);
   }
 
-  saveRisposta(risposta: RispostaQuizPreliminare): Promise<void> {
+  public saveRisposta(risposta: RispostaQuizPreliminare): Promise<void> {
     return this.quizPreliminareDAO.saveRisposta(risposta);
   }
-  updateRisposta(risposta: RispostaQuizPreliminare): Promise<void> {
+
+  public updateRisposta(risposta: RispostaQuizPreliminare): Promise<void> {
     return this.quizPreliminareDAO.updateRisposta(risposta);
+  }
+
+  public async saveQuizPreliminare(
+    quizPreliminare: QuizPreliminare,
+    domandeRisposte: Map<DomandaQuizPreliminare, RispostaQuizPreliminare>
+  ): Promise<void> {
+    const idQuiz = await this.quizPreliminareDAO.save(quizPreliminare);
+    domandeRisposte.forEach(async (value, key) => {
+      key.quizPreliminare = idQuiz;
+      const idDomanda = await this.quizPreliminareDAO.saveDomanda(key);
+      value.domandaPreliminare = idDomanda;
+      await this.quizPreliminareDAO.saveRisposta(value);
+    });
+  }
+
+  public async getDomandeRisposte(
+    quizAllenamento: number,
+    paziente: string
+  ): Promise<{ [key: string]: DomandeRisposte }> {
+    const domande = await this.quizPreliminareDAO.getByQuizPreliminare(
+      quizAllenamento
+    );
+
+    const responseObject: { [key: string]: DomandeRisposte } = {};
+
+    await Promise.all(
+      domande.map(async (d) => {
+        const risposta = await this.quizPreliminareDAO.getByDomandaAndPaziente(
+          Number(d.id),
+          paziente
+        );
+        responseObject[d.domanda] = {
+          id_domanda: d.id,
+          quiz_preliminare: d.quizPreliminare,
+          domanda: d.domanda,
+          risposta: {
+            id: d.id,
+            domanda_preliminare: risposta.domandaPreliminare,
+            risposta: risposta.risposta,
+            paziente: risposta.paziente,
+          },
+        };
+      })
+    );
+
+    return responseObject;
   }
 }

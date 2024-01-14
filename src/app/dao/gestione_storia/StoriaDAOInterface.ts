@@ -11,5 +11,5 @@ export interface StoriaDAOInterface {
   getMedia(id: number): Promise<Media>;
   saveMedia(media: Media): Promise<void>;
   updateMedia(media: Media): Promise<void>;
-  getByStoria(storia: number): Promise<Media[]>;
+  getMediaByStoria(storia: number): Promise<Media[]>;
 }

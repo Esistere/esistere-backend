@@ -2,16 +2,16 @@ export class QuizPreliminare {
   private _id: number | undefined;
   private _numDomande: number;
   private _sage: boolean;
-  private _punteggioTot: number;
   private _medico: number;
-  private _paziente: number;
+  private _paziente: string;
+  private _punteggioTot: number | undefined;
 
   constructor(
     numDomande: number,
     sage: boolean,
-    punteggioTot: number,
     medico: number,
-    paziente: number,
+    paziente: string,
+    punteggioTot?: number,
     id?: number
   ) {
     this._numDomande = numDomande;
@@ -46,11 +46,11 @@ export class QuizPreliminare {
     this._sage = sage;
   }
 
-  public get punteggioTot(): number {
+  public get punteggioTot(): number | undefined {
     return this._punteggioTot;
   }
 
-  public set punteggioTot(punteggioTot: number) {
+  public set punteggioTot(punteggioTot: number | undefined) {
     this._punteggioTot = punteggioTot;
   }
 
@@ -62,11 +62,11 @@ export class QuizPreliminare {
     this._medico = medico;
   }
 
-  public get paziente(): number {
+  public get paziente(): string {
     return this._paziente;
   }
 
-  public set paziente(paziente: number) {
+  public set paziente(paziente: string) {
     this._paziente = paziente;
   }
 }

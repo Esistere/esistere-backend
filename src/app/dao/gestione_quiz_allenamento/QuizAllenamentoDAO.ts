@@ -170,8 +170,8 @@ export class QuizAllenamentoDAO implements QuizAllenamentoDAOInterface {
             client.release();
             const data = res.rows[0];
             const domandaAllenamento = new DomandaQuizAllenamento(
-              data.quiz_ag,
               data.domanda,
+              data.quiz_ag,
               data.corretta,
               data.id
             );

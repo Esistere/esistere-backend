@@ -49,7 +49,7 @@ export class StoriaService implements StoriaServiceInterface {
     return this.storiaDAO.updateMedia(media);
   }
 
-  public getByStoria(storia: number): Promise<Media[]> {
-    return this.storiaDAO.getByStoria(storia);
+  public getMediaByStoria(storia: number): Promise<Media[]> {
+    return this.storiaDAO.getMediaByStoria(storia);
   }
 }

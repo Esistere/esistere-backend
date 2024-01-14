@@ -1,13 +1,13 @@
 export class RispostaQuizPreliminare {
-  private _id?: number;
   private _risposta: string;
-  private _domandaPreliminare: number;
   private _paziente: string;
+  private _id: number | undefined;
+  private _domandaPreliminare: number | undefined;
 
   constructor(
     risposta: string,
-    domandaPreliminare: number,
     paziente: string,
+    domandaPreliminare?: number,
     id?: number
   ) {
     this._id = id;
@@ -32,11 +32,11 @@ export class RispostaQuizPreliminare {
     this._risposta = risposta;
   }
 
-  public get domandaPreliminare(): number {
+  public get domandaPreliminare(): number | undefined {
     return this._domandaPreliminare;
   }
 
-  public set domandaPreliminare(domandaPreliminare: number) {
+  public set domandaPreliminare(domandaPreliminare: number | undefined) {
     this._domandaPreliminare = domandaPreliminare;
   }
 
