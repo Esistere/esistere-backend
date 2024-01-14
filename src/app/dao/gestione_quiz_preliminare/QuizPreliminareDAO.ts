@@ -485,8 +485,12 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
             reject(err);
           } else {
             client.release();
-            const rispostaQuizPreliminare = res
-              .rows[0] as RispostaQuizPreliminare;
+            const data = res.rows[0];
+            const rispostaQuizPreliminare = new RispostaQuizPreliminare(
+              data.risposta,
+              data.domanda_preliminare,
+              data.paziente
+            );
             resolve(rispostaQuizPreliminare);
           }
         });
