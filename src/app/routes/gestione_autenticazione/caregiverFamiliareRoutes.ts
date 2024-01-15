@@ -23,9 +23,23 @@ router.get(
   async (req: Request, res: Response) => {
     try {
       const idCaregiverFamiliare = Number(req.query.id);
-      const caregiverFamiliare = await caregiverFamiliareService.get(
+      const caregiverFamiliareDAO = await caregiverFamiliareService.get(
         idCaregiverFamiliare
       );
+
+      const caregiverFamiliare = {
+        codice_identificativo: caregiverFamiliareDAO.codiceIdentificativo,
+        nome: caregiverFamiliareDAO.nome,
+        cognome: caregiverFamiliareDAO.cognome,
+        indirizzo: caregiverFamiliareDAO.indirizzo,
+        citta: caregiverFamiliareDAO.citta,
+        numero_civico: caregiverFamiliareDAO.numCivico,
+        data_di_nascita: caregiverFamiliareDAO.dataDiNascita,
+        numero_di_telefono: caregiverFamiliareDAO.numTelefono,
+        email: caregiverFamiliareDAO.email,
+        passwd: caregiverFamiliareDAO.passwd
+      };
+      
       res.json(caregiverFamiliare);
     } catch (error) {
       res.status(500).json({ error: 'Internal Server Error' });

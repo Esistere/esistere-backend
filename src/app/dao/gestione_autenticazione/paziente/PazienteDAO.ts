@@ -47,7 +47,15 @@ export class PazienteDAO implements PazienteDAOInterface {
             reject(err);
           } else {
             client.release();
-            const paziente = res.rows[0] as Paziente;
+            const data = res.rows[0];
+            const paziente = new Paziente(
+              data.codice_fiscale,
+              data.nome,
+              data.cognome,
+              data.data_di_nascita,
+              data.med,
+              data.cg_fam
+            );
             resolve(paziente);
           }
         });
