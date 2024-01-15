@@ -59,8 +59,8 @@ router.post('/salva_risposta', async (req: Request, res: Response) => {
     const rispostaPreliminareJSON = req.body;
     const rispostaPreliminare = new RispostaQuizPreliminare(
       rispostaPreliminareJSON.risposta,
-      rispostaPreliminareJSON.domanda,
-      rispostaPreliminareJSON.paziente
+      rispostaPreliminareJSON.paziente,
+      rispostaPreliminareJSON.domanda
     );
     quizPreliminareService.saveRisposta(rispostaPreliminare);
   } catch (error) {
