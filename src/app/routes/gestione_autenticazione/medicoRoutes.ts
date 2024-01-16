@@ -36,7 +36,7 @@ router.get('/visualizza_paziente_med', async (req: Request, res: Response) => {
   }
 });
 
-router.post('modifica_medico', async (req: Request, res: Response) => {
+router.post('/modifica_medico', async (req: Request, res: Response) => {
   try {
     const data = req.body;
     const medico = new Medico(
@@ -47,14 +47,14 @@ router.post('modifica_medico', async (req: Request, res: Response) => {
       data.numero_telefono_studio,
       data.citta,
       data.email,
-      data.password,
+      data.passwd,
       data.codice_identificativo
     );
-    await medicoService.update(medico);
+    medicoService.update(medico);
     res.json({ message: 'Medico modificato' });
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   }
-}
+});
 
 export default router;
