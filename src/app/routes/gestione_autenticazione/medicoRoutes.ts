@@ -1,3 +1,4 @@
+import { Medico } from 'app/entity/gestione_autenticazione/Medico';
 import { MedicoService } from 'app/services/gestione_autenticazione/medico/MedicoService';
 import { MedicoServiceInterface } from 'app/services/gestione_autenticazione/medico/MedicoServiceInterface';
 import express, { Request, Response } from 'express';
@@ -34,5 +35,26 @@ router.get('/visualizza_paziente_med', async (req: Request, res: Response) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
+router.post('modifica_medico', async (req: Request, res: Response) => {
+  try {
+    const data = req.body;
+    const medico = new Medico(
+      data.nome,
+      data.cognome,
+      data.indirizzo_studio,
+      data.numero_civico,
+      data.numero_telefono_studio,
+      data.citta,
+      data.email,
+      data.password,
+      data.codice_identificativo
+    );
+    await medicoService.update(medico);
+    res.json({ message: 'Medico modificato' });
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
 
 export default router;

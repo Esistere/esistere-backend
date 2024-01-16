@@ -1,3 +1,4 @@
+import { CaregiverFamiliare } from 'app/entity/gestione_autenticazione/CaregiverFamiliare';
 import { CaregiverFamiliareService } from 'app/services/gestione_autenticazione/caregiver_familiare/CaregiverFamiliareService';
 import { CaregiverFamiliareServiceInterface } from 'app/services/gestione_autenticazione/caregiver_familiare/CaregiverFamiliareServiceInterface';
 import express, { Request, Response } from 'express';
@@ -37,10 +38,37 @@ router.get(
         data_di_nascita: caregiverFamiliareDAO.dataDiNascita,
         numero_di_telefono: caregiverFamiliareDAO.numTelefono,
         email: caregiverFamiliareDAO.email,
-        passwd: caregiverFamiliareDAO.passwd
+        passwd: caregiverFamiliareDAO.passwd,
       };
-      
+
       res.json(caregiverFamiliare);
+    } catch (error) {
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  }
+);
+
+router.post(
+  '/modifica_caregiver_familiare',
+  async (req: Request, res: Response) => {
+    try {
+      const data = req.body;
+
+      const caregiverFamiliare = new CaregiverFamiliare(
+        data.nome,
+        data.cognome,
+        data.indirizzo,
+        data.numero_civico,
+        data.data_di_nascita,
+        data.numero_di_telefono,
+        data.citta,
+        data.email,
+        data.passwd,
+        data.codice_identificativo
+      );
+
+      await caregiverFamiliareService.update(caregiverFamiliare);
+      res.json({ message: 'Caregiver Familiare modificato' });
     } catch (error) {
       res.status(500).json({ error: 'Internal Server Error' });
     }
