@@ -73,8 +73,8 @@ router.post(
     try {
       const domandaAllenamentoJSON = req.body;
       const domandaAllenamento = new DomandaQuizAllenamento(
-        domandaAllenamentoJSON.quiz_ag,
         domandaAllenamentoJSON.domanda,
+        domandaAllenamentoJSON.quiz_ag,
         domandaAllenamentoJSON.corretta
       );
       quizAllenamentoService.saveDomanda(domandaAllenamento);
@@ -119,8 +119,8 @@ router.post(
     try {
       const rispostaAllenamentoJSON = req.body;
       const rispostaAllenamento = new RispostaQuizAllenamento(
-        rispostaAllenamentoJSON.domanda_ag,
         rispostaAllenamentoJSON.risposta,
+        rispostaAllenamentoJSON.domanda_ag,
         rispostaAllenamentoJSON.corretta,
         rispostaAllenamentoJSON.selezionata
       );
