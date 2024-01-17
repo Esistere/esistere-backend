@@ -22,7 +22,7 @@ export interface ResponseObjectQA {
   };
 }
 
-export interface Risposta {
+export interface RispostaAllenamento {
   id: number | undefined;
   domanda_ag: number | undefined;
   risposta: string;

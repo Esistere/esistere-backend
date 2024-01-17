@@ -4,7 +4,10 @@ import { RispostaQuizPreliminare } from 'app/entity/gestione_quiz_preliminare/Ri
 import { QuizPreliminareServiceInterface } from 'app/services/gestione_quiz_preliminare/QuizPreliminareServiceInterface';
 import { QuizPreliminareService } from 'app/services/gestione_quiz_preliminare/QuizPreliminareService';
 import express, { Request, Response } from 'express';
-import { ResponseObjectQP } from 'app/adapter/gestione_quiz_preliminare/quizPreliminareAdapter';
+import {
+  ResponseObjectQP,
+  RispostaPreliminare,
+} from 'app/adapter/gestione_quiz_preliminare/quizPreliminareAdapter';
 
 const router = express.Router();
 const quizPreliminareService: QuizPreliminareServiceInterface =
@@ -148,6 +151,26 @@ router.get(
       };
 
       res.json(responseObject);
+    } catch (error) {
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  }
+);
+
+router.post(
+  '/aggiungi_risposte_preliminare',
+  async (req: Request, res: Response) => {
+    try {
+      const risposteJSON = req.body;
+      risposteJSON.forEach(async (data: RispostaPreliminare) => {
+        const risposta = new RispostaQuizPreliminare(
+          data.risposta,
+          data.paziente,
+          data.domanda_preliminare,
+          data.id
+        );
+        await quizPreliminareService.updateRisposta(risposta);
+      });
     } catch (error) {
       res.status(500).json({ error: 'Internal Server Error' });
     }
