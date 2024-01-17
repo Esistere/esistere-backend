@@ -29,9 +29,9 @@ router.post('/salva_quiz', async (req: Request, res: Response) => {
     const quizPreliminare = new QuizPreliminare(
       quizPreliminareJSON.numero_domande,
       quizPreliminareJSON.sage,
-      quizPreliminareJSON.punteggio_totale,
       quizPreliminareJSON.med,
-      quizPreliminareJSON.paziente
+      quizPreliminareJSON.paziente,
+      quizPreliminareJSON.punteggio_totale
     );
     quizPreliminareService.save(quizPreliminare);
     res.json({ message: 'Quiz correctly saved' });
