@@ -21,3 +21,10 @@ export interface ResponseObjectQP {
     paziente: string;
   };
 }
+
+export interface RispostaPreliminare {
+  id: number | undefined;
+  domanda_preliminare: number | undefined;
+  risposta: string;
+  paziente: string;
+}

@@ -143,9 +143,11 @@ router.post('/salva_quiz_allenamento', async (req: Request, res: Response) => {
     for (const domandaKey of Object.keys(quizAllenamentoJSON.domandeRisposte)) {
       const domandaJSON = quizAllenamentoJSON.domandeRisposte[domandaKey];
       const domanda = new DomandaQuizAllenamento(domandaJSON.domanda);
-      const risposte = domandaJSON.risposte.map((rispostaJSON: Risposta) => {
-        return new RispostaQuizAllenamento(rispostaJSON.risposta);
-      });
+      const risposte = domandaJSON.risposte.map(
+        (rispostaJSON: RispostaQuizAllenamento) => {
+          return new RispostaQuizAllenamento(rispostaJSON.risposta);
+        }
+      );
       domandeRisposte.set(domanda, risposte);
     }
 
@@ -213,7 +215,6 @@ router.post('/aggiungi_risposte', async (req: Request, res: Response) => {
       );
       await quizAllenamentoService.updateRisposta(risposta);
     });
-    res.json({ message: 'Answers correctly added' });
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   }
