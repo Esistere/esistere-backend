@@ -12,7 +12,7 @@ export interface QuizPreliminareServiceInterface {
   ): Promise<DomandaQuizPreliminare[]>;
   getDomanda(id: number): Promise<DomandaQuizPreliminare>;
   get(id: number): Promise<QuizPreliminare>;
-  save(quizPreliminare: QuizPreliminare): Promise<void>;
+  save(quizPreliminare: QuizPreliminare): Promise<number>;
   saveDomanda(domanda: DomandaQuizPreliminare): Promise<number>;
   update(quizPreliminare: QuizPreliminare): Promise<void>;
   updateDomanda(domanda: DomandaQuizPreliminare): Promise<void>;

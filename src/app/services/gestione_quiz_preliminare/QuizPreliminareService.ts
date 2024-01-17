@@ -39,8 +39,8 @@ export class QuizPreliminareService implements QuizPreliminareServiceInterface {
     return this.quizPreliminareDAO.get(id);
   }
 
-  public save(quizPreliminare: QuizPreliminare): Promise<void> {
-    return this.save(quizPreliminare);
+  public save(quizPreliminare: QuizPreliminare): Promise<number> {
+    return this.quizPreliminareDAO.save(quizPreliminare);
   }
 
   public saveDomanda(domanda: DomandaQuizPreliminare): Promise<number> {
