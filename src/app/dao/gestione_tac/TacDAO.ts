@@ -39,7 +39,7 @@ export class TacDAO implements TacDAOInterface {
           return;
         }
 
-        const query = 'SELECT * FROM tac WHERE id= $1';
+        const query = 'SELECT * FROM tac WHERE id = $1';
 
         client?.query(query, [id], (err, res) => {
           if (err) {
@@ -50,9 +50,9 @@ export class TacDAO implements TacDAOInterface {
             const data = res.rows[0];
             const tac = new Tac(
               data.stadio,
-              data.allegato,
-              data.medico,
+              data.med,
               data.paziente,
+              data.allegato,
               data.id
             );
             resolve(tac);
@@ -122,7 +122,7 @@ export class TacDAO implements TacDAOInterface {
 
         client?.query(
           query,
-          [tac.paziente, tac.medico, tac.allegato.buffer, tac.stadio],
+          [tac.paziente, tac.medico, tac.allegato, tac.stadio],
           (err) => {
             if (err) {
               console.log(err.stack);
