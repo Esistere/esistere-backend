@@ -5,7 +5,7 @@ import { QuizAllenamentoService } from 'app/services/gestione_quiz_allenamento/Q
 import { QuizAllenamentoServiceInterface } from 'app/services/gestione_quiz_allenamento/QuizAllenamentoServiceInterface';
 import {
   ResponseObjectQA,
-  Risposta,
+  RispostaAllenamento,
 } from 'app/adapter/gestione_quiz_allenamento/quizAllenamentoAdapter';
 import express, { Request, Response } from 'express';
 
@@ -144,7 +144,7 @@ router.post('/salva_quiz_allenamento', async (req: Request, res: Response) => {
       const domandaJSON = quizAllenamentoJSON.domandeRisposte[domandaKey];
       const domanda = new DomandaQuizAllenamento(domandaJSON.domanda);
       const risposte = domandaJSON.risposte.map(
-        (rispostaJSON: RispostaQuizAllenamento) => {
+        (rispostaJSON: RispostaAllenamento) => {
           return new RispostaQuizAllenamento(rispostaJSON.risposta);
         }
       );
@@ -205,7 +205,7 @@ router.get(
 router.post('/aggiungi_risposte', async (req: Request, res: Response) => {
   try {
     const risposteJSON = req.body;
-    risposteJSON.forEach(async (data: Risposta) => {
+    risposteJSON.forEach(async (data: RispostaAllenamento) => {
       const risposta = new RispostaQuizAllenamento(
         data.risposta,
         data.domanda_ag,
