@@ -67,6 +67,12 @@ export class QuizAllenamentoService implements QuizAllenamentoServiceInterface {
     return this.quizAllenamentoDAO.getByDomandaAllenamento(id);
   }
 
+  public updateRisposta(
+    risposta: RispostaQuizAllenamento
+  ): Promise<void> {
+    return this.quizAllenamentoDAO.updateRisposta(risposta);
+  }
+
   public async createQuizAllenamento(
     quizAllenamento: QuizAllenamentoGiornaliero,
     domandeRisposte: Map<DomandaQuizAllenamento, RispostaQuizAllenamento[]>
@@ -97,10 +103,12 @@ export class QuizAllenamentoService implements QuizAllenamentoServiceInterface {
           Number(d.id)
         );
         responseObject[d.domanda] = {
+          idDomanda: d.id,
           quiz_ag: d.quizAllenamento,
           domanda: d.domanda,
           corretta: d.corretta,
           risposte: risposte.map((r) => ({
+            idRisposta: r.id,
             domanda_ag: d.id,
             risposta: r.risposta,
             corretta: r.corretta,

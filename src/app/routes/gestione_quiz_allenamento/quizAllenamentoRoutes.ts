@@ -3,7 +3,7 @@ import { QuizAllenamentoGiornaliero } from 'app/entity/gestione_quiz_allenamento
 import { RispostaQuizAllenamento } from 'app/entity/gestione_quiz_allenamento/RispostaQuizAllenamento';
 import { QuizAllenamentoService } from 'app/services/gestione_quiz_allenamento/QuizAllenamentoService';
 import { QuizAllenamentoServiceInterface } from 'app/services/gestione_quiz_allenamento/QuizAllenamentoServiceInterface';
-import { ResponseObjectQA } from 'app/adapter/gestione_quiz_allenamento/quizAllenamentoAdapter';
+import { ResponseObjectQA, Risposta } from 'app/adapter/gestione_quiz_allenamento/quizAllenamentoAdapter';
 import express, { Request, Response } from 'express';
 
 const router = express.Router();
@@ -138,8 +138,7 @@ router.post('/salva_quiz_allenamento', async (req: Request, res: Response) => {
     for (const domandaKey of Object.keys(quizAllenamentoJSON.domandeRisposte)) {
       const domandaJSON = quizAllenamentoJSON.domandeRisposte[domandaKey];
       const domanda = new DomandaQuizAllenamento(domandaJSON.domanda);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const risposte = domandaJSON.risposte.map((rispostaJSON: any) => {
+      const risposte = domandaJSON.risposte.map((rispostaJSON: Risposta) => {
         return new RispostaQuizAllenamento(rispostaJSON.risposta);
       });
       domandeRisposte.set(domanda, risposte);
@@ -195,5 +194,23 @@ router.get(
     }
   }
 );
+
+router.post('/aggiungi_risposte', async (req: Request, res: Response) => {
+  try {
+    const risposteJSON = req.body;
+    risposteJSON.forEach(async (data: Risposta) => {
+      const risposta = new RispostaQuizAllenamento(
+        data.risposta,
+        data.domanda_ag,
+        data.corretta,
+        data.selezionata,
+        data.id
+      );
+      await quizAllenamentoService.updateRisposta(risposta);
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
 export default router;

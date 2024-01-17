@@ -355,4 +355,41 @@ export class QuizAllenamentoDAO implements QuizAllenamentoDAOInterface {
       });
     });
   }
+  public updateRisposta(risposta: RispostaQuizAllenamento): Promise<void> {
+    return new Promise<void>((resolve, reject) =>
+      this.pool.connect((err, client) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+
+        const query =
+          'UPDATE risposta_allenamento_giornaliero SET ' +
+          '(id, domanda_ag, risposta, corretta, ' +
+          'selezionata) = ($1, $2, $3, $4, $5) WHERE id = $6';
+
+        client?.query(
+          query,
+          [
+            risposta.id,
+            risposta.domanda,
+            risposta.risposta,
+            risposta.corretta,
+            risposta.selezionata,
+            risposta.id,
+          ],
+          (err) => {
+            if (err) {
+              console.log(err.stack);
+              reject(err);
+              return;
+            } else {
+              client.release();
+              resolve();
+            }
+          }
+        );
+      })
+    );
+  }
 }

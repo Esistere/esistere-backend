@@ -21,6 +21,8 @@ export interface QuizAllenamentoServiceInterface {
   saveRisposta(rispostaQuizAllenamento: RispostaQuizAllenamento): Promise<void>;
   getByDomandaAllenamento(id: number): Promise<RispostaQuizAllenamento[]>;
 
+  updateRisposta(risposta: RispostaQuizAllenamento): Promise<void>; 
+  
   createQuizAllenamento(
     quizAllenamento: QuizAllenamentoGiornaliero,
     domandeRisposte: Map<DomandaQuizAllenamento, RispostaQuizAllenamento[]>

@@ -19,4 +19,6 @@ export interface QuizAllenamentoDAOInterface {
   getRisposta(id: number): Promise<RispostaQuizAllenamento>;
   saveRisposta(rispostaQuizAllenamento: RispostaQuizAllenamento): Promise<void>;
   getByDomandaAllenamento(id: number): Promise<RispostaQuizAllenamento[]>;
+  updateRisposta(risposta: RispostaQuizAllenamento): Promise<void>;
+
 }
