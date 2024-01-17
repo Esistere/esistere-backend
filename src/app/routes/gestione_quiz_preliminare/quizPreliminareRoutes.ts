@@ -31,6 +31,7 @@ router.post('/salva_quiz', async (req: Request, res: Response) => {
       quizPreliminareJSON.paziente
     );
     quizPreliminareService.save(quizPreliminare);
+    res.json({ message: 'Quiz correctly saved' });
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   }
@@ -48,6 +49,7 @@ router.post(
         domandaPreliminareJSON.quiz_preliminare
       );
       quizPreliminareService.saveDomanda(domandaPreliminare);
+      res.json({ message: 'Question correctly saved' });
     } catch (error) {
       res.status(500).json({ error: 'Internal Server Error' });
     }
@@ -63,6 +65,7 @@ router.post('/salva_risposta', async (req: Request, res: Response) => {
       rispostaPreliminareJSON.domanda
     );
     quizPreliminareService.saveRisposta(rispostaPreliminare);
+    res.json({ message: 'Answer correctly saved' });
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   }

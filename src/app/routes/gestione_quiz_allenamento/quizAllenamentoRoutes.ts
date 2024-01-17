@@ -3,7 +3,10 @@ import { QuizAllenamentoGiornaliero } from 'app/entity/gestione_quiz_allenamento
 import { RispostaQuizAllenamento } from 'app/entity/gestione_quiz_allenamento/RispostaQuizAllenamento';
 import { QuizAllenamentoService } from 'app/services/gestione_quiz_allenamento/QuizAllenamentoService';
 import { QuizAllenamentoServiceInterface } from 'app/services/gestione_quiz_allenamento/QuizAllenamentoServiceInterface';
-import { ResponseObjectQA, Risposta } from 'app/adapter/gestione_quiz_allenamento/quizAllenamentoAdapter';
+import {
+  ResponseObjectQA,
+  Risposta,
+} from 'app/adapter/gestione_quiz_allenamento/quizAllenamentoAdapter';
 import express, { Request, Response } from 'express';
 
 const router = express.Router();
@@ -75,6 +78,7 @@ router.post(
         domandaAllenamentoJSON.corretta
       );
       quizAllenamentoService.saveDomanda(domandaAllenamento);
+      res.json({ message: 'Question correctly saved' });
     } catch (error) {
       res.status(500).json({ error: 'Internal Server Error' });
     }
@@ -121,6 +125,7 @@ router.post(
         rispostaAllenamentoJSON.selezionata
       );
       quizAllenamentoService.saveRisposta(rispostaAllenamento);
+      res.json({ message: 'Answer correctly saved' });
     } catch (error) {
       res.status(500).json({ error: 'Internal Server Error' });
     }
@@ -208,6 +213,7 @@ router.post('/aggiungi_risposte', async (req: Request, res: Response) => {
       );
       await quizAllenamentoService.updateRisposta(risposta);
     });
+    res.json({ message: 'Answers correctly added' });
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   }
