@@ -67,9 +67,7 @@ export class QuizAllenamentoService implements QuizAllenamentoServiceInterface {
     return this.quizAllenamentoDAO.getByDomandaAllenamento(id);
   }
 
-  public updateRisposta(
-    risposta: RispostaQuizAllenamento
-  ): Promise<void> {
+  public updateRisposta(risposta: RispostaQuizAllenamento): Promise<void> {
     return this.quizAllenamentoDAO.updateRisposta(risposta);
   }
 
@@ -78,14 +76,16 @@ export class QuizAllenamentoService implements QuizAllenamentoServiceInterface {
     domandeRisposte: Map<DomandaQuizAllenamento, RispostaQuizAllenamento[]>
   ): Promise<void> {
     const idQuiz = await this.quizAllenamentoDAO.save(quizAllenamento);
-    domandeRisposte.forEach(async (value, key) => {
+
+    for (const [key, value] of domandeRisposte) {
       key.quizAllenamento = idQuiz;
       const idDomanda = await this.quizAllenamentoDAO.saveDomanda(key);
-      value.forEach(async (v) => {
+
+      for (const v of value) {
         v.domanda = idDomanda;
-        this.quizAllenamentoDAO.saveRisposta(v);
-      });
-    });
+        await this.quizAllenamentoDAO.saveRisposta(v);
+      }
+    }
   }
 
   public async getDomandeRisposte(
