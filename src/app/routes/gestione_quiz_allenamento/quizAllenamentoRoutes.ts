@@ -200,22 +200,25 @@ router.get(
   }
 );
 
-router.post('/aggiungi_risposte', async (req: Request, res: Response) => {
-  try {
-    const risposteJSON = req.body;
-    risposteJSON.forEach(async (data: RispostaAllenamento) => {
-      const risposta = new RispostaQuizAllenamento(
-        data.risposta,
-        data.domanda_ag,
-        data.corretta,
-        data.selezionata,
-        data.id
-      );
-      await quizAllenamentoService.updateRisposta(risposta);
-    });
-  } catch (error) {
-    res.status(500).json({ error: 'Internal Server Error' });
+router.post(
+  '/aggiungi_risposte_allenamento',
+  async (req: Request, res: Response) => {
+    try {
+      const risposteJSON = req.body;
+      risposteJSON.forEach(async (data: RispostaAllenamento) => {
+        const risposta = new RispostaQuizAllenamento(
+          data.risposta,
+          data.domanda_ag,
+          data.corretta,
+          data.selezionata,
+          data.id
+        );
+        await quizAllenamentoService.updateRisposta(risposta);
+      });
+    } catch (error) {
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
   }
-});
+);
 
 export default router;
