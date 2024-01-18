@@ -1,3 +1,6 @@
+/**
+ * Represents a data access object for the Medico entity.
+ */
 import { Pool } from 'pg';
 import * as Database from 'app/Database';
 import { MedicoDAOInterface } from './MedicoDAOInterface';
@@ -10,6 +13,10 @@ export class MedicoDAO implements MedicoDAOInterface {
     this.pool = Database.Database.instance;
   }
 
+  /**
+   * Retrieves all the Medico entities from the database.
+   * @returns A promise that resolves to an array of Medico entities.
+   */
   public getAll(): Promise<Medico[]> {
     return new Promise((resolve, reject) => {
       this.pool.connect((err, client) => {
@@ -31,6 +38,11 @@ export class MedicoDAO implements MedicoDAOInterface {
     });
   }
 
+  /**
+   * Retrieves a specific Medico entity from the database based on the provided codice.
+   * @param codice - The id or email of the Medico entity.
+   * @returns A promise that resolves to the Medico entity.
+   */
   public get(codice: string | number): Promise<Medico> {
     return new Promise((resolve, reject) => {
       this.pool.connect((err, client) => {
@@ -73,6 +85,11 @@ export class MedicoDAO implements MedicoDAOInterface {
     });
   }
 
+  /**
+   * Saves a new Medico entity to the database.
+   * @param medico - The Medico entity to be saved.
+   * @returns A promise that resolves when the Medico entity is successfully saved.
+   */
   public save(medico: Medico): Promise<void> {
     return new Promise<void>((resolve, reject) =>
       this.pool.connect((err, client) => {
@@ -113,6 +130,11 @@ export class MedicoDAO implements MedicoDAOInterface {
     );
   }
 
+  /**
+   * Updates an existing Medico entity in the database.
+   * @param medico - The updated Medico entity.
+   * @returns A promise that resolves when the Medico entity is successfully updated.
+   */
   public update(medico: Medico): Promise<void> {
     return new Promise<void>((resolve, reject) =>
       this.pool.connect((err, client) => {

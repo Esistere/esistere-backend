@@ -5,13 +5,19 @@ import { QuizAllenamentoGiornaliero } from 'app/entity/gestione_quiz_allenamento
 import { DomandaQuizAllenamento } from 'app/entity/gestione_quiz_allenamento/DomandaQuizAllenamento';
 import { RispostaQuizAllenamento } from 'app/entity/gestione_quiz_allenamento/RispostaQuizAllenamento';
 
+/**
+ * Represents a data access object for QuizAllenamentoGiornaliero.
+ */
 export class QuizAllenamentoDAO implements QuizAllenamentoDAOInterface {
   private pool: Pool;
 
   constructor() {
     this.pool = Database.Database.instance;
   }
-
+  /**
+   * Retrieves all QuizAllenamentoGiornaliero records from the database.
+   * @returns A promise that resolves to an array of QuizAllenamentoGiornaliero objects.
+   */
   public getAll(): Promise<QuizAllenamentoGiornaliero[]> {
     return new Promise((resolve, reject) => {
       this.pool.connect((err, client) => {
@@ -36,6 +42,11 @@ export class QuizAllenamentoDAO implements QuizAllenamentoDAOInterface {
     });
   }
 
+  /**
+   * Retrieves a QuizAllenamentoGiornaliero record from the database by its ID.
+   * @param id - The ID of the QuizAllenamentoGiornaliero record.
+   * @returns A promise that resolves to a QuizAllenamentoGiornaliero object.
+   */
   public get(id: number): Promise<QuizAllenamentoGiornaliero> {
     return new Promise((resolve, reject) => {
       this.pool.connect((err, client) => {
@@ -66,6 +77,11 @@ export class QuizAllenamentoDAO implements QuizAllenamentoDAOInterface {
     });
   }
 
+  /**
+   * Saves a QuizAllenamentoGiornaliero record to the database.
+   * @param quizAllenamento - The QuizAllenamentoGiornaliero object to be saved.
+   * @returns A promise that resolves to the ID of the saved record.
+   */
   public save(quizAllenamento: QuizAllenamentoGiornaliero): Promise<number> {
     return new Promise<number>((resolve, reject) =>
       this.pool.connect((err, client) => {
@@ -102,6 +118,11 @@ export class QuizAllenamentoDAO implements QuizAllenamentoDAOInterface {
     );
   }
 
+  /**
+   * Updates a QuizAllenamentoGiornaliero record in the database.
+   * @param quizAllenamento - The updated QuizAllenamentoGiornaliero object.
+   * @returns A promise that resolves to the ID of the updated record.
+   */
   update(quizAllenamento: QuizAllenamentoGiornaliero): Promise<number> {
     return new Promise<number>((resolve, reject) =>
       this.pool.connect((err, client) => {
@@ -140,6 +161,11 @@ export class QuizAllenamentoDAO implements QuizAllenamentoDAOInterface {
     );
   }
 
+  /**
+   * Retrieves all QuizAllenamentoGiornaliero records associated with a caregiver familiare from the database.
+   * @param caregiverFamiliare - The ID of the caregiver familiare.
+   * @returns A promise that resolves to an array of QuizAllenamentoGiornaliero objects.
+   */
   public getByCaregiverFamiliare(
     caregiverFamiliare: number
   ): Promise<QuizAllenamentoGiornaliero[]> {
@@ -166,6 +192,10 @@ export class QuizAllenamentoDAO implements QuizAllenamentoDAOInterface {
     });
   }
 
+  /**
+   * Retrieves all DomandaQuizAllenamento records from the database.
+   * @returns A promise that resolves to an array of DomandaQuizAllenamento objects.
+   */
   public getAllDomande(): Promise<DomandaQuizAllenamento[]> {
     return new Promise((resolve, reject) => {
       this.pool.connect((err, client) => {
@@ -189,6 +219,11 @@ export class QuizAllenamentoDAO implements QuizAllenamentoDAOInterface {
     });
   }
 
+  /**
+   * Retrieves a DomandaQuizAllenamento record from the database by its ID.
+   * @param id - The ID of the DomandaQuizAllenamento record.
+   * @returns A promise that resolves to a DomandaQuizAllenamento object.
+   */
   public getDomanda(id: number): Promise<DomandaQuizAllenamento> {
     return new Promise((resolve, reject) => {
       this.pool.connect((err, client) => {
@@ -220,6 +255,11 @@ export class QuizAllenamentoDAO implements QuizAllenamentoDAOInterface {
     });
   }
 
+  /**
+   * Saves a DomandaQuizAllenamento record to the database.
+   * @param domanda - The DomandaQuizAllenamento object to be saved.
+   * @returns A promise that resolves to the ID of the saved record.
+   */
   public saveDomanda(domanda: DomandaQuizAllenamento): Promise<number> {
     return new Promise<number>((resolve, reject) =>
       this.pool.connect((err, client) => {
@@ -275,6 +315,10 @@ export class QuizAllenamentoDAO implements QuizAllenamentoDAOInterface {
     });
   }
 
+  /**
+   * Retrieves all RispostaQuizAllenamento records from the database.
+   * @returns A promise that resolves to an array of RispostaQuizAllenamento objects.
+   */
   public getAllRisposta(): Promise<RispostaQuizAllenamento[]> {
     return new Promise((resolve, reject) => {
       this.pool.connect((err, client) => {
@@ -298,6 +342,11 @@ export class QuizAllenamentoDAO implements QuizAllenamentoDAOInterface {
     });
   }
 
+  /**
+   * Retrieves a RispostaQuizAllenamento record from the database by its ID.
+   * @param id - The ID of the RispostaQuizAllenamento record.
+   * @returns A promise that resolves to a RispostaQuizAllenamento object.
+   */
   public getRisposta(id: number): Promise<RispostaQuizAllenamento> {
     return new Promise((resolve, reject) => {
       this.pool.connect((err, client) => {
@@ -330,6 +379,11 @@ export class QuizAllenamentoDAO implements QuizAllenamentoDAOInterface {
     });
   }
 
+  /**
+   * Saves a RispostaQuizAllenamento record to the database.
+   * @param rispostaQuizAllenamento - The RispostaQuizAllenamento object to be saved.
+   * @returns A promise that resolves to void.
+   */
   public saveRisposta(
     rispostaQuizAllenamento: RispostaQuizAllenamento
   ): Promise<void> {
@@ -368,6 +422,11 @@ export class QuizAllenamentoDAO implements QuizAllenamentoDAOInterface {
     );
   }
 
+  /**
+   * Retrieves all RispostaQuizAllenamento records associated with a DomandaQuizAllenamento from the database.
+   * @param id - The ID of the DomandaQuizAllenamento.
+   * @returns A promise that resolves to an array of RispostaQuizAllenamento objects.
+   */
   public getByDomandaAllenamento(
     id: number
   ): Promise<RispostaQuizAllenamento[]> {
@@ -393,6 +452,12 @@ export class QuizAllenamentoDAO implements QuizAllenamentoDAOInterface {
       });
     });
   }
+
+  /**
+   * Updates a RispostaQuizAllenamento record in the database.
+   * @param risposta - The updated RispostaQuizAllenamento object.
+   * @returns A promise that resolves to void.
+   */
   public updateRisposta(risposta: RispostaQuizAllenamento): Promise<void> {
     return new Promise<void>((resolve, reject) =>
       this.pool.connect((err, client) => {

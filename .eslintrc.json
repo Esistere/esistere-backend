@@ -15,7 +15,10 @@
     "indent": ["error", 2, { "SwitchCase": 1 }],
     "quotes": ["error", "single"],
     "semi": ["error", "always"],
-    "max-len": ["warn", { "code": 80, "ignorePattern": "^import .*" }],
+    "max-len": [
+      "warn",
+      { "code": 80, "ignorePattern": "^import .*", "ignoreComments": true }
+    ],
     "@typescript-eslint/explicit-function-return-type": [
       "error",
       {

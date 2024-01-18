@@ -1,3 +1,6 @@
+/**
+ * Represents a set of questions and answers for a preliminary quiz.
+ */
 export interface DomandeRisposte {
   id_domanda: number | undefined;
   quiz_preliminare: number | undefined;
@@ -10,6 +13,9 @@ export interface DomandeRisposte {
   };
 }
 
+/**
+ * Represents the response object for quiz preliminare.
+ */
 export interface ResponseObjectQP {
   domandeRisposte: { [key: string]: DomandeRisposte };
   quizPreliminare: {
@@ -22,6 +28,9 @@ export interface ResponseObjectQP {
   };
 }
 
+/**
+ * Represents a preliminary answer.
+ */
 export interface RispostaPreliminare {
   id: number | undefined;
   domanda_preliminare: number | undefined;
