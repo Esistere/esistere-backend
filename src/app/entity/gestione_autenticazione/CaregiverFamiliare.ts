@@ -205,16 +205,16 @@ export class CaregiverFamiliare {
    * Gets the phone number of the caregiver familiare.
    * @returns The phone number of the caregiver familiare.
    */
-  public get numeroTelefono(): string {
+  public get numTelefono(): string {
     return this._numeroTelefono;
   }
 
   /**
    * Sets the phone number of the caregiver familiare.
-   * @param numeroTelefono - The phone number of the caregiver familiare.
+   * @param numTelefono - The phone number of the caregiver familiare.
    */
-  public set numeroTelefono(numeroTelefono: string) {
-    this._numeroTelefono = numeroTelefono;
+  public set numTelefono(numTelefono: string) {
+    this._numeroTelefono = numTelefono;
   }
 
   /**
