@@ -25,14 +25,27 @@ router.post('/visualizza_paziente', async (req: Request, res: Response) => {
       cognome: pazienteDAO.cognome,
       data_di_nascita: pazienteDAO.dataDiNascita,
       med: pazienteDAO.medico,
-      cg_fam: pazienteDAO.caregiverFamiliare
+      cg_fam: pazienteDAO.caregiverFamiliare,
     };
-    
+
     res.json(paziente);
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
+router.get(
+  '/visualizza_codice_fiscale',
+  async (req: Request, res: Response) => {
+    try {
+      const id: number = req.body.id;
+      const paziente = await pazienteService.getCgFamByPaziente(id);
+      res.json(paziente.codiceIdentificativo);
+    } catch (error) {
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  }
+);
 
 router.get('/visualizza_caregiver', async (req: Request, res: Response) => {
   try {
