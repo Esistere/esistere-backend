@@ -1,3 +1,10 @@
+/**
+ * This file contains the server configuration and setup for the backend
+ * application.
+ * It imports necessary modules, sets up middleware, defines routes, and starts
+ * the server.
+ */
+
 import cors from 'cors';
 import express from 'express';
 import fs from 'fs';
@@ -9,6 +16,7 @@ import signUpRoutes from './routes/gestione_autenticazione/signUpRoutes';
 import loginRoutes from 'app/routes/gestione_autenticazione/loginRoutes';
 import authRoutes from './routes/gestione_autenticazione/authRoutes';
 import utilsRoutes from 'app/routes/utilsRoutes';
+
 dotenv.config();
 
 const key = fs.readFileSync('src/app/key.pem');
@@ -17,9 +25,13 @@ const cert = fs.readFileSync('src/app/cert.pem');
 const app = express();
 
 // CORS config
-// TODO remove localhost from allowedOrigins before production
 const allowedOrigins = ['https://esistere.github.io', 'http://localhost:3000'];
 const corsOptions = {
+  /**
+   * Determines whether the request origin is allowed or not.
+   * @param origin - The request origin.
+   * @param callback - The callback function to be called with the result.
+   */
   origin: (
     origin: string | undefined,
     callback: (error: Error | null, allow?: boolean) => void

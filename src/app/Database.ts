@@ -3,6 +3,9 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+/**
+ * Represents a database connection pool.
+ */
 export class Database {
   private static pool: Pool;
   private static config = {
@@ -15,6 +18,10 @@ export class Database {
 
   private constructor() {}
 
+  /**
+   * Gets the singleton instance of the database connection pool.
+   * @returns The database connection pool.
+   */
   public static get instance(): Pool {
     if (!Database.pool) Database.pool = new Pool(Database.config);
     return Database.pool;

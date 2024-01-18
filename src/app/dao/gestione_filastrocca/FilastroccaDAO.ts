@@ -3,12 +3,25 @@ import { FilastroccaDAOInterface } from './FilastroccaDAOInterface';
 import { Pool } from 'pg';
 import * as Database from 'app/Database';
 
+/**
+ * Represents a data access object for managing Filastrocca entities.
+ */
+
 export class FilastroccaDAO implements FilastroccaDAOInterface {
   private pool: Pool;
 
+  /**
+   * Constructs a new instance of FilastroccaDAO.
+   */
   constructor() {
     this.pool = Database.Database.instance;
   }
+
+  /**
+   * Retrieves a Filastrocca entity by its ID.
+   * @param id - The ID of the Filastrocca entity.
+   * @returns A promise that resolves with the retrieved Filastrocca entity.
+   */
   get(id: number): Promise<Filastrocca> {
     return new Promise((resolve, reject) => {
       this.pool.connect((err, client) => {
@@ -40,6 +53,11 @@ export class FilastroccaDAO implements FilastroccaDAOInterface {
     });
   }
 
+  /**
+   * Saves a Filastrocca entity.
+   * @param filastrocca - The Filastrocca entity to be saved.
+   * @returns A promise that resolves when the Filastrocca entity is successfully saved.
+   */
   save(filastrocca: Filastrocca): Promise<void> {
     return new Promise<void>((resolve, reject) =>
       this.pool.connect((err, client) => {
@@ -75,6 +93,11 @@ export class FilastroccaDAO implements FilastroccaDAOInterface {
     );
   }
 
+  /**
+   * Updates a Filastrocca entity.
+   * @param filastrocca - The Filastrocca entity to be updated.
+   * @returns A promise that resolves when the Filastrocca entity is successfully updated.
+   */
   update(filastrocca: Filastrocca): Promise<void> {
     return new Promise<void>((resolve, reject) =>
       this.pool.connect((err, client) => {
@@ -111,6 +134,12 @@ export class FilastroccaDAO implements FilastroccaDAOInterface {
       })
     );
   }
+
+  /**
+   * Retrieves Filastrocca entities by caregiver familiare.
+   * @param caregiverFamiliare - The ID of the caregiver familiare.
+   * @returns A promise that resolves with an array of Filastrocca entities.
+   */
   getByCaregiverFamiliare(caregiverFamiliare: number): Promise<Filastrocca[]> {
     return new Promise((resolve, reject) => {
       this.pool.connect((err, client) => {

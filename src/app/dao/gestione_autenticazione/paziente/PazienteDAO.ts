@@ -3,6 +3,9 @@ import { PazienteDAOInterface } from './PazienteDAOInterface';
 import { Database } from 'app/Database';
 import { Paziente } from 'app/entity/gestione_autenticazione/Paziente';
 
+/**
+ * Represents a data access object for the Paziente entity.
+ */
 export class PazienteDAO implements PazienteDAOInterface {
   private pool: Pool;
 
@@ -10,6 +13,10 @@ export class PazienteDAO implements PazienteDAOInterface {
     this.pool = Database.instance;
   }
 
+  /**
+   * Retrieves all the Paziente entities from the database.
+   * @returns A promise that resolves to an array of Paziente objects.
+   */
   public getAll(): Promise<Paziente[]> {
     return new Promise((resolve, reject) => {
       this.pool.connect((err, client) => {
@@ -31,6 +38,11 @@ export class PazienteDAO implements PazienteDAOInterface {
     });
   }
 
+  /**
+   * Retrieves a Paziente entity from the database based on the provided codice_fiscale.
+   * @param codice_fiscale - The codice fiscale of the Paziente.
+   * @returns A promise that resolves to a Paziente object.
+   */
   public get(codice_fiscale: string): Promise<Paziente> {
     return new Promise((resolve, reject) => {
       this.pool.connect((err, client) => {
@@ -63,6 +75,11 @@ export class PazienteDAO implements PazienteDAOInterface {
     });
   }
 
+  /**
+   * Retrieves all the Paziente entities associated with the provided medico.
+   * @param medico - The ID of the medico.
+   * @returns A promise that resolves to an array of Paziente objects.
+   */
   public getPazienteByMed(medico: number): Promise<Paziente[]> {
     return new Promise((resolve, reject) => {
       this.pool.connect((err, client) => {
@@ -85,6 +102,11 @@ export class PazienteDAO implements PazienteDAOInterface {
     });
   }
 
+  /**
+   * Saves a new Paziente entity to the database.
+   * @param paziente - The Paziente object to be saved.
+   * @returns A promise that resolves when the operation is complete.
+   */
   public save(paziente: Paziente): Promise<void> {
     return new Promise<void>((resolve, reject) =>
       this.pool.connect((err, client) => {
@@ -122,6 +144,11 @@ export class PazienteDAO implements PazienteDAOInterface {
     );
   }
 
+  /**
+   * Updates an existing Paziente entity in the database.
+   * @param paziente - The Paziente object to be updated.
+   * @returns A promise that resolves when the operation is complete.
+   */
   public update(paziente: Paziente): Promise<void> {
     return new Promise<void>((resolve, reject) =>
       this.pool.connect((err, client) => {

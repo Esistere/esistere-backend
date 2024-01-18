@@ -5,7 +5,9 @@ import { QuizPreliminare } from 'app/entity/gestione_quiz_preliminare/QuizPrelim
 import { DomandaQuizPreliminare } from 'app/entity/gestione_quiz_preliminare/DomandaQuizPreliminare';
 import { RispostaQuizPreliminare } from 'app/entity/gestione_quiz_preliminare/RispostaQuizPreliminare';
 
-// TODO ma il paziente non dovrebbe avere la chiave del quiz preliminare?
+/**
+ * Represents a data access object for Quiz Preliminare.
+ */
 export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
   private pool: Pool;
 
@@ -13,6 +15,10 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
     this.pool = Database.Database.instance;
   }
 
+  /**
+   * Retrieves all Quiz Preliminare records from the database.
+   * @returns A promise that resolves to an array of QuizPreliminare objects.
+   */
   public getAll(): Promise<QuizPreliminare[]> {
     return new Promise((resolve, reject) => {
       this.pool.connect((err, client) => {
@@ -34,6 +40,11 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
     });
   }
 
+  /**
+   * Retrieves a Quiz Preliminare record by its ID from the database.
+   * @param id - The ID of the Quiz Preliminare.
+   * @returns A promise that resolves to a QuizPreliminare object.
+   */
   public get(id: number): Promise<QuizPreliminare> {
     return new Promise((resolve, reject) => {
       this.pool.connect((err, client) => {
@@ -66,6 +77,11 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
     });
   }
 
+  /**
+   * Saves a Quiz Preliminare record to the database.
+   * @param quizPreliminare - The QuizPreliminare object to be saved.
+   * @returns A promise that resolves to the ID of the saved Quiz Preliminare.
+   */
   public save(quizPreliminare: QuizPreliminare): Promise<number> {
     return new Promise<number>((resolve, reject) =>
       this.pool.connect((err, client) => {
@@ -103,7 +119,11 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
       })
     );
   }
-
+  /**
+   * Updates a Quiz Preliminare record in the database.
+   * @param quizPreliminare - The QuizPreliminare object to be updated.
+   * @returns A promise that resolves when the update is complete.
+   */
   public update(quizPreliminare: QuizPreliminare): Promise<void> {
     return new Promise<void>((resolve, reject) =>
       this.pool.connect((err, client) => {
@@ -143,6 +163,11 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
     );
   }
 
+  /**
+   * Retrieves all Quiz Preliminare records associated with a specific medico from the database.
+   * @param medico - The ID of the medico.
+   * @returns A promise that resolves to an array of QuizPreliminare objects.
+   */
   public getByMed(medico: number): Promise<QuizPreliminare[]> {
     return new Promise((resolve, reject) => {
       this.pool.connect((err, client) => {
@@ -165,6 +190,12 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
       });
     });
   }
+
+  /**
+   * Retrieves all Quiz Preliminare records associated with a specific paziente from the database.
+   * @param paziente - The ID of the paziente.
+   * @returns A promise that resolves to an array of QuizPreliminare objects.
+   */
   public getByPaziente(paziente: string): Promise<QuizPreliminare[]> {
     return new Promise((resolve, reject) => {
       this.pool.connect((err, client) => {
@@ -188,6 +219,10 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
     });
   }
 
+  /**
+   * Retrieves all DomandaQuizPreliminare records from the database.
+   * @returns A promise that resolves to an array of DomandaQuizPreliminare objects.
+   */
   public getAllDomande(): Promise<DomandaQuizPreliminare[]> {
     return new Promise((resolve, reject) => {
       this.pool.connect((err, client) => {
@@ -209,6 +244,11 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
     });
   }
 
+  /**
+   * Retrieves all DomandaQuizPreliminare records associated with a specific Quiz Preliminare from the database.
+   * @param quizPreliminare - The ID of the Quiz Preliminare.
+   * @returns A promise that resolves to an array of DomandaQuizPreliminare objects.
+   */
   public getDomandeByQuizPreliminare(
     quizPreliminare: number
   ): Promise<DomandaQuizPreliminare[]> {
@@ -235,6 +275,11 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
     });
   }
 
+  /**
+   * Retrieves a DomandaQuizPreliminare record by its ID from the database.
+   * @param id - The ID of the DomandaQuizPreliminare.
+   * @returns A promise that resolves to a DomandaQuizPreliminare object.
+   */
   public getDomanda(id: number): Promise<DomandaQuizPreliminare> {
     return new Promise((resolve, reject) => {
       this.pool.connect((err, client) => {
@@ -264,6 +309,11 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
     });
   }
 
+  /**
+   * Saves a DomandaQuizPreliminare record to the database.
+   * @param domanda - The DomandaQuizPreliminare object to be saved.
+   * @returns A promise that resolves to the ID of the saved DomandaQuizPreliminare.
+   */
   public saveDomanda(domanda: DomandaQuizPreliminare): Promise<number> {
     return new Promise<number>((resolve, reject) =>
       this.pool.connect((err, client) => {
@@ -295,6 +345,11 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
     );
   }
 
+  /**
+   * Updates a DomandaQuizPreliminare record in the database.
+   * @param domanda - The DomandaQuizPreliminare object to be updated.
+   * @returns A promise that resolves when the update is complete.
+   */
   public updateDomanda(domanda: DomandaQuizPreliminare): Promise<void> {
     return new Promise<void>((resolve, reject) =>
       this.pool.connect((err, client) => {
@@ -351,6 +406,10 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
     });
   }
 
+  /**
+   * Retrieves all RispostaQuizPreliminare records from the database.
+   * @returns A promise that resolves to an array of RispostaQuizPreliminare objects.
+   */
   public getAllRisposta(): Promise<RispostaQuizPreliminare[]> {
     return new Promise((resolve, reject) => {
       this.pool.connect((err, client) => {
@@ -372,6 +431,11 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
     });
   }
 
+  /**
+   * Retrieves a RispostaQuizPreliminare record by its ID from the database.
+   * @param id - The ID of the RispostaQuizPreliminare.
+   * @returns A promise that resolves to a RispostaQuizPreliminare object.
+   */
   public getRisposta(id: number): Promise<RispostaQuizPreliminare> {
     return new Promise((resolve, reject) => {
       this.pool.connect((err, client) => {
@@ -401,6 +465,12 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
     });
   }
 
+  /**
+   * Retrieves a RispostaQuizPreliminare record by its Domanda and Paziente from the database.
+   * @param domanda - The ID of the DomandaQuizPreliminare.
+   * @param paziente - The ID of the paziente.
+   * @returns A promise that resolves to a RispostaQuizPreliminare object.
+   */
   public getByDomandaAndPaziente(
     domanda: number,
     paziente: string
