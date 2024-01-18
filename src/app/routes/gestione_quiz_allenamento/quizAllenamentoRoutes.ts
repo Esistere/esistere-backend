@@ -28,6 +28,17 @@ router.get(
   }
 );
 
+router.get('/aggiorna_quiz', async (req: Request, res: Response) => {
+  try {
+    const idQuizAllenamento = Number(req.query.id);
+    const quizAllenamento = await quizAllenamentoService.get(idQuizAllenamento);
+    await quizAllenamentoService.update(quizAllenamento);
+    res.json({ message: 'Quiz update successful' });
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 router.get('/quiz_allenamento_cgfam', async (req: Request, res: Response) => {
   try {
     const idCgFam = Number(req.query.idCgFam);
