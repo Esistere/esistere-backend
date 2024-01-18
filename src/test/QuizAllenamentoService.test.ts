@@ -16,6 +16,26 @@ describe('QuizAllenamentoService', () => {
       save: jest.fn().mockResolvedValue(1),
       saveDomanda: jest.fn().mockResolvedValue(2),
       saveRisposta: jest.fn().mockResolvedValue(undefined),
+      getByQuizAllenamento: jest.fn().mockResolvedValue([
+        { id: 1, domanda: 'Domanda 1', corretta: true, quizAllenamento: 1 },
+        { id: 2, domanda: 'Domanda 2', corretta: false, quizAllenamento: 1 },
+      ]),
+      getByDomandaAllenamento: jest.fn().mockResolvedValue([
+        {
+          id: 1,
+          risposta: 'Risposta 1',
+          corretta: true,
+          selezionata: false,
+          domanda: 1,
+        },
+        {
+          id: 2,
+          risposta: 'Risposta 2',
+          corretta: false,
+          selezionata: false,
+          domanda: 2,
+        },
+      ]),
     };
 
     jest
@@ -53,5 +73,67 @@ describe('QuizAllenamentoService', () => {
         _domanda: 2,
       });
     });
+  });
+
+  test('getDomandeRisposte should correctly process data from DAO', async () => {
+    const quizId = 1;
+    const mockDAO = new daoModule.QuizAllenamentoDAO() as any;
+
+    const expectedResponse = {
+      'Domanda 1': {
+        idDomanda: 1,
+        quiz_ag: 1,
+        domanda: 'Domanda 1',
+        corretta: true,
+        risposte: [
+          {
+            idRisposta: 1,
+            domanda_ag: 1,
+            risposta: 'Risposta 1',
+            corretta: true,
+            selezionata: false,
+          },
+          {
+            idRisposta: 2,
+            domanda_ag: 1,
+            risposta: 'Risposta 2',
+            corretta: false,
+            selezionata: false,
+          },
+        ],
+      },
+      'Domanda 2': {
+        idDomanda: 2,
+        quiz_ag: 1,
+        domanda: 'Domanda 2',
+        corretta: false,
+        risposte: [
+          {
+            idRisposta: 1,
+            domanda_ag: 2,
+            risposta: 'Risposta 1',
+            corretta: true,
+            selezionata: false,
+          },
+          {
+            idRisposta: 2,
+            domanda_ag: 2,
+            risposta: 'Risposta 2',
+            corretta: false,
+            selezionata: false,
+          },
+        ],
+      },
+    };
+
+    const result = await service.getDomandeRisposte(quizId);
+
+    expect(result).toEqual(expectedResponse);
+
+    expect(mockDAO.getByQuizAllenamento).toHaveBeenCalledWith(quizId);
+
+    expect(mockDAO.getByDomandaAllenamento).toHaveBeenCalledWith(1);
+
+    expect(mockDAO.getByDomandaAllenamento).toHaveBeenCalledWith(2);
   });
 });
