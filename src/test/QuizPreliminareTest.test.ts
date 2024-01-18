@@ -16,6 +16,17 @@ describe('QuizPreliminareService', () => {
       save: jest.fn().mockResolvedValue(1),
       saveDomanda: jest.fn().mockResolvedValue(2),
       saveRisposta: jest.fn().mockResolvedValue(undefined),
+      getByQuizPreliminare: jest
+        .fn()
+        .mockResolvedValue([
+          { id: 1, domanda: 'Domanda 1', quizPreliminare: 1 },
+        ]),
+      getByDomandaAndPaziente: jest.fn().mockResolvedValue({
+        id: 1,
+        domandaPreliminare: 1,
+        risposta: 'Risposta 1',
+        paziente: 'paziente',
+      }),
     };
 
     jest
@@ -56,5 +67,33 @@ describe('QuizPreliminareService', () => {
       ...rispostaPreliminare,
       _domandaPreliminare: 2,
     });
+  });
+
+  test('getDomandeRisposte should correctly process data from DAO', async () => {
+    const quizId = 1;
+    const paziente = 'paziente';
+    const mockDAO = new daoModule.QuizPreliminareDAO() as any;
+
+    const result = await service.getDomandeRisposte(quizId, paziente);
+    const expectedResponse = {
+      'Domanda 1': {
+        id_domanda: 1,
+        quiz_preliminare: quizId,
+        domanda: 'Domanda 1',
+        risposta: {
+          id: 1,
+          domanda_preliminare: 1,
+          risposta: 'Risposta 1',
+          paziente: paziente,
+        },
+      },
+    };
+
+    expect(result).toEqual(expectedResponse);
+    expect(mockDAO.getByQuizPreliminare).toHaveBeenCalledWith(quizId);
+    expect(mockDAO.getByDomandaAndPaziente).toHaveBeenCalledWith(
+      quizId,
+      paziente
+    );
   });
 });
