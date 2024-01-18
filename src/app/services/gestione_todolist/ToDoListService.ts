@@ -15,16 +15,16 @@ export class ToDoListService implements ToDoListServiceInterface {
     return this.toDoListDAO.getAll();
   }
 
-  public getByMed(med: number): Promise<ToDoList[]> {
-    return this.toDoListDAO.getByMed(med);
+  public getByMed(medico: number): Promise<ToDoList[]> {
+    return this.toDoListDAO.getByMed(medico);
   }
 
-  public getByPaziente(paz: number): Promise<ToDoList[]> {
-    return this.toDoListDAO.getByPaziente(paz);
+  public getByPaziente(paziente: string): Promise<ToDoList[]> {
+    return this.toDoListDAO.getByPaziente(paziente);
   }
 
-  public getByMedAndPaz(med: number, paz: number): Promise<ToDoList[]> {
-    return this.toDoListDAO.getByMedAndPaz(med, paz);
+  public getByMedAndPaz(medico: number, paziente: string): Promise<ToDoList[]> {
+    return this.toDoListDAO.getByMedAndPaz(medico, paziente);
   }
 
   public get(id: number): Promise<ToDoList> {

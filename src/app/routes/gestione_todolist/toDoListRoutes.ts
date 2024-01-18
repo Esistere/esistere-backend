@@ -30,7 +30,7 @@ router.get('/to_do_list_medico', async (req: Request, res: Response) => {
 
 router.post('/to_do_list_paziente', async (req: Request, res: Response) => {
   try {
-    const cfPaziente = Number(req.body.codice_fiscale);
+    const cfPaziente = String(req.body.codice_fiscale);
     const toDoList = await toDoListService.getByPaziente(cfPaziente);
     res.json(toDoList);
   } catch (error) {
@@ -43,7 +43,7 @@ router.get(
   async (req: Request, res: Response) => {
     try {
       const idMed = Number(req.query.idMed);
-      const cfPaziente = Number(req.query.cfPaziente);
+      const cfPaziente = String(req.query.cfPaziente);
       const toDoList = await toDoListService.getByMedAndPaz(idMed, cfPaziente);
       res.json(toDoList);
     } catch (error) {

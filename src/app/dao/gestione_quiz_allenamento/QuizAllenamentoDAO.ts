@@ -102,6 +102,44 @@ export class QuizAllenamentoDAO implements QuizAllenamentoDAOInterface {
     );
   }
 
+  update(quizAllenamento: QuizAllenamentoGiornaliero): Promise<number> {
+    return new Promise<number>((resolve, reject) =>
+      this.pool.connect((err, client) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+
+        const query =
+          'UPDATE quiz_allenamento_giornaliero SET' +
+          '(id, cg_fam, numero_domande, punteggio_totale)' +
+          ' VALUES ($1, $2, $3, $4) WHERE id = $5';
+
+        client?.query(
+          query,
+          [
+            quizAllenamento.id,
+            quizAllenamento.caregiverFamiliare,
+            quizAllenamento.numDomande,
+            quizAllenamento.punteggioTot,
+            quizAllenamento.id,
+          ],
+          (err, res) => {
+            if (err) {
+              console.log(err.stack);
+              reject(err);
+              return;
+            } else {
+              client.release();
+              const result = res.rows[0];
+              resolve(result.id);
+            }
+          }
+        );
+      })
+    );
+  }
+
   public getByCaregiverFamiliare(
     caregiverFamiliare: number
   ): Promise<QuizAllenamentoGiornaliero[]> {

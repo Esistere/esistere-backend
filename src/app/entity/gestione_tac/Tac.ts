@@ -1,17 +1,15 @@
-import { TacFile } from 'app/adapter/gestione_tac/tacAdapter';
-
 export class Tac {
   private _id: number | undefined;
   private _stadio: string;
   private _medico: number;
   private _paziente: string;
-  private _allegato: TacFile;
+  private _allegato: Buffer;
 
   constructor(
     stadio: string,
     medico: number,
     paziente: string,
-    allegato: TacFile,
+    allegato: Buffer,
     id?: number
   ) {
     this._id = id;
@@ -37,11 +35,11 @@ export class Tac {
     this._stadio = stadio;
   }
 
-  public get allegato(): TacFile {
+  public get allegato(): Buffer {
     return this._allegato;
   }
 
-  public set allegato(allegato: TacFile) {
+  public set allegato(allegato: Buffer) {
     this._allegato = allegato;
   }
 

@@ -3,7 +3,6 @@ import multer from 'multer';
 import { Tac } from 'app/entity/gestione_tac/Tac';
 import { TacServiceInterface } from 'app/services/gestione_tac/TacServiceInterface';
 import { TacService } from 'app/services/gestione_tac/TacService';
-import { TacFile } from 'app/adapter/gestione_tac/tacAdapter';
 
 const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
@@ -13,7 +12,14 @@ router.get('/tac', async (req: Request, res: Response) => {
   try {
     const idTac = Number(req.query.id);
     const tac = await tacService.get(idTac);
-    res.json(tac);
+    const tacResponse = {
+      id: tac.id,
+      paziente: tac.paziente,
+      med: tac.medico,
+      allegato: tac.allegato.toString('base64'),
+      stadio: tac.stadio,
+    };
+    res.json(tacResponse);
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   }
@@ -34,9 +40,9 @@ router.post('/update_tac', async (req: Request, res: Response) => {
     const tacJSON = req.body;
     const tac = new Tac(
       tacJSON.stadio,
-      tacJSON.allegato,
       tacJSON.medico,
       tacJSON.paziente,
+      tacJSON.allegato,
       tacJSON.id
     );
     await tacService.update(tac);
@@ -56,17 +62,11 @@ router.post(
       const file = req.file;
 
       if (file) {
-        const allegato: TacFile = {
-          originalname: file.originalname,
-          mimetype: file.mimetype,
-          buffer: file.buffer,
-        };
-
         const tac = new Tac(
           tacJSON.stadio,
           tacJSON.med,
           tacJSON.paziente,
-          allegato
+          file.buffer
         );
 
         await tacService.save(tac);
