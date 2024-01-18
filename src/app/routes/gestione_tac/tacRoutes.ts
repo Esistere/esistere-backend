@@ -28,8 +28,20 @@ router.get('/tac', async (req: Request, res: Response) => {
 router.post('/tac_paziente', async (req: Request, res: Response) => {
   try {
     const codice_fiscale = req.body.codice_fiscale;
-    const tac = await tacService.getByPaziente(codice_fiscale);
-    res.json(tac);
+    const tacs = await tacService.getByPaziente(codice_fiscale);
+
+    const tacResponse = {
+      tac: tacs.map((tac) => {
+        return {
+          id: tac.id,
+          paziente: tac.paziente,
+          med: tac.medico,
+          allegato: tac.allegato.toString('base64'),
+          stadio: tac.stadio,
+        };
+      }),
+    };
+    res.json(tacResponse);
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   }
