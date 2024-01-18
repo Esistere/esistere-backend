@@ -19,11 +19,11 @@ router.get('/visualizza_linea_guida', async (req: Request, res: Response) => {
   try {
     const idLineaGuida = Number(req.query.id);
     const lineaGuidaDAO = await lineeGuidaService.get(idLineaGuida);
-    
+
     const lineaGuida = {
       id: lineaGuidaDAO.id,
       linea_guida: lineaGuidaDAO.lineeGuida,
-      med: lineaGuidaDAO.medico
+      med: lineaGuidaDAO.medico,
     };
 
     res.json(lineaGuida);
