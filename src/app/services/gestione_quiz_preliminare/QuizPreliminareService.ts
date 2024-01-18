@@ -85,12 +85,13 @@ export class QuizPreliminareService implements QuizPreliminareServiceInterface {
     domandeRisposte: Map<DomandaQuizPreliminare, RispostaQuizPreliminare>
   ): Promise<void> {
     const idQuiz = await this.quizPreliminareDAO.save(quizPreliminare);
-    domandeRisposte.forEach(async (value, key) => {
+
+    for(const [key, value] of domandeRisposte.entries()) {
       key.quizPreliminare = idQuiz;
       const idDomanda = await this.quizPreliminareDAO.saveDomanda(key);
       value.domandaPreliminare = idDomanda;
       await this.quizPreliminareDAO.saveRisposta(value);
-    });
+    }
   }
 
   public async getDomandeRisposte(

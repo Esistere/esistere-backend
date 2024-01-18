@@ -24,6 +24,6 @@ jobs:
       - name: Install dependencies 🦕
         run: npm i
 
-      # # Test
-      # - name: Test 🧪
-      #   run: npm run test
+      # Test
+      - name: Test 🧪
+        run: npm test
