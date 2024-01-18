@@ -86,7 +86,7 @@ export class ToDoListDAO implements ToDoListDAOInterface {
     });
   }
 
-  public getByPaziente(paz: number): Promise<ToDoList[]> {
+  public getByPaziente(paziente: string): Promise<ToDoList[]> {
     return new Promise((resolve, reject) => {
       this.pool.connect((err, client) => {
         if (err) {
@@ -96,7 +96,7 @@ export class ToDoListDAO implements ToDoListDAOInterface {
 
         const query = 'SELECT * FROM to_do_list WHERE paziente= $1';
 
-        client?.query(query, [paz], (err, res) => {
+        client?.query(query, [paziente], (err, res) => {
           if (err) {
             console.log(err.stack);
             reject(err);
@@ -109,7 +109,7 @@ export class ToDoListDAO implements ToDoListDAOInterface {
     });
   }
 
-  public getByMedAndPaz(med: number, paz: number): Promise<ToDoList[]> {
+  public getByMedAndPaz(medico: number, paziente: string): Promise<ToDoList[]> {
     return new Promise((resolve, reject) => {
       this.pool.connect((err, client) => {
         if (err) {
@@ -118,7 +118,7 @@ export class ToDoListDAO implements ToDoListDAOInterface {
         }
         const query = 'SELECT * FROM to_do_list WHERE med= $1 AND paziente= $2';
 
-        client?.query(query, [med, paz], (err, res) => {
+        client?.query(query, [medico, paziente], (err, res) => {
           if (err) {
             console.log(err.stack);
             reject(err);
