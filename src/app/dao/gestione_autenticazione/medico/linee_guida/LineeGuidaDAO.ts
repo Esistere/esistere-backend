@@ -110,15 +110,12 @@ export class LineeGuidaDAO implements LineeGuidaDAOInterface {
         }
 
         const query =
-          'INSERT INTO linea_guida_quiz (med,linea_guida)' + ' VALUES ($1, $2)';
+          'INSERT INTO linea_guida_quiz (med, linea_guida)' +
+          ' VALUES ($1, $2)';
 
         client?.query(
           query,
-          [
-            linea_guida_quiz.id,
-            linea_guida_quiz.medico,
-            linea_guida_quiz.lineeGuida,
-          ],
+          [linea_guida_quiz.medico, linea_guida_quiz.lineeGuida],
           (err) => {
             if (err) {
               console.log(err.stack);
