@@ -1,7 +1,7 @@
 **/build
 .env
 *.pem
-app/static
+src/app/static
 node_modules
 coverage
 package-lock.json
