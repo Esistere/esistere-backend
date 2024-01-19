@@ -61,7 +61,7 @@ export class StoriaDAO implements StoriaDAOInterface {
           } else {
             client.release();
             const data = res.rows[0];
-            const storia = new Storia(data.cgFam, data.testo, data.id);
+            const storia = new Storia(data.cg_fam, data.testo, data.id);
             resolve(storia);
           }
         });
@@ -212,11 +212,11 @@ export class StoriaDAO implements StoriaDAOInterface {
             client.release();
             const data = res.rows[0];
             const media = new Media(
-              data.id,
               data.storia,
               data.allegato,
               data.descrizione,
-              data.tipo
+              data.tipo,
+              data.id
             );
             resolve(media);
           }
