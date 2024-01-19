@@ -32,31 +32,6 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-router.get('/storia', async (req: Request, res: Response) => {
-  try {
-    const idStoria = Number(req.query.id);
-    const storia = await storiaService.get(idStoria);
-    const media = await storiaService.getMedia(idStoria);
-
-    const storiaJSON = {
-      id: storia.id,
-      cg_fam: storia.cgFam,
-      testo: storia.testo,
-      media: {
-        id: media.id,
-        storia: media.storia,
-        allegato: media.allegato,
-        descrizione: media.descrizione,
-        tipo: media.tipo,
-      },
-    };
-
-    res.json(storiaJSON);
-  } catch (error) {
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
-
 router.post(
   '/save_storia',
   upload.single('file'),
@@ -75,6 +50,7 @@ router.post(
           storiaJSON.media.descrizione,
           storiaJSON.media.tipo
         );
+
 
         if (file.mimetype.startsWith('image/')) {
           media.allegato = STORYIMGSAVE + file.originalname;
