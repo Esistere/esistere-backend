@@ -231,4 +231,19 @@ router.post('/aggiungi_risposte', async (req: Request, res: Response) => {
   }
 });
 
+router.post('/aggiungi_domande', async (req: Request, res: Response) => {
+  try {
+    const domandeJSON = req.body;
+    const domanda = new DomandaQuizAllenamento(
+      domandeJSON.domanda,
+      domandeJSON.quiz_ag,
+      domandeJSON.corretta,
+      domandeJSON.id
+    );
+    await quizAllenamentoService.updateDomanda(domanda);
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 export default router;

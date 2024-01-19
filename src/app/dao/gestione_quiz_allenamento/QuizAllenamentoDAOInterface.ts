@@ -96,6 +96,8 @@ export interface QuizAllenamentoDAOInterface {
    */
   getByDomandaAllenamento(id: number): Promise<RispostaQuizAllenamento[]>;
 
+  updateDomanda(domanda: DomandaQuizAllenamento): Promise<void>;
+
   /**
    * Updates a RispostaQuizAllenamento object.
    * @param risposta - The RispostaQuizAllenamento object to be updated.

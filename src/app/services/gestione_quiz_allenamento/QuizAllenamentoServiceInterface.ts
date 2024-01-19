@@ -23,6 +23,7 @@ export interface QuizAllenamentoServiceInterface {
   getByDomandaAllenamento(id: number): Promise<RispostaQuizAllenamento[]>;
 
   updateRisposta(risposta: RispostaQuizAllenamento): Promise<void>;
+  updateDomanda(domanda: DomandaQuizAllenamento): Promise<void>;
 
   createQuizAllenamento(
     quizAllenamento: QuizAllenamentoGiornaliero,

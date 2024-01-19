@@ -74,6 +74,10 @@ export class QuizAllenamentoService implements QuizAllenamentoServiceInterface {
   public updateRisposta(risposta: RispostaQuizAllenamento): Promise<void> {
     return this.quizAllenamentoDAO.updateRisposta(risposta);
   }
+  
+  public updateDomanda(domanda: DomandaQuizAllenamento): Promise<void> {
+    return this.quizAllenamentoDAO.updateDomanda(domanda);
+  }
 
   public async createQuizAllenamento(
     quizAllenamento: QuizAllenamentoGiornaliero,
