@@ -72,26 +72,28 @@ export class StoriaDAO implements StoriaDAOInterface {
   /**
    * Saves a Storia entity to the database.
    * @param storia - The Storia entity to be saved.
-   * @returns A promise that resolves when the save operation is complete.
+   * @returns A promise that resolves the id of the saved Storia entity.
    */
-  public save(storia: Storia): Promise<void> {
-    return new Promise<void>((resolve, reject) =>
+  public save(storia: Storia): Promise<number> {
+    return new Promise<number>((resolve, reject) =>
       this.pool.connect((err, client) => {
         if (err) {
           reject(err);
           return;
         }
 
-        const query = 'INSERT INTO storia (cg_fam, testo) VALUES ($1, $2)';
+        const query =
+          'INSERT INTO storia (cg_fam, testo) VALUES ($1, $2) RETURNING id';
 
-        client?.query(query, [storia.cgFam, storia.testo], (err) => {
+        client?.query(query, [storia.cgFam, storia.testo], (err, res) => {
           if (err) {
             console.log(err.stack);
             reject(err);
             return;
           } else {
             client.release();
-            resolve();
+            const result = res.rows[0];
+            resolve(result.id);
           }
         });
       })

@@ -10,6 +10,7 @@ import filastroccaRoutes from '../gestione_filastrocca/filastroccaRoutes';
 import toDoListRoutes from '../gestione_todolist/toDoListRoutes';
 import tacRoutes from '../gestione_tac/tacRoutes';
 import lineaGuidaRoutes from './lineaGuidaRoutes';
+import storiaRoutes from '../gestione_storia/storiaRoutes';
 
 const authRoutes = Router();
 
@@ -63,5 +64,6 @@ authRoutes.use(quizPreliminareRoutes);
 authRoutes.use(filastroccaRoutes);
 authRoutes.use(toDoListRoutes);
 authRoutes.use(tacRoutes);
+authRoutes.use(storiaRoutes);
 
 export default authRoutes;

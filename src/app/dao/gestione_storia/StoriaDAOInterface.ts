@@ -22,9 +22,9 @@ export interface StoriaDAOInterface {
   /**
    * Saves a Storia entity.
    * @param storia - The Storia entity to be saved.
-   * @returns A promise that resolves when the Storia entity is saved.
+   * @returns A promise that resolves the id of the saved Storia entity.
    */
-  save(storia: Storia): Promise<void>;
+  save(storia: Storia): Promise<number>;
 
   /**
    * Updates a Storia entity.

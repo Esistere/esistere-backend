@@ -1,13 +1,13 @@
 export class Media {
   private _id?: number | undefined;
   private _storia: number;
-  private _allegato: Blob;
+  private _allegato: string;
   private _descrizione: string;
   private _tipo: number;
 
   constructor(
     storia: number,
-    allegato: Blob,
+    allegato: string,
     descrizione: string,
     tipo: number,
     id?: number
@@ -35,11 +35,11 @@ export class Media {
     this._storia = storia;
   }
 
-  public get allegato(): Blob {
+  public get allegato(): string {
     return this._allegato;
   }
 
-  public set allegato(allegato: Blob) {
+  public set allegato(allegato: string) {
     this._allegato = allegato;
   }
 

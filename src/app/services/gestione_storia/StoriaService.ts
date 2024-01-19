@@ -19,7 +19,7 @@ export class StoriaService implements StoriaServiceInterface {
     return this.storiaDAO.get(id);
   }
 
-  public save(storia: Storia): Promise<void> {
+  public save(storia: Storia): Promise<number> {
     return this.storiaDAO.save(storia);
   }
 

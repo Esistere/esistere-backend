@@ -16,7 +16,7 @@ import signUpRoutes from './routes/gestione_autenticazione/signUpRoutes';
 import loginRoutes from 'app/routes/gestione_autenticazione/loginRoutes';
 import authRoutes from './routes/gestione_autenticazione/authRoutes';
 import utilsRoutes from 'app/routes/utilsRoutes';
-import { TACPATH } from 'app/config';
+import { STORYAUDPATH, STORYIMGPATH, TACPATH } from 'app/config';
 
 dotenv.config();
 
@@ -62,15 +62,14 @@ app.use(authRoutes);
 
 // Host static content
 app.use('/static/tac', express.static(TACPATH));
-// TODO
-// app.use(
-//   '/static/story/images',
-//   express.static(path.join(__dirname, 'static', 'story', 'images'))
-// );
-// app.use(
-//   '/static/story/audio',
-//   express.static(path.join(__dirname, 'static', 'story', 'audio'))
-// );
+app.use(
+  '/static/story/images',
+  express.static(STORYIMGPATH)
+);
+app.use(
+  '/static/story/audio',
+  express.static(STORYAUDPATH)
+);
 
 const port = 3001;
 const server = https.createServer({ key: key, cert: cert }, app);
