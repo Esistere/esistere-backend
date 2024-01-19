@@ -14,12 +14,12 @@ export class LineeGuidaService implements LineeGuidaServiceInterface {
     return this.lineeGuidaDAO.getAll();
   }
 
-  public get(codice_identificativo: number): Promise<LineaGuida> {
-    return this.lineeGuidaDAO.get(codice_identificativo);
+  public get(id: number): Promise<LineaGuida> {
+    return this.lineeGuidaDAO.get(id);
   }
 
-  public getByMed(id: number): Promise<LineaGuida> {
-    return this.lineeGuidaDAO.getByMed(id);
+  public getByMed(medico: number): Promise<LineaGuida> {
+    return this.lineeGuidaDAO.getByMed(medico);
   }
 
   public save(lineeGuida: LineaGuida): void {

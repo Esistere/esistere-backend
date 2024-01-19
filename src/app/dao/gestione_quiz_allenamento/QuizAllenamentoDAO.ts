@@ -453,6 +453,44 @@ export class QuizAllenamentoDAO implements QuizAllenamentoDAOInterface {
     });
   }
 
+
+  public updateDomanda(domanda: DomandaQuizAllenamento): Promise<void> {
+    return new Promise<void>((resolve, reject) =>
+      this.pool.connect((err, client) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+
+        const query =
+          'UPDATE domanda_allenamento_giornaliero SET ' +
+          '(id, quiz_ag, domanda, corretta) = ($1, $2, $3, $4) WHERE id = $5';
+
+        client?.query(
+          query,
+          [
+            domanda.id,
+            domanda.quizAllenamento,
+            domanda.domanda,
+            domanda.corretta,
+            domanda.id,
+          ],
+          (err) => {
+            if (err) {
+              console.log(err.stack);
+              reject(err);
+              return;
+            } else {
+              client.release();
+              resolve();
+            }
+          }
+        );
+      })
+    );
+  }
+  
+  
   /**
    * Updates a RispostaQuizAllenamento record in the database.
    * @param risposta - The updated RispostaQuizAllenamento object.
