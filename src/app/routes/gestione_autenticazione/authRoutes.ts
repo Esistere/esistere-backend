@@ -1,3 +1,12 @@
+/**
+ * This file contains the authentication routes for the application.
+ * It exports an Express Router instance with the authentication routes.
+ * It also defines a custom request interface and an authentication middleware.
+ * The authentication middleware checks for a valid JWT token in the request header,
+ * verifies the token, and attaches the token payload to the request object.
+ * The routes are protected by the authentication middleware.
+ */
+
 import { Router } from 'express';
 import { NextFunction, Request, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
@@ -14,10 +23,23 @@ import storiaRoutes from '../gestione_storia/storiaRoutes';
 
 const authRoutes = Router();
 
+/**
+ * Custom request interface that extends the Express Request interface
+ * to include a `token` property of type `jwt.JwtPayload`.
+ */
 export interface CustomRequest extends Request {
   token: jwt.JwtPayload;
 }
 
+/**
+ * Authentication middleware that checks for a valid JWT token in the request header,
+ * verifies the token, and attaches the token payload to the request object.
+ * If the token is invalid or expired, it sends an appropriate error response.
+ * If the token is valid, it calls the next middleware function.
+ * @param req The Express Request object.
+ * @param res The Express Response object.
+ * @param next The next middleware function.
+ */
 const auth = async (
   req: Request,
   res: Response,
@@ -49,6 +71,11 @@ const auth = async (
 // Use auth middleware
 authRoutes.use(auth);
 
+/**
+ * @param req The Express Request object
+ * @param res The Express Response object
+ * @returns The user type of the user that made the request
+ */
 authRoutes.use('/userType', async (req: Request, res: Response) => {
   const userType = (req as CustomRequest).token.userType;
 

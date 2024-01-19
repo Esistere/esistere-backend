@@ -1,3 +1,7 @@
+/**
+ * This file contains the routes for managing caregiver familiare entities.
+ */
+
 import { CaregiverFamiliare } from 'app/entity/gestione_autenticazione/CaregiverFamiliare';
 import { CaregiverFamiliareService } from 'app/services/gestione_autenticazione/caregiver_familiare/CaregiverFamiliareService';
 import { CaregiverFamiliareServiceInterface } from 'app/services/gestione_autenticazione/caregiver_familiare/CaregiverFamiliareServiceInterface';
@@ -7,6 +11,10 @@ const router = express.Router();
 const caregiverFamiliareService: CaregiverFamiliareServiceInterface =
   new CaregiverFamiliareService();
 
+/**
+ * GET /visualizza_caregiver_familiari
+ * Retrieves all caregiver familiari entities.
+ */
 router.get(
   '/visualizza_caregiver_familiari',
   async (req: Request, res: Response) => {
@@ -19,6 +27,11 @@ router.get(
   }
 );
 
+/**
+ * GET /visualizza_caregiver_familiare
+ * Retrieves a specific caregiver familiare entity by ID.
+ * @param id - The ID of the caregiver familiare.
+ */
 router.get(
   '/visualizza_caregiver_familiare',
   async (req: Request, res: Response) => {
@@ -48,6 +61,11 @@ router.get(
   }
 );
 
+/**
+ * POST /modifica_caregiver_familiare
+ * Updates a caregiver familiare entity.
+ * @param req.body - The updated caregiver familiare data.
+ */
 router.post(
   '/modifica_caregiver_familiare',
   async (req: Request, res: Response) => {
