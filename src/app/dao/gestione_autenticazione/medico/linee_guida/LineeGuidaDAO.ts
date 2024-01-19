@@ -59,7 +59,12 @@ export class LineeGuidaDAO implements LineeGuidaDAOInterface {
             reject(err);
           } else {
             client.release();
-            const linea_guida_quiz = res.rows[0] as LineaGuida;
+            const data = res.rows[0];
+            const linea_guida_quiz = new LineaGuida(
+              data.linea_guida,
+              data.med,
+              data.id
+            );
             resolve(linea_guida_quiz);
           }
         });
@@ -72,7 +77,7 @@ export class LineeGuidaDAO implements LineeGuidaDAOInterface {
    * @param id - The ID of the associated Medico.
    * @returns A promise that resolves to the LineaGuida entity.
    */
-  public getByMed(id: number): Promise<LineaGuida> {
+  public getByMed(medico: number): Promise<LineaGuida> {
     return new Promise((resolve, reject) => {
       this.pool.connect((err, client) => {
         if (err) {
@@ -82,13 +87,18 @@ export class LineeGuidaDAO implements LineeGuidaDAOInterface {
 
         const query = 'SELECT * FROM linea_guida_quiz WHERE med = $1';
 
-        client?.query(query, [id], (err, res) => {
+        client?.query(query, [medico], (err, res) => {
           if (err) {
             console.log(err.stack);
             reject(err);
           } else {
             client.release();
-            const linea_guida_quiz = res.rows[0] as LineaGuida;
+            const data = res.rows[0];
+            const linea_guida_quiz = new LineaGuida(
+              data.linea_guida,
+              data.med,
+              data.id
+            );
             resolve(linea_guida_quiz);
           }
         });
