@@ -216,7 +216,7 @@ router.post('/aggiungi_risposte', async (req: Request, res: Response) => {
         data.domanda_ag,
         data.corretta,
         data.selezionata,
-        data.id
+        data.idRisposta
       );
       await quizAllenamentoService.updateRisposta(risposta);
     });

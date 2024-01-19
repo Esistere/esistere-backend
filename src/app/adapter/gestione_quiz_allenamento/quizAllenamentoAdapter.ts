@@ -32,7 +32,7 @@ export interface ResponseObjectQA {
  * Represents a single answer in a training quiz.
  */
 export interface RispostaAllenamento {
-  id: number | undefined;
+  idRisposta: number | undefined;
   domanda_ag: number | undefined;
   risposta: string;
   corretta: boolean | undefined;
