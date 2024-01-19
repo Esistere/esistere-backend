@@ -7,7 +7,7 @@ import {
   ResponseObjectQA,
   RispostaAllenamento,
 } from 'app/adapter/gestione_quiz_allenamento/quizAllenamentoAdapter';
-import express, { Request, Response, response } from 'express';
+import express, { Request, Response } from 'express';
 
 const router = express.Router();
 const quizAllenamentoService: QuizAllenamentoServiceInterface =
@@ -231,7 +231,7 @@ router.post('/aggiorna_domanda', async (req: Request, res: Response) => {
       domandeJSON.id
     );
     await quizAllenamentoService.updateDomanda(domanda);
-    response.json({ message: 'Questions correctly updated' });
+    res.json({ message: 'Questions correctly updated' });
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   }
@@ -248,6 +248,7 @@ router.post('/aggiorna_quiz', async (req: Request, res: Response) => {
       quizAllenamentoJSON.id
     );
     await quizAllenamentoService.update(quizAllenamento);
+    res.json({ message: 'Quiz correctly updated' });
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   }
