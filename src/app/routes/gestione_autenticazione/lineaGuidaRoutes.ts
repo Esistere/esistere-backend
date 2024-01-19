@@ -32,6 +32,26 @@ router.get('/visualizza_linea_guida', async (req: Request, res: Response) => {
   }
 });
 
+router.get(
+  '/visualizza_linea_guida_medico',
+  async (req: Request, res: Response) => {
+    try {
+      const idMedico = Number(req.query.id);
+      const lineaGuidaDAO = await lineeGuidaService.getByMed(idMedico);
+
+      const lineaGuida = {
+        id: lineaGuidaDAO.id,
+        linea_guida: lineaGuidaDAO.lineeGuida,
+        med: lineaGuidaDAO.medico,
+      };
+
+      res.json(lineaGuida);
+    } catch (error) {
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  }
+);
+
 router.post('/salva_linee_guida', async (req: Request, res: Response) => {
   try {
     console.log('Dati ', req.body);

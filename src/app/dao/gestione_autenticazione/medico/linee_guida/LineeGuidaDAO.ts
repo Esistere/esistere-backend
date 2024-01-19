@@ -68,6 +68,35 @@ export class LineeGuidaDAO implements LineeGuidaDAOInterface {
   }
 
   /**
+   * Retrieves a LineaGuida entity by corresponding Medico from the database.
+   * @param id - The ID of the associated Medico.
+   * @returns A promise that resolves to the LineaGuida entity.
+   */
+  public getByMed(id: number): Promise<LineaGuida> {
+    return new Promise((resolve, reject) => {
+      this.pool.connect((err, client) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+
+        const query = 'SELECT * FROM linea_guida_quiz WHERE med = $1';
+
+        client?.query(query, [id], (err, res) => {
+          if (err) {
+            console.log(err.stack);
+            reject(err);
+          } else {
+            client.release();
+            const linea_guida_quiz = res.rows[0] as LineaGuida;
+            resolve(linea_guida_quiz);
+          }
+        });
+      });
+    });
+  }
+
+  /**
    * Saves a LineaGuida entity to the database.
    * @param linea_guida_quiz - The LineaGuida entity to be saved.
    * @returns A promise that resolves when the entity is successfully saved.
