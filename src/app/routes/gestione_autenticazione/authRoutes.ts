@@ -9,6 +9,7 @@ import quizPreliminareRoutes from 'app/routes/gestione_quiz_preliminare/quizPrel
 import filastroccaRoutes from '../gestione_filastrocca/filastroccaRoutes';
 import toDoListRoutes from '../gestione_todolist/toDoListRoutes';
 import tacRoutes from '../gestione_tac/tacRoutes';
+import lineaGuidaRoutes from './lineaGuidaRoutes';
 
 const authRoutes = Router();
 
@@ -56,6 +57,7 @@ authRoutes.use('/userType', async (req: Request, res: Response) => {
 authRoutes.use(pazienteRoutes);
 authRoutes.use(medicoRoutes);
 authRoutes.use(caregiverFamiliareRoutes);
+authRoutes.use(lineaGuidaRoutes);
 authRoutes.use(quizAllenamentoRoutes);
 authRoutes.use(quizPreliminareRoutes);
 authRoutes.use(filastroccaRoutes);

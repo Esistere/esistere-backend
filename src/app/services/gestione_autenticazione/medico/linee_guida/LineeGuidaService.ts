@@ -18,6 +18,10 @@ export class LineeGuidaService implements LineeGuidaServiceInterface {
     return this.lineeGuidaDAO.get(codice_identificativo);
   }
 
+  public getByMed(id: number): Promise<LineaGuida> {
+    return this.lineeGuidaDAO.getByMed(id);
+  }
+
   public save(lineeGuida: LineaGuida): void {
     this.lineeGuidaDAO.save(lineeGuida);
   }
