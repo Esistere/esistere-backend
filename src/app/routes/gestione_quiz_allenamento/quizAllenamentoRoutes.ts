@@ -28,17 +28,6 @@ router.get(
   }
 );
 
-router.get('/aggiorna_quiz', async (req: Request, res: Response) => {
-  try {
-    const idQuizAllenamento = Number(req.query.id);
-    const quizAllenamento = await quizAllenamentoService.get(idQuizAllenamento);
-    await quizAllenamentoService.update(quizAllenamento);
-    res.json({ message: 'Quiz update successful' });
-  } catch (error) {
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
-
 router.get('/quiz_allenamento_cgfam', async (req: Request, res: Response) => {
   try {
     const idCgFam = Number(req.query.idCgFam);
@@ -234,6 +223,7 @@ router.post('/aggiungi_risposte', async (req: Request, res: Response) => {
 router.post('/aggiorna_domanda', async (req: Request, res: Response) => {
   try {
     const domandeJSON = req.body;
+
     const domanda = new DomandaQuizAllenamento(
       domandeJSON.domanda,
       domandeJSON.quiz_ag,
@@ -247,4 +237,19 @@ router.post('/aggiorna_domanda', async (req: Request, res: Response) => {
   }
 });
 
+router.post('/aggiorna_quiz', async (req: Request, res: Response) => {
+  try {
+    const quizAllenamentoJSON = req.body;
+
+    const quizAllenamento = new QuizAllenamentoGiornaliero(
+      quizAllenamentoJSON.cf_fam,
+      quizAllenamentoJSON.numero_domande,
+      quizAllenamentoJSON.punteggio_totale,
+      quizAllenamentoJSON.id
+    );
+    await quizAllenamentoService.update(quizAllenamento);
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 export default router;
