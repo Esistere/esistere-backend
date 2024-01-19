@@ -1,3 +1,6 @@
+/**
+ * Express router for login routes.
+ */
 import express, { Request, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
 import { CaregiverFamiliare } from 'app/entity/gestione_autenticazione/CaregiverFamiliare';
@@ -13,6 +16,14 @@ const medicoService: MedicoServiceInterface = new MedicoService();
 const caregiverFamiliareService: CaregiverFamiliareServiceInterface =
   new CaregiverFamiliareService();
 
+/**
+ * POST /login
+ * 
+ * Authenticates the user and generates a JWT token.
+ * 
+ * @param req - The request object.
+ * @param res - The response object.
+ */
 router.post('/login', async (req: Request, res: Response) => {
   try {
     const { email, passwd } = req.body;

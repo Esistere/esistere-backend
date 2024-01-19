@@ -1,3 +1,7 @@
+/**
+ * This file contains the routes for signing up users in the authentication management module.
+ */
+
 import { CaregiverFamiliare } from 'app/entity/gestione_autenticazione/CaregiverFamiliare';
 import { Medico } from 'app/entity/gestione_autenticazione/Medico';
 import { Paziente } from 'app/entity/gestione_autenticazione/Paziente';
@@ -15,6 +19,11 @@ const caregiverFamiliareService: CaregiverFamiliareServiceInterface =
   new CaregiverFamiliareService();
 const medicoService: MedicoServiceInterface = new MedicoService();
 
+/**
+ * Route for saving a new paziente (patient) in the system.
+ * @param req - The request object.
+ * @param res - The response object.
+ */
 router.post('/salva_paziente', async (req: Request, res: Response) => {
   try {
     const pazienteJSON = req.body;
@@ -50,6 +59,11 @@ router.post('/salva_paziente', async (req: Request, res: Response) => {
   }
 });
 
+/**
+ * Route for saving a new medico in the system.
+ * @param req - The request object.
+ * @param res - The response object.
+ */
 router.post('/salva_medico', async (req: Request, res: Response) => {
   try {
     console.log('Dati ', req.body);
@@ -85,6 +99,11 @@ router.post('/salva_medico', async (req: Request, res: Response) => {
   }
 });
 
+/**
+ * Route for saving a new caregiver familiare in the system.
+ * @param req - The request object.
+ * @param res - The response object.
+ */
 router.post(
   '/salva_caregiver_familiare',
   async (req: Request, res: Response) => {

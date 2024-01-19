@@ -14,6 +14,7 @@ const caregiverFamiliareService: CaregiverFamiliareServiceInterface =
 /**
  * GET /visualizza_caregiver_familiari
  * Retrieves all caregiver familiari entities.
+ * @returns The list of caregiver familiari entities.
  */
 router.get(
   '/visualizza_caregiver_familiari',
@@ -31,6 +32,7 @@ router.get(
  * GET /visualizza_caregiver_familiare
  * Retrieves a specific caregiver familiare entity by ID.
  * @param id - The ID of the caregiver familiare.
+ * @returns The caregiver familiare entity.
  */
 router.get(
   '/visualizza_caregiver_familiare',
@@ -65,6 +67,7 @@ router.get(
  * POST /modifica_caregiver_familiare
  * Updates a caregiver familiare entity.
  * @param req.body - The updated caregiver familiare data.
+ * @returns A promise that resolves when the caregiver familiare is updated.
  */
 router.post(
   '/modifica_caregiver_familiare',
