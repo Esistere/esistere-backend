@@ -60,6 +60,10 @@ export class PazienteDAO implements PazienteDAOInterface {
           } else {
             client.release();
             const data = res.rows[0];
+            if (data === undefined) {
+              reject('Paziente not found');
+              return;
+            }
             const paziente = new Paziente(
               data.codice_fiscale,
               data.nome,

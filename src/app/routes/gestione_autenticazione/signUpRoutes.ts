@@ -27,8 +27,23 @@ router.post('/salva_paziente', async (req: Request, res: Response) => {
       pazienteJSON.cg_fam
     );
 
-    if (!(await pazienteService.get(paziente.codiceFiscale))) {
-      pazienteService.save(paziente);
+    try {
+      const existingPaziente = await pazienteService.get(
+        paziente.codiceFiscale
+      );
+      if (existingPaziente) {
+        res
+          .status(400)
+          .json({ success: false, message: 'Codice fiscale already in use' });
+      }
+    } catch (error) {
+      if (error === 'Paziente not found') {
+        pazienteService.save(paziente);
+        res.json({
+          success: true,
+          message: 'Paziente signup completed',
+        });
+      }
     }
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
