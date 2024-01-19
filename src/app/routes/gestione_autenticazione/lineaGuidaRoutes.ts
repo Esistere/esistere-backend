@@ -54,8 +54,6 @@ router.get(
 
 router.post('/salva_linee_guida', async (req: Request, res: Response) => {
   try {
-    console.log('Dati ', req.body);
-
     const lineeGuidaJSON = req.body;
     const lineeGuida = new LineaGuida(
       lineeGuidaJSON.linea_guida,
