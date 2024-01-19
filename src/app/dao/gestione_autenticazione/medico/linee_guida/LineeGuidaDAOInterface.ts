@@ -15,14 +15,14 @@ export interface LineeGuidaDAOInterface {
    * @param codice_identificativo - The identifier of the LineaGuida entity.
    * @returns A promise that resolves to the LineaGuida entity.
    */
-  get(codice_identificativo: number): Promise<LineaGuida>;
+  get(id: number): Promise<LineaGuida>;
 
   /**
    * Retrieves a LineaGuida entity by corresponding Medico from the database.
    * @param id - The ID of the associated Medico.
    * @returns A promise that resolves to the LineaGuida entity.
    */
-  getByMed(id: number): Promise<LineaGuida>;
+  getByMed(medico: number): Promise<LineaGuida>;
 
   /**
    * Saves a new LineaGuida entity.
