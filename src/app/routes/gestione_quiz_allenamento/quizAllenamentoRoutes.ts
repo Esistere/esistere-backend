@@ -145,7 +145,12 @@ router.post('/salva_quiz_allenamento', async (req: Request, res: Response) => {
       const domanda = new DomandaQuizAllenamento(domandaJSON.domanda);
       const risposte = domandaJSON.risposte.map(
         (rispostaJSON: RispostaAllenamento) => {
-          return new RispostaQuizAllenamento(rispostaJSON.risposta);
+          return new RispostaQuizAllenamento(
+            rispostaJSON.risposta,
+            undefined,
+            rispostaJSON.corretta,
+            undefined
+          );
         }
       );
       domandeRisposte.set(domanda, risposte);
