@@ -16,7 +16,11 @@ export interface CustomRequest extends Request {
   token: jwt.JwtPayload;
 }
 
-authRoutes.use(async (req: Request, res: Response, next: NextFunction) => {
+const auth = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
   try {
     const token = req.header('Authorization')?.replace('Bearer ', '');
 
@@ -38,7 +42,10 @@ authRoutes.use(async (req: Request, res: Response, next: NextFunction) => {
   } catch (error) {
     res.status(401).send('Token not found');
   }
-});
+};
+
+// Use auth middleware
+authRoutes.use(auth);
 
 authRoutes.use('/userType', async (req: Request, res: Response) => {
   const userType = (req as CustomRequest).token.userType;

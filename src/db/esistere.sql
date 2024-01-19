@@ -122,7 +122,7 @@ CREATE TABLE tac (
     id serial PRIMARY KEY,
     paziente char(16) NOT NULL,
     med integer NOT NULL,
-    allegato bytea NOT NULL,
+    allegato varchar(100) NOT NULL,
     stadio varchar(30) NOT NULL,
 
     FOREIGN KEY (paziente) REFERENCES paziente(codice_fiscale)
@@ -213,7 +213,7 @@ DROP TABLE IF EXISTS media;
 CREATE TABLE media (
     id serial PRIMARY KEY,
     storia integer NOT NULL,
-    allegato bytea NOT NULL,
+    allegato varchar(100) NOT NULL,
     descrizione varchar(300) NOT NULL,
     tipo integer NOT NULL,
 

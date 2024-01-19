@@ -3,13 +3,13 @@ export class Tac {
   private _stadio: string;
   private _medico: number;
   private _paziente: string;
-  private _allegato: Buffer;
+  private _allegato: string;
 
   constructor(
     stadio: string,
     medico: number,
     paziente: string,
-    allegato: Buffer,
+    allegato: string,
     id?: number
   ) {
     this._id = id;
@@ -35,11 +35,11 @@ export class Tac {
     this._stadio = stadio;
   }
 
-  public get allegato(): Buffer {
+  public get allegato(): string {
     return this._allegato;
   }
 
-  public set allegato(allegato: Buffer) {
+  public set allegato(allegato: string) {
     this._allegato = allegato;
   }
 

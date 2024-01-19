@@ -16,6 +16,7 @@ import signUpRoutes from './routes/gestione_autenticazione/signUpRoutes';
 import loginRoutes from 'app/routes/gestione_autenticazione/loginRoutes';
 import authRoutes from './routes/gestione_autenticazione/authRoutes';
 import utilsRoutes from 'app/routes/utilsRoutes';
+import { TACPATH } from 'app/config';
 
 dotenv.config();
 
@@ -50,7 +51,6 @@ app.use(cors(corsOptions));
 // Parsers
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(__dirname));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
@@ -59,6 +59,18 @@ app.use(utilsRoutes);
 app.use(signUpRoutes);
 app.use(loginRoutes);
 app.use(authRoutes);
+
+// Host static content
+app.use('/static/tac', express.static(TACPATH));
+// TODO
+// app.use(
+//   '/static/story/images',
+//   express.static(path.join(__dirname, 'static', 'story', 'images'))
+// );
+// app.use(
+//   '/static/story/audio',
+//   express.static(path.join(__dirname, 'static', 'story', 'audio'))
+// );
 
 const port = 3001;
 const server = https.createServer({ key: key, cert: cert }, app);

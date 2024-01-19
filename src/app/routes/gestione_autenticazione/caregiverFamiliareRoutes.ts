@@ -67,7 +67,7 @@ router.post(
         data.codice_identificativo
       );
 
-      await caregiverFamiliareService.update(caregiverFamiliare);
+      caregiverFamiliareService.update(caregiverFamiliare);
       res.json({ message: 'Caregiver Familiare modificato' });
     } catch (error) {
       res.status(500).json({ error: 'Internal Server Error' });

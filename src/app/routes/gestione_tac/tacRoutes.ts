@@ -3,23 +3,28 @@ import multer from 'multer';
 import { Tac } from 'app/entity/gestione_tac/Tac';
 import { TacServiceInterface } from 'app/services/gestione_tac/TacServiceInterface';
 import { TacService } from 'app/services/gestione_tac/TacService';
+import { TACPATH, TACSAVE } from 'app/config';
+
+const tacPath = TACPATH;
 
 const router = express.Router();
-const upload = multer({ storage: multer.memoryStorage() });
 const tacService: TacServiceInterface = new TacService();
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, tacPath);
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
+});
+const upload = multer({ storage: storage });
 
 router.get('/tac', async (req: Request, res: Response) => {
   try {
     const idTac = Number(req.query.id);
     const tac = await tacService.get(idTac);
-    const tacResponse = {
-      id: tac.id,
-      paziente: tac.paziente,
-      med: tac.medico,
-      allegato: tac.allegato.toString('base64'),
-      stadio: tac.stadio,
-    };
-    res.json(tacResponse);
+
+    res.json(tac);
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   }
@@ -30,18 +35,7 @@ router.post('/tac_paziente', async (req: Request, res: Response) => {
     const codice_fiscale = req.body.codice_fiscale;
     const tacs = await tacService.getByPaziente(codice_fiscale);
 
-    const tacResponse = {
-      tac: tacs.map((tac) => {
-        return {
-          id: tac.id,
-          paziente: tac.paziente,
-          med: tac.medico,
-          allegato: tac.allegato.toString('base64'),
-          stadio: tac.stadio,
-        };
-      }),
-    };
-    res.json(tacResponse);
+    res.json(tacs);
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   }
@@ -69,7 +63,7 @@ router.post(
   upload.single('image'),
   async (req: Request, res: Response) => {
     try {
-      // TODO: check if req.body.data is a valid JSON
+      // TODO: check if json is valid
       const tacJSON = JSON.parse(req.body.data);
       const file = req.file;
 
@@ -78,7 +72,7 @@ router.post(
           tacJSON.stadio,
           tacJSON.med,
           tacJSON.paziente,
-          file.buffer
+          TACSAVE + file.originalname
         );
 
         await tacService.save(tac);
