@@ -184,7 +184,7 @@ router.get(
       );
 
       const quizAllenamentoJSON = {
-        caregiver_familiare: quizAllenamentoGiornaliero.caregiverFamiliare,
+        cg_fam: quizAllenamentoGiornaliero.caregiverFamiliare,
         numero_domande: quizAllenamentoGiornaliero.numDomande,
         punteggio_totale: quizAllenamentoGiornaliero.punteggioTot,
         id: quizAllenamentoGiornaliero.id,
@@ -215,6 +215,7 @@ router.post('/aggiungi_risposte', async (req: Request, res: Response) => {
       );
       await quizAllenamentoService.updateRisposta(risposta);
     });
+    res.status(200).json({ message: 'Answers correctly saved' });
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   }
@@ -242,7 +243,7 @@ router.post('/aggiorna_quiz', async (req: Request, res: Response) => {
     const quizAllenamentoJSON = req.body;
 
     const quizAllenamento = new QuizAllenamentoGiornaliero(
-      quizAllenamentoJSON.cf_fam,
+      quizAllenamentoJSON.cg_fam,
       quizAllenamentoJSON.numero_domande,
       quizAllenamentoJSON.punteggio_totale,
       quizAllenamentoJSON.id

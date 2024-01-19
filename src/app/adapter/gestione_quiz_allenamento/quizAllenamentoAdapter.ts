@@ -21,7 +21,7 @@ export interface DomandeRisposte {
 export interface ResponseObjectQA {
   domandeRisposte: { [key: string]: DomandeRisposte };
   quizAllenamento: {
-    caregiver_familiare: number | undefined;
+    cg_fam: number | undefined;
     numero_domande: number | undefined;
     punteggio_totale: number | undefined;
     id: number | undefined;
