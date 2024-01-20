@@ -26,7 +26,7 @@ export class QuizAllenamentoService implements QuizAllenamentoServiceInterface {
   }
 
   public update(quizAllenamento: QuizAllenamentoGiornaliero): Promise<number> {
-    return this.quizAllenamentoDAO.save(quizAllenamento);
+    return this.quizAllenamentoDAO.update(quizAllenamento);
   }
 
   public getByCaregiverFamiliare(
@@ -74,7 +74,7 @@ export class QuizAllenamentoService implements QuizAllenamentoServiceInterface {
   public updateRisposta(risposta: RispostaQuizAllenamento): Promise<void> {
     return this.quizAllenamentoDAO.updateRisposta(risposta);
   }
-  
+
   public updateDomanda(domanda: DomandaQuizAllenamento): Promise<void> {
     return this.quizAllenamentoDAO.updateDomanda(domanda);
   }
