@@ -112,7 +112,7 @@ export class QuizAllenamentoService implements QuizAllenamentoServiceInterface {
         );
         responseObject[d.domanda] = {
           idDomanda: d.id,
-          quiz_ag: d.quizAllenamento,
+          quiz_ag: quizAllenamento,
           domanda: d.domanda,
           corretta: d.corretta,
           risposte: risposte.map((r) => ({
