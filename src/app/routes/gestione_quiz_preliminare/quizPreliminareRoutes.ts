@@ -1,3 +1,6 @@
+/**
+ * This file contains the routes related to the management of quiz preliminare.
+ */
 import { QuizPreliminare } from 'app/entity/gestione_quiz_preliminare/QuizPreliminare';
 import { DomandaQuizPreliminare } from 'app/entity/gestione_quiz_preliminare/DomandaQuizPreliminare';
 import { RispostaQuizPreliminare } from 'app/entity/gestione_quiz_preliminare/RispostaQuizPreliminare';
@@ -13,6 +16,12 @@ const router = express.Router();
 const quizPreliminareService: QuizPreliminareServiceInterface =
   new QuizPreliminareService();
 
+/**
+ * Get the domanda by med ID.
+ * @param req - The request object.
+ * @param res - The response object.
+ * @returns The domanda by med ID.
+ */
 router.get('/quiz_preliminari', async (req: Request, res: Response) => {
   try {
     const id = Number(req.query.id);
@@ -23,6 +32,12 @@ router.get('/quiz_preliminari', async (req: Request, res: Response) => {
   }
 });
 
+/**
+ * Save the quiz preliminare.
+ * @param req - The request object.
+ * @param res - The response object.
+ * @returns A message indicating the quiz is correctly saved.
+ */
 router.post('/salva_quiz', async (req: Request, res: Response) => {
   try {
     const quizPreliminareJSON = req.body;
@@ -40,6 +55,12 @@ router.post('/salva_quiz', async (req: Request, res: Response) => {
   }
 });
 
+/**
+ * Save the domanda preliminare.
+ * @param req - The request object.
+ * @param res - The response object.
+ * @returns A message indicating the question is correctly saved.
+ */
 router.post(
   '/salva_domanda_preliminare',
   async (req: Request, res: Response) => {
@@ -59,6 +80,12 @@ router.post(
   }
 );
 
+/**
+ * Save the risposta.
+ * @param req - The request object.
+ * @param res - The response object.
+ * @returns A message indicating the answer is correctly saved.
+ */
 router.post('/salva_risposta', async (req: Request, res: Response) => {
   try {
     const rispostaPreliminareJSON = req.body;
@@ -74,6 +101,12 @@ router.post('/salva_risposta', async (req: Request, res: Response) => {
   }
 });
 
+/**
+ * Get the domande by quiz preliminare ID.
+ * @param req - The request object.
+ * @param res - The response object.
+ * @returns The domande by quiz preliminare ID.
+ */
 router.get('/domande_quiz', async (req: Request, res: Response) => {
   try {
     const idQuiz = Number(req.query.id_quiz);
@@ -86,6 +119,12 @@ router.get('/domande_quiz', async (req: Request, res: Response) => {
   }
 });
 
+/**
+ * Save the quiz preliminare with domande and risposte.
+ * @param req - The request object.
+ * @param res - The response object.
+ * @returns A message indicating the quiz is correctly saved.
+ */
 router.post('/salva_quiz_preliminare', async (req: Request, res: Response) => {
   try {
     const quizPreliminareJSON = req.body;
@@ -126,6 +165,12 @@ router.post('/salva_quiz_preliminare', async (req: Request, res: Response) => {
   }
 });
 
+/**
+ * Get the quiz preliminare with domande and risposte.
+ * @param req - The request object.
+ * @param res - The response object.
+ * @returns The quiz preliminare with domande and risposte.
+ */
 router.get(
   '/visualizza_quiz_preliminare',
   async (req: Request, res: Response) => {
@@ -160,6 +205,12 @@ router.get(
   }
 );
 
+/**
+ * Add/update the risposte preliminare.
+ * @param req - The request object.
+ * @param res - The response object.
+ * @returns A message indicating the risposte are correctly added/updated.
+ */
 router.post(
   '/aggiungi_risposte_preliminare',
   async (req: Request, res: Response) => {

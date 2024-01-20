@@ -1,3 +1,6 @@
+/**
+ * This file contains the routes for managing tacs in the application.
+ */
 import express, { Request, Response } from 'express';
 import multer from 'multer';
 import { Tac } from 'app/entity/gestione_tac/Tac';
@@ -9,6 +12,10 @@ const tacPath = TACPATH;
 
 const router = express.Router();
 const tacService: TacServiceInterface = new TacService();
+
+/**
+ * Multer disk storage configuration.
+ */
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, tacPath);
@@ -19,6 +26,12 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
+/**
+ * Retrieves a tac by its ID.
+ * @param req - The request object.
+ * @param res - The response object.
+ * @returns The tac object.
+ */
 router.get('/tac', async (req: Request, res: Response) => {
   try {
     const idTac = Number(req.query.id);
@@ -30,6 +43,12 @@ router.get('/tac', async (req: Request, res: Response) => {
   }
 });
 
+/**
+ * Retrieves tacs by patient's codice fiscale.
+ * @param req - The request object.
+ * @param res - The response object.
+ * @returns The list of tacs.
+ */
 router.post('/tac_paziente', async (req: Request, res: Response) => {
   try {
     const codice_fiscale = req.body.codice_fiscale;
@@ -41,6 +60,12 @@ router.post('/tac_paziente', async (req: Request, res: Response) => {
   }
 });
 
+/**
+ * Updates a tac.
+ * @param req - The request object.
+ * @param res - The response object.
+ * @returns A success message.
+ */
 router.post('/update_tac', async (req: Request, res: Response) => {
   try {
     const tacJSON = req.body;
@@ -58,6 +83,12 @@ router.post('/update_tac', async (req: Request, res: Response) => {
   }
 });
 
+/**
+ * Saves a tac.
+ * @param req - The request object.
+ * @param res - The response object.
+ * @returns A success message.
+ */
 router.post(
   '/save_tac',
   upload.single('image'),

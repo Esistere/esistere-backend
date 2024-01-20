@@ -1,3 +1,7 @@
+/**
+ * This file contains the routes for managing ToDoLists in the application.
+ */
+
 import { ResponseObjectToDoList } from 'app/adapter/gestione_todolist/toDoListAdapter';
 import { Attivita } from 'app/entity/gestione_todolist/Attivita';
 import { ToDoList } from 'app/entity/gestione_todolist/ToDoList';
@@ -8,6 +12,11 @@ import express, { Request, Response } from 'express';
 const router = express.Router();
 const toDoListService: ToDoListServiceInterface = new ToDoListService();
 
+/**
+ * Get a ToDoList by its ID.
+ * @param req - The request object.
+ * @param res - The response object.
+ */
 router.get('/to_do_list', async (req: Request, res: Response) => {
   try {
     const idToDoList = Number(req.query.id);
@@ -18,6 +27,11 @@ router.get('/to_do_list', async (req: Request, res: Response) => {
   }
 });
 
+/**
+ * Get a ToDoList by the ID of the associated doctor.
+ * @param req - The request object.
+ * @param res - The response object.
+ */
 router.get('/to_do_list_medico', async (req: Request, res: Response) => {
   try {
     const idMedico = Number(req.query.idMedico);
@@ -28,6 +42,11 @@ router.get('/to_do_list_medico', async (req: Request, res: Response) => {
   }
 });
 
+/**
+ * Get a ToDoList by the codice fiscale of the associated patient.
+ * @param req - The request object.
+ * @param res - The response object.
+ */
 router.post('/to_do_list_paziente', async (req: Request, res: Response) => {
   try {
     const cfPaziente = String(req.body.codice_fiscale);
@@ -38,6 +57,11 @@ router.post('/to_do_list_paziente', async (req: Request, res: Response) => {
   }
 });
 
+/**
+ * Get a ToDoList by the ID of the associated doctor and the codice fiscale of the associated patient.
+ * @param req - The request object.
+ * @param res - The response object.
+ */
 router.get(
   '/to_do_list_medico_paziente',
   async (req: Request, res: Response) => {
@@ -52,6 +76,11 @@ router.get(
   }
 );
 
+/**
+ * Update a ToDoList.
+ * @param req - The request object.
+ * @param res - The response object.
+ */
 router.post('/update_to_do_list', async (req: Request, res: Response) => {
   try {
     const toDoListJSON = req.body;
@@ -69,6 +98,11 @@ router.post('/update_to_do_list', async (req: Request, res: Response) => {
   }
 });
 
+/**
+ * Get an activity by its ID.
+ * @param req - The request object.
+ * @param res - The response object.
+ */
 router.get('/attivita', async (req: Request, res: Response) => {
   try {
     const idAttivita = Number(req.query.id);
@@ -79,6 +113,11 @@ router.get('/attivita', async (req: Request, res: Response) => {
   }
 });
 
+/**
+ * Get all activities of a ToDoList.
+ * @param req - The request object.
+ * @param res - The response object.
+ */
 router.get('/attivita_to_do_list', async (req: Request, res: Response) => {
   try {
     const id = Number(req.query.id);
@@ -89,6 +128,11 @@ router.get('/attivita_to_do_list', async (req: Request, res: Response) => {
   }
 });
 
+/**
+ * Save an activity.
+ * @param req - The request object.
+ * @param res - The response object.
+ */
 router.post('/save_attivita', async (req: Request, res: Response) => {
   try {
     const attivitaJSON = req.body;
@@ -107,6 +151,11 @@ router.post('/save_attivita', async (req: Request, res: Response) => {
   }
 });
 
+/**
+ * Update an activity.
+ * @param req - The request object.
+ * @param res - The response object.
+ */
 router.post('/update_attivita', async (req: Request, res: Response) => {
   try {
     const attivitaJSON = req.body;
@@ -125,6 +174,11 @@ router.post('/update_attivita', async (req: Request, res: Response) => {
   }
 });
 
+/**
+ * Save a ToDoList with its associated activities.
+ * @param req - The request object.
+ * @param res - The response object.
+ */
 router.post('/save_to_do_list', async (req: Request, res: Response) => {
   try {
     const toDoListJSON = req.body.toDoList;
@@ -157,6 +211,11 @@ router.post('/save_to_do_list', async (req: Request, res: Response) => {
   }
 });
 
+/**
+ * Get a ToDoList and its associated activities by its ID.
+ * @param req - The request object.
+ * @param res - The response object.
+ */
 router.get('/visualizza_to_do_list', async (req: Request, res: Response) => {
   try {
     const id = Number(req.query.id);

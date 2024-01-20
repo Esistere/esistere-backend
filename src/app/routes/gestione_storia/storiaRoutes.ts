@@ -1,3 +1,6 @@
+/**
+ * This file contains the routes for managing stories in the application.
+ */
 import {
   STORYIMGPATH,
   STORYIMGSAVE,
@@ -32,6 +35,12 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
+/**
+ * Retrieves a story and its associated media by ID.
+ * @param req - The request object.
+ * @param res - The response object.
+ * @returns The JSON representation of the story and its media.
+ */
 router.get('/storia', async (req: Request, res: Response) => {
   try {
     const idStoria = Number(req.query.id);
@@ -57,6 +66,12 @@ router.get('/storia', async (req: Request, res: Response) => {
   }
 });
 
+/**
+ * Saves a new story and its associated media.
+ * @param req - The request object.
+ * @param res - The response object.
+ * @returns A JSON response indicating the success or failure of the operation.
+ */
 router.post(
   '/save_storia',
   upload.single('file'),

@@ -1,3 +1,6 @@
+/**
+ * This file contains the routes related to the management of filastrocche.
+ */
 import { Filastrocca } from 'app/entity/gestione_filastrocca/Filastrocca';
 import { FilastroccaService } from 'app/services/gestione_filastrocca/FilastroccaService';
 import { FilastroccaServiceInterface } from 'app/services/gestione_filastrocca/FilastroccaServiceInterface';
@@ -7,6 +10,12 @@ const router = express.Router();
 const filastroccaService: FilastroccaServiceInterface =
   new FilastroccaService();
 
+/**
+ * Get filastrocche by caregiver familiare ID.
+ * @param req - The request object.
+ * @param res - The response object.
+ * @returns The filastrocche.
+ */
 router.get('/filastrocche_cgfam', async (req: Request, res: Response) => {
   try {
     const idCgFam = Number(req.query.idCgFam);
@@ -19,6 +28,12 @@ router.get('/filastrocche_cgfam', async (req: Request, res: Response) => {
   }
 });
 
+/**
+ * Get filastrocca by ID.
+ * @param req - The request object.
+ * @param res - The response object.
+ * @returns The filastrocca.
+ */
 router.get('/filastrocca', async (req: Request, res: Response) => {
   try {
     const id = Number(req.query.id);
@@ -29,6 +44,12 @@ router.get('/filastrocca', async (req: Request, res: Response) => {
   }
 });
 
+/**
+ * Save a new filastrocca.
+ * @param req - The request object.
+ * @param res - The response object.
+ * @returns A success message.
+ */
 router.post('/salva_filastrocca', async (req: Request, res: Response) => {
   try {
     const filastroccaJSON = req.body;
@@ -46,6 +67,12 @@ router.post('/salva_filastrocca', async (req: Request, res: Response) => {
   }
 });
 
+/**
+ * Update an existing filastrocca.
+ * @param req - The request object.
+ * @param res - The response object.
+ * @returns A success message and the updated filastrocca.
+ */
 router.post('/update_filastrocca', async (req: Request, res: Response) => {
   try {
     const filastroccaJSON = req.body;
@@ -63,4 +90,5 @@ router.post('/update_filastrocca', async (req: Request, res: Response) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
 export default router;

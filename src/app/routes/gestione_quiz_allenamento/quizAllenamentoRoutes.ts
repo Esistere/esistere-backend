@@ -1,3 +1,6 @@
+/**
+ * This file contains the routes related to the management of quiz allenamento.
+ */
 import { DomandaQuizAllenamento } from 'app/entity/gestione_quiz_allenamento/DomandaQuizAllenamento';
 import { QuizAllenamentoGiornaliero } from 'app/entity/gestione_quiz_allenamento/QuizAllenamentoGiornaliero';
 import { RispostaQuizAllenamento } from 'app/entity/gestione_quiz_allenamento/RispostaQuizAllenamento';
@@ -13,6 +16,12 @@ const router = express.Router();
 const quizAllenamentoService: QuizAllenamentoServiceInterface =
   new QuizAllenamentoService();
 
+/**
+ * Get quiz allenamento giornaliero by ID.
+ * @param req - The request object.
+ * @param res - The response object.
+ * @returns The quiz allenamento giornaliero.
+ */
 router.get(
   '/quiz_allenamento_giornaliero',
   async (req: Request, res: Response) => {
@@ -28,6 +37,12 @@ router.get(
   }
 );
 
+/**
+ * Get quiz allenamento by caregiver familiare.
+ * @param req - The request object.
+ * @param res - The response object.
+ * @returns The quiz allenamento.
+ */
 router.get('/quiz_allenamento_cgfam', async (req: Request, res: Response) => {
   try {
     const idCgFam = Number(req.query.idCgFam);
@@ -39,6 +54,12 @@ router.get('/quiz_allenamento_cgfam', async (req: Request, res: Response) => {
   }
 });
 
+/**
+ * Get domanda allenamento giornaliero by ID.
+ * @param req - The request object.
+ * @param res - The response object.
+ * @returns The domanda allenamento giornaliero.
+ */
 router.get(
   '/domanda_allenamento_giornaliero',
   async (req: Request, res: Response) => {
@@ -52,6 +73,12 @@ router.get(
   }
 );
 
+/**
+ * Get domanda allenamento by quiz allenamento.
+ * @param req - The request object.
+ * @param res - The response object.
+ * @returns The domanda allenamento.
+ */
 router.get(
   '/domanda_allenamento_quiz_ag',
   async (req: Request, res: Response) => {
@@ -67,6 +94,11 @@ router.get(
   }
 );
 
+/**
+ * Save domanda allenamento.
+ * @param req - The request object.
+ * @param res - The response object.
+ */
 router.post(
   '/salva_domanda_allenamento',
   async (req: Request, res: Response) => {
@@ -85,6 +117,12 @@ router.post(
   }
 );
 
+/**
+ * Get risposta allenamento giornaliero by ID.
+ * @param req - The request object.
+ * @param res - The response object.
+ * @returns The risposta allenamento giornaliero.
+ */
 router.get(
   '/risposta_allenamento_giornaliero',
   async (req: Request, res: Response) => {
@@ -98,6 +136,12 @@ router.get(
   }
 );
 
+/**
+ * Get risposta allenamento by domanda allenamento.
+ * @param req - The request object.
+ * @param res - The response object.
+ * @returns The risposta allenamento.
+ */
 router.get(
   '/risposta_allenamento_domanda_ag',
   async (req: Request, res: Response) => {
@@ -113,6 +157,11 @@ router.get(
   }
 );
 
+/**
+ * Save risposta allenamento.
+ * @param req - The request object.
+ * @param res - The response object.
+ */
 router.post(
   '/salva_risposta_allenamento',
   async (req: Request, res: Response) => {
@@ -132,6 +181,11 @@ router.post(
   }
 );
 
+/**
+ * Save quiz allenamento.
+ * @param req - The request object.
+ * @param res - The response object.
+ */
 router.post('/salva_quiz_allenamento', async (req: Request, res: Response) => {
   try {
     const quizAllenamentoJSON = req.body;
@@ -174,6 +228,12 @@ router.post('/salva_quiz_allenamento', async (req: Request, res: Response) => {
   }
 });
 
+/**
+ * View quiz allenamento.
+ * @param req - The request object.
+ * @param res - The response object.
+ * @returns The quiz allenamento.
+ */
 router.get(
   '/visualizza_quiz_allenamento',
   async (req: Request, res: Response) => {
@@ -207,6 +267,11 @@ router.get(
   }
 );
 
+/**
+ * Add answers to quiz.
+ * @param req - The request object.
+ * @param res - The response object.
+ */
 router.post('/aggiungi_risposte', async (req: Request, res: Response) => {
   try {
     const risposteJSON = req.body;
@@ -226,6 +291,11 @@ router.post('/aggiungi_risposte', async (req: Request, res: Response) => {
   }
 });
 
+/**
+ * Update domanda.
+ * @param req - The request object.
+ * @param res - The response object.
+ */
 router.post('/aggiorna_domanda', async (req: Request, res: Response) => {
   try {
     const domandeJSON = req.body;
@@ -243,6 +313,11 @@ router.post('/aggiorna_domanda', async (req: Request, res: Response) => {
   }
 });
 
+/**
+ * Update quiz.
+ * @param req - The request object.
+ * @param res - The response object.
+ */
 router.post('/aggiorna_quiz', async (req: Request, res: Response) => {
   try {
     const quizAllenamentoJSON = req.body;
@@ -259,4 +334,5 @@ router.post('/aggiorna_quiz', async (req: Request, res: Response) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
 export default router;
