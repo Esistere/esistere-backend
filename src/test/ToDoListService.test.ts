@@ -18,7 +18,6 @@ describe('ToDoListService', () => {
       .spyOn(daoModule, 'ToDoListDAO')
       .mockImplementation(() => mockToDoListDAO as any);
     service = new ToDoListService();
-    toDoList;
 
     service = new ToDoListService();
     toDoList = new ToDoList(1, false, 1, 'CF');

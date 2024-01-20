@@ -121,10 +121,10 @@ export class QuizAllenamentoDAO implements QuizAllenamentoDAOInterface {
   /**
    * Updates a QuizAllenamentoGiornaliero record in the database.
    * @param quizAllenamento - The updated QuizAllenamentoGiornaliero object.
-   * @returns A promise that resolves to the ID of the updated record.
+   * @returns A promise that resolves when the QuizAllenamentoGiornaliero is updated.
    */
-  update(quizAllenamento: QuizAllenamentoGiornaliero): Promise<number> {
-    return new Promise<number>((resolve, reject) =>
+  public update(quizAllenamento: QuizAllenamentoGiornaliero): Promise<void> {
+    return new Promise<void>((resolve, reject) =>
       this.pool.connect((err, client) => {
         if (err) {
           reject(err);
@@ -132,9 +132,9 @@ export class QuizAllenamentoDAO implements QuizAllenamentoDAOInterface {
         }
 
         const query =
-          'UPDATE quiz_allenamento_giornaliero SET' +
+          'UPDATE quiz_allenamento_giornaliero SET ' +
           '(id, cg_fam, numero_domande, punteggio_totale)' +
-          ' VALUES ($1, $2, $3, $4) WHERE id = $5';
+          ' = ($1, $2, $3, $4) WHERE id = $5';
 
         client?.query(
           query,
@@ -145,15 +145,13 @@ export class QuizAllenamentoDAO implements QuizAllenamentoDAOInterface {
             quizAllenamento.punteggioTot,
             quizAllenamento.id,
           ],
-          (err, res) => {
+          (err) => {
             if (err) {
               console.log(err.stack);
               reject(err);
               return;
             } else {
               client.release();
-              const result = res.rows[0];
-              resolve(result.id);
             }
           }
         );

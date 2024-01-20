@@ -7,7 +7,7 @@ export interface QuizAllenamentoServiceInterface {
   getAll(): Promise<QuizAllenamentoGiornaliero[]>;
   get(id: number): Promise<QuizAllenamentoGiornaliero>;
   save(quizAllenamento: QuizAllenamentoGiornaliero): Promise<number>;
-  update(quizAllenamento: QuizAllenamentoGiornaliero): Promise<number>;
+  update(quizAllenamento: QuizAllenamentoGiornaliero): Promise<void>;
   getByCaregiverFamiliare(
     caregiverFamiliare: number
   ): Promise<QuizAllenamentoGiornaliero[]>;
