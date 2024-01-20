@@ -20,7 +20,19 @@ const medicoService: MedicoServiceInterface = new MedicoService();
 router.get('/visualizza_medico', async (req: Request, res: Response) => {
   try {
     const idMedico = Number(req.query.id);
-    const medico = await medicoService.get(idMedico);
+
+    const data = await medicoService.get(idMedico);
+    const medico = {
+      nome: data.nome,
+      cognome: data.cognome,
+      indirizzo_studio: data.indirizzoStudio,
+      numero_civico: data.numCivico,
+      numero_telefono_studio: data.numTelefonoStudio,
+      citta: data.citta,
+      email: data.email,
+      passwd: data.passwd,
+      codice_identificativo: data.codiceIdentificativo
+    };
     res.json(medico);
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });

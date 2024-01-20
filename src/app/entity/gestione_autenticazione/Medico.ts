@@ -25,7 +25,7 @@ export class Medico {
   /**
    * The street number of the Medico's studio.
    */
-  private _numCivico: number;
+  private _numCivico: string;
 
   /**
    * The telephone number of the Medico's studio.
@@ -63,7 +63,7 @@ export class Medico {
     nome: string,
     cognome: string,
     indirizzoStudio: string,
-    numCivico: number,
+    numCivico: string,
     numTelefonoStudio: string,
     citta: string,
     email: string,
@@ -165,7 +165,7 @@ export class Medico {
    * Gets the street number of the Medico's studio.
    * @returns The street number of the Medico's studio.
    */
-  public get numCivico(): number {
+  public get numCivico(): string {
     return this._numCivico;
   }
 
@@ -173,7 +173,7 @@ export class Medico {
    * Sets the street number of the Medico's studio.
    * @param numCivico - The street number of the Medico's studio.
    */
-  public set numCivico(numCivico: number) {
+  public set numCivico(numCivico: string) {
     this._numCivico = numCivico;
   }
 
