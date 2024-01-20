@@ -1,5 +1,5 @@
 /**
- * This file contains the utility routes for handling medico-related operations.
+ * This file contains the utility routes for handling some operations.
  */
 
 import express, { Request, Response } from 'express';
@@ -11,15 +11,19 @@ const medicoService: MedicoServiceInterface = new MedicoService();
 
 /**
  * GET /visualizza_medici
- * Retrieves all medici from the database.
+ * Retrieves a list of all medici and returns a JSON response with their names and surnames.
  * @param req - The request object.
  * @param res - The response object.
- * @returns A JSON response containing the list of medici.
+ * @returns A JSON response with the names and surnames of all medici.
  */
 router.get('/visualizza_medici', async (req: Request, res: Response) => {
   try {
     const medici = await medicoService.getAll();
-    res.json(medici);
+    const mediciResponse = medici.map(({ nome, cognome }) => ({
+      nome,
+      cognome,
+    }));
+    res.json(mediciResponse);
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   }
