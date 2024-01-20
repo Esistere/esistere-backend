@@ -22,7 +22,7 @@ export class FilastroccaDAO implements FilastroccaDAOInterface {
    * @param id - The ID of the Filastrocca entity.
    * @returns A promise that resolves with the retrieved Filastrocca entity.
    */
-  get(id: number): Promise<Filastrocca> {
+  public get(id: number): Promise<Filastrocca> {
     return new Promise((resolve, reject) => {
       this.pool.connect((err, client) => {
         if (err) {
@@ -58,7 +58,7 @@ export class FilastroccaDAO implements FilastroccaDAOInterface {
    * @param filastrocca - The Filastrocca entity to be saved.
    * @returns A promise that resolves when the Filastrocca entity is successfully saved.
    */
-  save(filastrocca: Filastrocca): Promise<void> {
+  public save(filastrocca: Filastrocca): Promise<void> {
     return new Promise<void>((resolve, reject) =>
       this.pool.connect((err, client) => {
         if (err) {
@@ -98,7 +98,7 @@ export class FilastroccaDAO implements FilastroccaDAOInterface {
    * @param filastrocca - The Filastrocca entity to be updated.
    * @returns A promise that resolves when the Filastrocca entity is successfully updated.
    */
-  update(filastrocca: Filastrocca): Promise<void> {
+  public update(filastrocca: Filastrocca): Promise<void> {
     return new Promise<void>((resolve, reject) =>
       this.pool.connect((err, client) => {
         if (err) {
@@ -140,7 +140,9 @@ export class FilastroccaDAO implements FilastroccaDAOInterface {
    * @param caregiverFamiliare - The ID of the caregiver familiare.
    * @returns A promise that resolves with an array of Filastrocca entities.
    */
-  getByCaregiverFamiliare(caregiverFamiliare: number): Promise<Filastrocca[]> {
+  public getByCaregiverFamiliare(
+    caregiverFamiliare: number
+  ): Promise<Filastrocca[]> {
     return new Promise((resolve, reject) => {
       this.pool.connect((err, client) => {
         if (err) {

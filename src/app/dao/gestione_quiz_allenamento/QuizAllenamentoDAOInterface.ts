@@ -29,9 +29,9 @@ export interface QuizAllenamentoDAOInterface {
   /**
    * Updates a QuizAllenamentoGiornaliero object.
    * @param quizAllenamento - The QuizAllenamentoGiornaliero object to be updated.
-   * @returns A promise that resolves to the ID of the updated QuizAllenamentoGiornaliero object.
+   * @returns A promise that resolves when the QuizAllenamentoGiornaliero is updated.
    */
-  update(quizAllenamento: QuizAllenamentoGiornaliero): Promise<number>;
+  update(quizAllenamento: QuizAllenamentoGiornaliero): Promise<void>;
 
   /**
    * Retrieves all QuizAllenamentoGiornaliero objects associated with a caregiver familiare.
