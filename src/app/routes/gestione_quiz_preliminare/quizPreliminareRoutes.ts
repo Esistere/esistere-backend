@@ -1,6 +1,7 @@
 /**
  * This file contains the routes related to the management of quiz preliminare.
  */
+
 import { QuizPreliminare } from 'app/entity/gestione_quiz_preliminare/QuizPreliminare';
 import { DomandaQuizPreliminare } from 'app/entity/gestione_quiz_preliminare/DomandaQuizPreliminare';
 import { RispostaQuizPreliminare } from 'app/entity/gestione_quiz_preliminare/RispostaQuizPreliminare';
@@ -179,6 +180,42 @@ router.get(
       const idQuiz = Number(req.query.id);
 
       const quizPreliminare = await quizPreliminareService.get(idQuiz);
+
+      const domandeRisposte = await quizPreliminareService.getDomandeRisposte(
+        Number(quizPreliminare.id),
+        quizPreliminare.paziente
+      );
+
+      const quizPreliminareJSON = {
+        id: quizPreliminare.id,
+        punteggio_tot: quizPreliminare.punteggioTot,
+        numero_domande: quizPreliminare.numDomande,
+        sage: quizPreliminare.sage,
+        medico: quizPreliminare.medico,
+        paziente: quizPreliminare.paziente,
+      };
+
+      const responseObject: ResponseObjectQP = {
+        domandeRisposte: domandeRisposte,
+        quizPreliminare: quizPreliminareJSON,
+      };
+
+      res.json(responseObject);
+    } catch (error) {
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  }
+);
+
+router.get(
+  '/visualizza_quiz_preliminare_paziente',
+  async (req: Request, res: Response) => {
+    try {
+      const codice_fiscale = String(req.query.codice_fiscale);
+
+      const quizPreliminare = await quizPreliminareService.getByPaziente(
+        codice_fiscale
+      );
 
       const domandeRisposte = await quizPreliminareService.getDomandeRisposte(
         Number(quizPreliminare.id),

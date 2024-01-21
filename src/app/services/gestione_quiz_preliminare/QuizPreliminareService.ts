@@ -80,6 +80,10 @@ export class QuizPreliminareService implements QuizPreliminareServiceInterface {
     return this.quizPreliminareDAO.updateRisposta(risposta);
   }
 
+  public getByPaziente(paziente: string): Promise<QuizPreliminare> {
+    return this.quizPreliminareDAO.getByPaziente(paziente);
+  }
+
   public async saveQuizPreliminare(
     quizPreliminare: QuizPreliminare,
     domandeRisposte: Map<DomandaQuizPreliminare, RispostaQuizPreliminare>

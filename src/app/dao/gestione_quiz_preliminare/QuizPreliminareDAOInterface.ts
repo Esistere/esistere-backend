@@ -45,7 +45,7 @@ export interface QuizPreliminareDAOInterface {
    * @param paziente - The ID of the paziente.
    * @returns A promise that resolves to an array of QuizPreliminare.
    */
-  getByPaziente(paziente: string): Promise<QuizPreliminare[]>;
+  getByPaziente(paziente: string): Promise<QuizPreliminare>;
 
   /**
    * Retrieves all DomandaQuizPreliminare entities.

@@ -26,6 +26,7 @@ export interface QuizPreliminareServiceInterface {
   getRisposta(id: number): Promise<RispostaQuizPreliminare>;
   saveRisposta(risposta: RispostaQuizPreliminare): Promise<void>;
   updateRisposta(risposta: RispostaQuizPreliminare): Promise<void>;
+  getByPaziente(paziente: string): Promise<QuizPreliminare>;
 
   saveQuizPreliminare(
     quizPreliminare: QuizPreliminare,

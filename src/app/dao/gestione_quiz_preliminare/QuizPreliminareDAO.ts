@@ -197,7 +197,7 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
    * @param paziente - The ID of the paziente.
    * @returns A promise that resolves to an array of QuizPreliminare objects.
    */
-  public getByPaziente(paziente: string): Promise<QuizPreliminare[]> {
+  public getByPaziente(paziente: string): Promise<QuizPreliminare> {
     return new Promise((resolve, reject) => {
       this.pool.connect((err, client) => {
         if (err) {
@@ -213,7 +213,16 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
             reject(err);
           } else {
             client.release();
-            resolve(res.rows as QuizPreliminare[]);
+            const data = res.rows[0];
+            const quizPreliminare = new QuizPreliminare(
+              data.numero_domande,
+              data.sage,
+              data.med,
+              data.paziente,
+              data.punteggio_totale,
+              data.id
+            );
+            resolve(quizPreliminare);
           }
         });
       });
