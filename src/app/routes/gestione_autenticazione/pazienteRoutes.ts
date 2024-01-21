@@ -63,7 +63,7 @@ router.get(
   '/visualizza_codice_fiscale',
   async (req: Request, res: Response) => {
     try {
-      const id: number = req.body.id;
+      const id = Number(req.query.id);
       const paziente = await pazienteService.getPazienteByCgFam(id);
       res.json({ codice_fiscale: paziente.codiceFiscale });
     } catch (error) {
@@ -81,7 +81,7 @@ router.get(
  */
 router.get('/visualizza_caregiver', async (req: Request, res: Response) => {
   try {
-    const id: number = req.body.id;
+    const id = Number(req.query.id);
     const caregiverFamiliare = await pazienteService.getCgFamByPaziente(id);
     res.json(caregiverFamiliare);
   } catch (error) {
