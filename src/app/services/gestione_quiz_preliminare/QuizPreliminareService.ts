@@ -86,7 +86,8 @@ export class QuizPreliminareService implements QuizPreliminareServiceInterface {
   ): Promise<void> {
     const idQuiz = await this.quizPreliminareDAO.save(quizPreliminare);
 
-    for(const [key, value] of domandeRisposte.entries()) {
+    console.log(idQuiz);
+    for (const [key, value] of domandeRisposte.entries()) {
       key.quizPreliminare = idQuiz;
       const idDomanda = await this.quizPreliminareDAO.saveDomanda(key);
       value.domandaPreliminare = idDomanda;
