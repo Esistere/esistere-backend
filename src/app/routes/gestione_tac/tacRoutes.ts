@@ -24,7 +24,10 @@ const storage = multer.diskStorage({
     cb(null, file.originalname);
   },
 });
-const upload = multer({ storage: storage });
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 6 * 1024 * 1024 },
+});
 
 /**
  * Retrieves a tac by its ID.
