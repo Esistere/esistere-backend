@@ -84,7 +84,7 @@ export class PazienteDAO implements PazienteDAOInterface {
    * @param medico - The ID of the medico.
    * @returns A promise that resolves to an array of Paziente objects.
    */
-  public getPazienteByMed(medico: number): Promise<Paziente[]> {
+  public getPazienteByMed(medico: number): Promise<Paziente> {
     return new Promise((resolve, reject) => {
       this.pool.connect((err, client) => {
         if (err) {
@@ -99,7 +99,52 @@ export class PazienteDAO implements PazienteDAOInterface {
             reject(err);
           } else {
             client.release();
-            resolve(res.rows as Paziente[]);
+            const data = res.rows[0];
+            const paziente = new Paziente(
+              data.codice_fiscale,
+              data.nome,
+              data.cognome,
+              data.data_di_nascita,
+              data.med,
+              data.cg_fam
+            );
+            resolve(paziente);
+          }
+        });
+      });
+    });
+  }
+
+  /**
+   * Retrieves a Paziente object from the database based on the provided cg_fam value.
+   * @param cg_fam - The cg_fam value used to search for the Paziente.
+   * @returns A Promise that resolves with the retrieved Paziente object.
+   */
+  public getPazienteByCgFam(cg_fam: number): Promise<Paziente> {
+    return new Promise((resolve, reject) => {
+      this.pool.connect((err, client) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+        const query = 'SELECT * FROM paziente WHERE cg_fam = $1';
+
+        client?.query(query, [cg_fam], (err, res) => {
+          if (err) {
+            console.log(err.stack);
+            reject(err);
+          } else {
+            client.release();
+            const data = res.rows[0];
+            const paziente = new Paziente(
+              data.codice_fiscale,
+              data.nome,
+              data.cognome,
+              data.data_di_nascita,
+              data.med,
+              data.cg_fam
+            );
+            resolve(paziente);
           }
         });
       });

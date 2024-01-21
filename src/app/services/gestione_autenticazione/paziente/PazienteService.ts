@@ -43,4 +43,12 @@ export class PazienteService implements PazienteServiceInterface {
   public getMedByPaziente(med: number): Promise<Medico> {
     return this.medicoDAO.get(med);
   }
+
+  public getPazienteByMed(med: number): Promise<Paziente> {
+    return this.pazienteDAO.getPazienteByMed(med);
+  }
+
+  public getPazienteByCgFam(cg_fam:number): Promise<Paziente> {
+    return this.pazienteDAO.getPazienteByCgFam(cg_fam);
+  }
 }

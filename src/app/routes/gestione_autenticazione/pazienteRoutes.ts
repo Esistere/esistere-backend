@@ -64,8 +64,8 @@ router.get(
   async (req: Request, res: Response) => {
     try {
       const id: number = req.body.id;
-      const paziente = await pazienteService.getCgFamByPaziente(id);
-      res.json(paziente.codiceIdentificativo);
+      const paziente = await pazienteService.getPazienteByCgFam(id);
+      res.json({ codice_fiscale: paziente.codiceFiscale });
     } catch (error) {
       res.status(500).json({ error: 'Internal Server Error' });
     }

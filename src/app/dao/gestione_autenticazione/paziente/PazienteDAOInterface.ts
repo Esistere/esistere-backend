@@ -3,6 +3,9 @@ import { Paziente } from 'app/entity/gestione_autenticazione/Paziente';
 /**
  * Represents the interface for the Paziente DAO (Data Access Object).
  */
+/**
+ * Represents the interface for interacting with the Paziente data access object.
+ */
 export interface PazienteDAOInterface {
   /**
    * Retrieves all pazienti.
@@ -22,7 +25,14 @@ export interface PazienteDAOInterface {
    * @param med - The med identifier.
    * @returns A promise that resolves to an array of Paziente objects.
    */
-  getPazienteByMed(med: number): Promise<Paziente[]>;
+  getPazienteByMed(med: number): Promise<Paziente>;
+
+  /**
+   * Retrieves pazienti associated with a specific caregiver familiare.
+   * @param caregiver_familiare - The caregiver familiare identifier.
+   * @returns A promise that resolves to an array of Paziente objects.
+   */
+  getPazienteByCgFam(caregiver_familiare: number): Promise<Paziente>;
 
   /**
    * Saves a new paziente.
