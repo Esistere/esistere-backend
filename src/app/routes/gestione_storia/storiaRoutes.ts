@@ -19,6 +19,10 @@ const storyAudPath = STORYAUDPATH;
 
 const router = express.Router();
 const storiaService: StoriaServiceInterface = new StoriaService();
+
+/**
+ * Multer disk storage configuration.
+ */
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     if (file.mimetype.startsWith('image/')) {
@@ -33,7 +37,10 @@ const storage = multer.diskStorage({
     cb(null, file.originalname);
   },
 });
-const upload = multer({ storage: storage });
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 6 * 1024 * 1024 },
+});
 
 /**
  * Retrieves a story and its associated media by ID.

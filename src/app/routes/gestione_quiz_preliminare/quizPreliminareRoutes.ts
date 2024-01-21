@@ -133,6 +133,7 @@ router.post('/salva_quiz_preliminare', async (req: Request, res: Response) => {
       RispostaQuizPreliminare
     >();
 
+    console.log(quizPreliminareJSON);
     const quizPreliminare = new QuizPreliminare(
       quizPreliminareJSON.quizPreliminare.numero_domande,
       quizPreliminareJSON.quizPreliminare.sage,

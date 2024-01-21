@@ -95,6 +95,7 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
           'punteggio_totale , med, paziente) VALUES ($1, $2, $3, $4, $5) ' +
           'RETURNING id';
 
+        console.log(quizPreliminare);
         client?.query(
           query,
           [
@@ -325,7 +326,7 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
         const query =
           'INSERT INTO domanda_quiz_preliminare' +
           '(domanda, quiz_preliminare) VALUES ($1, $2) RETURNING id';
-
+        console.log(domanda);
         client?.query(
           query,
           [domanda.domanda, domanda.quizPreliminare],
@@ -515,7 +516,7 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
         const query =
           'INSERT INTO risposta_quiz_preliminare' +
           '(domanda, paziente, risposta) VALUES ($1, $2, $3)';
-
+        console.log(risposta);
         client?.query(
           query,
           [risposta.domandaPreliminare, risposta.paziente, risposta.risposta],
