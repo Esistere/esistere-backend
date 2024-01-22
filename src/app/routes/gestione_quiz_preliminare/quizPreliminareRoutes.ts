@@ -253,15 +253,17 @@ router.post(
   async (req: Request, res: Response) => {
     try {
       const risposteJSON = req.body;
-      risposteJSON.forEach(async (data: RispostaPreliminare) => {
-        const risposta = new RispostaQuizPreliminare(
-          data.risposta,
-          data.paziente,
-          data.domanda_preliminare,
-          data.idRisposta
-        );
-        await quizPreliminareService.updateRisposta(risposta);
-      });
+      await Promise.all(
+        risposteJSON.map(async (data: RispostaPreliminare) => {
+          const risposta = new RispostaQuizPreliminare(
+            data.risposta,
+            data.paziente,
+            data.domanda_preliminare,
+            data.idRisposta
+          );
+          await quizPreliminareService.updateRisposta(risposta);
+        })
+      );
     } catch (error) {
       res.status(500).json({ error: 'Internal Server Error' });
     }
