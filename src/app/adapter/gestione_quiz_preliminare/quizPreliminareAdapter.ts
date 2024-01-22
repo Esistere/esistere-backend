@@ -2,11 +2,11 @@
  * Represents a set of questions and answers for a preliminary quiz.
  */
 export interface DomandeRisposte {
-  id_domanda: number | undefined;
+  idDomanda: number | undefined;
   quiz_preliminare: number | undefined;
   domanda: string;
-  risposta: {
-    id: number | undefined;
+  rispostaPaziente: {
+    idRisposta: number | undefined;
     domanda_preliminare: number | undefined;
     risposta: string;
     paziente: string;

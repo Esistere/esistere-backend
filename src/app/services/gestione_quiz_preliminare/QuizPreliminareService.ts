@@ -116,11 +116,11 @@ export class QuizPreliminareService implements QuizPreliminareServiceInterface {
           paziente
         );
         responseObject[d.domanda] = {
-          id_domanda: d.id,
+          idDomanda: d.id,
           quiz_preliminare: d.quizPreliminare,
           domanda: d.domanda,
-          risposta: {
-            id: d.id,
+          rispostaPaziente: {
+            idRisposta: d.id,
             domanda_preliminare: risposta.domandaPreliminare,
             risposta: risposta.risposta,
             paziente: risposta.paziente,
