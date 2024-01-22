@@ -553,7 +553,7 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
         }
 
         const query =
-          'UPDATE risposta_quiz_prelminare SET (id, domanda, ' +
+          'UPDATE risposta_quiz_preliminare SET (id, domanda, ' +
           'paziente, risposta) = ($1, $2, $3, $4)  WHERE id = $5';
 
         client?.query(
