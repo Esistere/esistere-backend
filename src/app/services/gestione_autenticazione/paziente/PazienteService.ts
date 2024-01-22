@@ -1,3 +1,6 @@
+/**
+ * Service class for managing Paziente entities.
+ */
 import { PazienteDAOInterface } from 'app/dao/gestione_autenticazione/paziente/PazienteDAOInterface';
 import { PazienteServiceInterface } from './PazienteServiceInterface';
 import { PazienteDAO } from 'app/dao/gestione_autenticazione/paziente/PazienteDAO';
@@ -20,34 +23,71 @@ export class PazienteService implements PazienteServiceInterface {
     this.medicoDAO = new MedicoDAO();
   }
 
+  /**
+   * Retrieves all Paziente entities.
+   * @returns A promise that resolves to an array of Paziente entities.
+   */
   public getAll(): Promise<Paziente[]> {
     return this.pazienteDAO.getAll();
   }
 
+  /**
+   * Retrieves a Paziente entity by its codice fiscale.
+   * @param codice_fiscale - The codice fiscale of the Paziente entity.
+   * @returns A promise that resolves to the Paziente entity.
+   */
   public get(codice_fiscale: string): Promise<Paziente> {
     return this.pazienteDAO.get(codice_fiscale);
   }
 
+  /**
+   * Saves a Paziente entity.
+   * @param paziente - The Paziente entity to be saved.
+   */
   public save(paziente: Paziente): void {
     this.pazienteDAO.save(paziente);
   }
 
+  /**
+   * Updates a Paziente entity.
+   * @param paziente - The Paziente entity to be updated.
+   */
   public update(paziente: Paziente): void {
     this.pazienteDAO.update(paziente);
   }
 
+  /**
+   * Retrieves a CaregiverFamiliare entity by its id.
+   * @param cgFam - The id of the CaregiverFamiliare entity.
+   * @returns A promise that resolves to the CaregiverFamiliare entity.
+   */
   public getCgFamByPaziente(cgFam: number): Promise<CaregiverFamiliare> {
     return this.caregiverFamiliareDAO.get(cgFam);
   }
 
+  /**
+   * Retrieves a Medico entity by its id.
+   * @param med - The id of the Medico entity.
+   * @returns A promise that resolves to the Medico entity.
+   */
   public getMedByPaziente(med: number): Promise<Medico> {
     return this.medicoDAO.get(med);
   }
 
+  /**
+   * Retrieves all Paziente entities associated with a Medico entity.
+   * @param med - The id of the Medico entity.
+   * @returns A promise that resolves to an array of Paziente entities.
+   */
   public getPazienteByMed(med: number): Promise<Paziente[]> {
     return this.pazienteDAO.getPazienteByMed(med);
   }
 
+  /**
+   * Retrieves a Paziente entity associated with a CaregiverFamiliare entity.
+   * @param cg_fam - The id of the CaregiverFamiliare entity.
+   * @returns A promise that resolves to the Paziente entity.
+   */
   public getPazienteByCgFam(cg_fam:number): Promise<Paziente> {
     return this.pazienteDAO.getPazienteByCgFam(cg_fam);
   }
