@@ -505,7 +505,8 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
             const rispostaQuizPreliminare = new RispostaQuizPreliminare(
               data.risposta,
               data.paziente,
-              data.domanda
+              data.domanda,
+              data.id
             );
             resolve(rispostaQuizPreliminare);
           }
