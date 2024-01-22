@@ -258,7 +258,7 @@ router.post(
           data.risposta,
           data.paziente,
           data.domanda_preliminare,
-          data.id
+          data.idRisposta
         );
         await quizPreliminareService.updateRisposta(risposta);
       });

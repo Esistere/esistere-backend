@@ -32,7 +32,7 @@ export interface ResponseObjectQP {
  * Represents a preliminary answer.
  */
 export interface RispostaPreliminare {
-  id: number | undefined;
+  idRisposta: number | undefined;
   domanda_preliminare: number | undefined;
   risposta: string;
   paziente: string;

@@ -560,9 +560,9 @@ export class QuizPreliminareDAO implements QuizPreliminareDAOInterface {
           query,
           [
             risposta.id,
-            risposta.risposta,
             risposta.domandaPreliminare,
             risposta.paziente,
+            risposta.risposta,
             risposta.id,
           ],
           (err) => {
