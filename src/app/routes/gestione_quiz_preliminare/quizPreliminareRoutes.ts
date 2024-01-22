@@ -1,7 +1,6 @@
 /**
  * This file contains the routes related to the management of quiz preliminare.
  */
-
 import { QuizPreliminare } from 'app/entity/gestione_quiz_preliminare/QuizPreliminare';
 import { DomandaQuizPreliminare } from 'app/entity/gestione_quiz_preliminare/DomandaQuizPreliminare';
 import { RispostaQuizPreliminare } from 'app/entity/gestione_quiz_preliminare/RispostaQuizPreliminare';
@@ -207,11 +206,11 @@ router.get(
   }
 );
 
-router.get(
+router.post(
   '/visualizza_quiz_preliminare_paziente',
   async (req: Request, res: Response) => {
     try {
-      const codice_fiscale = String(req.query.codice_fiscale);
+      const codice_fiscale = String(req.body.codice_fiscale);
 
       const quizPreliminare = await quizPreliminareService.getByPaziente(
         codice_fiscale
