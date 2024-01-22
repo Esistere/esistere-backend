@@ -25,7 +25,7 @@ export interface PazienteDAOInterface {
    * @param med - The med identifier.
    * @returns A promise that resolves to an array of Paziente objects.
    */
-  getPazienteByMed(med: number): Promise<Paziente>;
+  getPazienteByMed(med: number): Promise<Paziente[]>;
 
   /**
    * Retrieves pazienti associated with a specific caregiver familiare.

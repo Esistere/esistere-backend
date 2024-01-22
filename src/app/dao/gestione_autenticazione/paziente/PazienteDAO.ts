@@ -84,7 +84,7 @@ export class PazienteDAO implements PazienteDAOInterface {
    * @param medico - The ID of the medico.
    * @returns A promise that resolves to an array of Paziente objects.
    */
-  public getPazienteByMed(medico: number): Promise<Paziente> {
+  public getPazienteByMed(medico: number): Promise<Paziente[]> {
     return new Promise((resolve, reject) => {
       this.pool.connect((err, client) => {
         if (err) {
@@ -99,16 +99,7 @@ export class PazienteDAO implements PazienteDAOInterface {
             reject(err);
           } else {
             client.release();
-            const data = res.rows[0];
-            const paziente = new Paziente(
-              data.codice_fiscale,
-              data.nome,
-              data.cognome,
-              data.data_di_nascita,
-              data.med,
-              data.cg_fam
-            );
-            resolve(paziente);
+            resolve(res.rows as Paziente[]);
           }
         });
       });
