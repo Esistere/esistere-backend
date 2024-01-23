@@ -65,13 +65,11 @@ export class PazienteService implements PazienteServiceInterface {
     return this.caregiverFamiliareDAO.get(cgFam);
   }
 
-  /**
-   * Retrieves a Medico entity by its id.
-   * @param med - The id of the Medico entity.
-   * @returns A promise that resolves to the Medico entity.
-   */
-  public getMedByPaziente(med: number): Promise<Medico> {
-    return this.medicoDAO.get(med);
+  
+  public async getMedByPaziente(codice_fiscale: string): Promise<number> {
+    const paziente: Paziente = await this.pazienteDAO.get(codice_fiscale);
+    const medico: Medico = await this.medicoDAO.get(paziente.medico);
+    return Number(medico.codiceIdentificativo);
   }
 
   /**

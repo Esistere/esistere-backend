@@ -89,4 +89,15 @@ router.get('/visualizza_caregiver', async (req: Request, res: Response) => {
   }
 });
 
+router.post('/visualizza_medico', async (req: Request, res: Response) => {
+  try {
+    const codice_fiscale = req.body;
+    const codice_identificativo = await pazienteService.getMedByPaziente(
+      codice_fiscale
+    );
+    res.json(codice_identificativo);
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 export default router;

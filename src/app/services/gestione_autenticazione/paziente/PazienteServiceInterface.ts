@@ -2,7 +2,6 @@
  * Interface for the PazienteService.
  */
 import { CaregiverFamiliare } from 'app/entity/gestione_autenticazione/CaregiverFamiliare';
-import { Medico } from 'app/entity/gestione_autenticazione/Medico';
 import { Paziente } from 'app/entity/gestione_autenticazione/Paziente';
 
 export interface PazienteServiceInterface {
@@ -43,7 +42,7 @@ export interface PazienteServiceInterface {
    * @param id - The ID of the paziente.
    * @returns A promise that resolves to a Medico object.
    */
-  getMedByPaziente(id: number): Promise<Medico>;
+  getMedByPaziente(codice_fiscale: string): Promise<number>;
 
   /**
    * Retrieves all the pazienti associated with a medico.
