@@ -94,6 +94,7 @@ export class LineeGuidaDAO implements LineeGuidaDAOInterface {
           } else {
             client.release();
             const data = res.rows[0];
+            if(data === undefined) return null;
             const linea_guida_quiz = new LineaGuida(
               data.linea_guida,
               data.med,

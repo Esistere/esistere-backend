@@ -91,7 +91,7 @@ router.get('/visualizza_caregiver', async (req: Request, res: Response) => {
 
 router.post('/visualizza_medico', async (req: Request, res: Response) => {
   try {
-    const codice_fiscale = req.body;
+    const codice_fiscale = req.body.codice_fiscale;
     const codice_identificativo = await pazienteService.getMedByPaziente(
       codice_fiscale
     );
