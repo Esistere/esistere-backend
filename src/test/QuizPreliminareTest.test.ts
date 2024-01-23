@@ -77,11 +77,11 @@ describe('QuizPreliminareService', () => {
     const result = await service.getDomandeRisposte(quizId, paziente);
     const expectedResponse = {
       'Domanda 1': {
-        id_domanda: 1,
+        idDomanda: 1,
         quiz_preliminare: quizId,
         domanda: 'Domanda 1',
-        risposta: {
-          id: 1,
+        rispostaPaziente: {
+          idRisposta: 1,
           domanda_preliminare: 1,
           risposta: 'Risposta 1',
           paziente: paziente,
