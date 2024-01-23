@@ -14,15 +14,15 @@ const medicoService: MedicoServiceInterface = new MedicoService();
  * Retrieves a list of all medici and returns a JSON response with their names and surnames.
  * @param req - The request object.
  * @param res - The response object.
- * @returns A JSON response with the names and surnames of all medici.
+ * @returns A JSON response with the names, surnames and ids of all medici.
  */
 router.get('/visualizza_medici', async (req: Request, res: Response) => {
   try {
     const medici = await medicoService.getAll();
-    const mediciResponse = medici.map(({ nome, cognome }) => ({
-      nome,
-      cognome,
-    }));
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const mediciResponse = medici.map(({ passwd, email, ...rest }) => rest);
+
     res.json(mediciResponse);
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
