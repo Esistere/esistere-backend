@@ -87,14 +87,14 @@ describe('QuizAllenamentoService', () => {
         corretta: true,
         risposte: [
           {
-            idRisposta: 1,
+            id: 1,
             domanda_ag: 1,
             risposta: 'Risposta 1',
             corretta: true,
             selezionata: false,
           },
           {
-            idRisposta: 2,
+            id: 2,
             domanda_ag: 1,
             risposta: 'Risposta 2',
             corretta: false,
@@ -109,14 +109,14 @@ describe('QuizAllenamentoService', () => {
         corretta: false,
         risposte: [
           {
-            idRisposta: 1,
+            id: 1,
             domanda_ag: 2,
             risposta: 'Risposta 1',
             corretta: true,
             selezionata: false,
           },
           {
-            idRisposta: 2,
+            id: 2,
             domanda_ag: 2,
             risposta: 'Risposta 2',
             corretta: false,
