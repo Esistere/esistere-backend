@@ -205,7 +205,7 @@ export class QuizAllenamentoService implements QuizAllenamentoServiceInterface {
           domanda: d.domanda,
           corretta: d.corretta,
           risposte: risposte.map((r) => ({
-            idRisposta: r.id,
+            id: r.id,
             domanda_ag: d.id,
             risposta: r.risposta,
             corretta: r.corretta,
@@ -214,6 +214,7 @@ export class QuizAllenamentoService implements QuizAllenamentoServiceInterface {
         };
       })
     );
+    
 
     return responseObject;
   }

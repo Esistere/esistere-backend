@@ -216,10 +216,16 @@ router.post(
         codice_fiscale
       );
 
+      if (quizPreliminare == null)
+        res.status(400).json({ message: 'No quiz available' });
+
       const domandeRisposte = await quizPreliminareService.getDomandeRisposte(
         Number(quizPreliminare.id),
         quizPreliminare.paziente
       );
+
+      if (domandeRisposte == null)
+        res.status(400).json({ message: 'No q/a available' });
 
       const quizPreliminareJSON = {
         id: quizPreliminare.id,

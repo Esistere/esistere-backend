@@ -127,7 +127,7 @@ router.get(
   '/risposta_allenamento_giornaliero',
   async (req: Request, res: Response) => {
     try {
-      const idRisposta = Number(req.query.idRisposta);
+      const idRisposta = Number(req.query.id);
       const risposta = await quizAllenamentoService.getRisposta(idRisposta);
       res.json(risposta);
     } catch (error) {
@@ -275,16 +275,21 @@ router.get(
 router.post('/aggiungi_risposte', async (req: Request, res: Response) => {
   try {
     const risposteJSON = req.body;
-    risposteJSON.forEach(async (data: RispostaAllenamento) => {
-      const risposta = new RispostaQuizAllenamento(
-        data.risposta,
-        data.domanda_ag,
-        data.corretta,
-        data.selezionata,
-        data.idRisposta
-      );
-      await quizAllenamentoService.updateRisposta(risposta);
-    });
+
+    await Promise.all(
+      risposteJSON.map(async (data: RispostaAllenamento) => {
+        const risposta = new RispostaQuizAllenamento(
+          data.risposta,
+          data.domanda_ag,
+          data.corretta,
+          data.selezionata,
+          data.id
+        );
+        await quizAllenamentoService.updateRisposta(risposta);
+      })
+    );
+
+    console.log(risposteJSON);
     res.status(200).json({ message: 'Answers correctly saved' });
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });

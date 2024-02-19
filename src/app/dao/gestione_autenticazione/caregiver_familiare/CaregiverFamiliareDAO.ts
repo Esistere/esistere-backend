@@ -167,6 +167,7 @@ export class CaregiverFamiliareDAO implements CaregiverFamiliareDAOInterface {
             caregiver_familiare.numTelefono,
             caregiver_familiare.email,
             caregiver_familiare.passwd,
+            caregiver_familiare.codiceIdentificativo,
           ],
           (err) => {
             if (err) {

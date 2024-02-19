@@ -7,7 +7,7 @@ export interface DomandeRisposte {
   domanda: string;
   corretta: boolean | undefined;
   risposte: {
-    idRisposta: number | undefined;
+    id: number | undefined;
     domanda_ag: number | undefined;
     risposta: string;
     corretta: boolean | undefined;
@@ -32,7 +32,7 @@ export interface ResponseObjectQA {
  * Represents a single answer in a training quiz.
  */
 export interface RispostaAllenamento {
-  idRisposta: number | undefined;
+  id: number | undefined;
   domanda_ag: number | undefined;
   risposta: string;
   corretta: boolean | undefined;
